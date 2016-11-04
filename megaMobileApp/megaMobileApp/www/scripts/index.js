@@ -27,4 +27,28 @@
     function onResume() {
         // TODO: Diese Anwendung wurde erneut aktiviert. Stellen Sie hier den Anwendungszustand wieder her.
     };
-} )();
+})();
+var xmlhttpObject = new XMLHttpRequest();
+function handleStateChange() {
+    //alert("xmlhttpObject.readyState = " + xmlhttpObject.readyState +
+    //    (xmlhttpObject.readyState >= 3 ? "HTTP-Status= " + xmlhttpObject.status : ''));
+
+    var obj = JSON.parse(xmlhttpObject.response);
+    alert(obj.value[0].ID);
+}
+window.onload = function () {
+    xmlhttpObject.open('GET', 'https://synacta.agile-is.de/_api/base/Root', true);
+    xmlhttpObject.setRequestHeader("Authorization", "Token FHProjekt2016");
+    xmlhttpObject.onreadystatechange = handleStateChange;
+    xmlhttpObject.send(null);
+
+
+    //zweiter Versuch für eine andere Anfrage
+
+    xmlhttpObject.open('GET', 'https://synacta.agile-is.de/_api/base/{type}/{id}/Children', true);
+    xmlhttpObject.setRequestHeader("type", "Plan");
+    xmlhttpObject.setRequestHeader("id", "3df202ad-91b2-413a-9847-d12d536ed813");
+    xmlhttpObject.setRequestHeader("Authorization", "Token FHProjekt2016");
+    xmlhttpObject.onreadystatechange = handleStateChange;
+    xmlhttpObject.send(null);
+}
