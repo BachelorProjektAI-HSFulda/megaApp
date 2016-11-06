@@ -21,6 +21,7 @@ Currently only the Ionic mobile part is setup and can be used for development.
 - Install plugin Ionic2 Templates
 - Install plugin Ionic Pack
 - Import the Project
+- Configure Android Run-Environment
 
 Further Information in the Docs of Ionic https://taco.visualstudio.com/en-us/docs/tutorial-ionic/
 
