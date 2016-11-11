@@ -11,6 +11,7 @@ Currently only the Ionic mobile part is setup and can be used for development.
 - Assign ANDROID_HOME to your android sdk location
 - Make sure to have tools and platform-tools in the path
 - Accept the License Agreement of the Android SDK 
+- Make sure to have Node 6.x or 7.x at least
 
 - `npm install`
 - `ionic serve`
