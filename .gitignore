@@ -25,6 +25,7 @@ UserInterfaceState.xcuserstate
 
 # Node
 node_modules/
+typings/
 
 #
 # Ionic
