@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
+import { Http, Headers} from '@angular/http';
 // TODO shorten with systemjs
-import 'rxjs/add/operator/map'
-//import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/map';
 
 const API_KEY = 'Token FHProjekt2016';
 const BASE_URL = 'https://synacta.agile-is.de/_api/base/';
