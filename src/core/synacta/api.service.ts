@@ -35,50 +35,29 @@ export class SynactaAPIService {
      }
 
      public getRoot(type:string, id: string){
-       let url = BASE_URL + type + "/" + id;
-       return this.http
-           .get(url, {headers: this.baseHeaders})
-           .map(response => response.json());
+	 return get("root", null, null);
      }
 
      public getByID(type:string, id: string){
-       let url = BASE_URL + type + "/" + id;
-       return this.http
-           .get(url, {headers: this.baseHeaders})
-           .map(response => response.json());
+       return get(null, type, id);
      }
      public getByType(type:string){
-       let url = BASE_URL + type;
-       return this.http
-          .get(url, {headers: this.baseHeaders})
-          .map(response => response.json());
+       return get(null, type, null);
      }
 
      public getChildren(type: string, id:string){
-       let url = BASE_URL + type + "/" + id + "/Children";
-       return this.http
-           .get(BASE_URL + '/{type}/{id}/Children', {headers: this.baseHeaders})
-           .map(response => response.json());
+       return get("Children", type, id);
      }
 
      public getChildTypes(type:string, id: string){
-       let url = BASE_URL + type + "/" + id +"/Children/types";
-       return this.http
-           .get(url, {headers: this.baseHeaders})
-           .map(response => response.json());
+       return get("Children/Types", type, id);
      }
 
      public getDocuments(type:string, id: string){
-       let url = BASE_URL + type + "/" + id + "/Documents";
-       return this.http
-           .get(url, {headers: this.baseHeaders})
-           .map(response => response.json());
+       return get("Documents", type, id);
      }
 
      public getDocTypes(type:string, id: string){
-       let url = BASE_URL + type + "/" + id + "/Documents/Types";
-       return this.http
-           .get(url, {headers: this.baseHeaders})
-           .map(response => response.json());
+       return get("Document/Types", type, id);
      }
 }
