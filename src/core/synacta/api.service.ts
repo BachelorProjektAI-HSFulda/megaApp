@@ -23,7 +23,7 @@ export class SynactaAPIService {
          let headers = new Headers(this.baseHeaders);
          let endpoint = BASE_URL;
          endpoint = (type)? endpoint + type : endpoint;
-         endpoint = (id)? endpoint + id : endpoint;
+         endpoint = (id)? endpoint + "/" +id : endpoint;
          endpoint = (target)? endpoint + target : endpoint;
          return this.http
              .get(endpoint, {headers: headers})
