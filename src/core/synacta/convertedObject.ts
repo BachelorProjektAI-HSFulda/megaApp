@@ -41,6 +41,7 @@
     }
 }
 
+class Container extends Entity {
     HasChild: boolean;
 
     constructor(ID: string, ObjectType: string, Properties: Map<string, string>, PropertyInfos: Map<string, string>,
@@ -53,6 +54,7 @@
 }
 
 
+class Dokument extends Entity {
    
     constructor(ID: string, ObjectType: string, Properties: Map<string, string>, PropertyInfos: Map<string, string>,
         ParentID: string, ParentType: string, IsVirtual: boolean, Frozen: boolean, CheckedOutBy: string,
