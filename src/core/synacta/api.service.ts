@@ -30,29 +30,73 @@ export class SynactaAPIService {
              .map(response => response.json());
      }
 
-     public getRoot(type:string, id: string){
+    /*
+    function that gets the root of Synacta. It needs no parameters. 
+    The function is getting the root by using the function get.
+    @return an observable JSON object from function get
+    */
+     public getRoot(){
 	     return this.get("root", null, null);
      }
 
+
+    /*
+    function that gets an element out of Synacta by using the ID. 
+    @param type
+    @param id  
+    @return an observable JSON object from function get
+    */
      public getByID(type:string, id: string){
        return this.get(null, type, id);
      }
+
+    /*
+    function that gets an element out of Synacta by using the type. 
+    @param type
+    
+    @return an observable JSON object from function get
+    */
      public getByType(type:string){
        return this.get(null, type, null);
      }
 
+    /*
+    function that gets all the Children ob an Element using the type and the id. 
+    @param type
+    @param id  
+    @return an observable JSON object from function get
+    */
      public getChildren(type: string, id:string){
        return this.get("Children", type, id);
      }
 
+    /*
+    function that gets the types of all Children by using the type and the id of the container.
+    @param type
+    @param id  
+    @return an observable JSON object from function get
+    */
      public getChildTypes(type:string, id: string){
        return this.get("Children/Types", type, id);
      }
 
+    /*
+    function that gets all document in Container using the type and the id of the container. 
+    @param type
+    @param id  
+    @return an observable JSON object from function get
+    */
      public getDocuments(type:string, id: string){
        return this.get("Documents", type, id);
      }
 
+    /*
+    function that gets the types of the documents in the container using 
+    the type and the id of the container.
+    @param type
+    @param id  
+    @return an observable JSON object from function get
+    */
      public getDocTypes(type:string, id: string){
        return this.get("Document/Types", type, id);
      }
