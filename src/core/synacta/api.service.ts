@@ -19,12 +19,12 @@ export class SynactaAPIService {
      *
      * returns an observable Json object
      */
-     public get(target: string, type: string, id:string) {
+    private get(target: string, type: string, id: string) {
          let headers = new Headers(this.baseHeaders);
          let endpoint = BASE_URL;
          endpoint = (type)? endpoint + type : endpoint;
          endpoint = (id)? endpoint + "/" +id : endpoint;
-         endpoint = (target)? endpoint + target : endpoint;
+         endpoint = (target) ? endpoint + target : endpoint;
          return this.http
              .get(endpoint, {headers: headers})
              .map(response => response.json());
@@ -36,7 +36,7 @@ export class SynactaAPIService {
     @return an observable JSON object from function get
     */
      public getRoot(){
-	     return this.get("root", null, null);
+         return createObject(this.get("root",null,null));
      }
 
 
@@ -47,7 +47,7 @@ export class SynactaAPIService {
     @return an observable JSON object from function get
     */
      public getByID(type:string, id: string){
-       return this.get(null, type, id);
+       return createObject(this.get(null, type, id));
      }
 
     /*
@@ -57,7 +57,7 @@ export class SynactaAPIService {
     @return an observable JSON object from function get
     */
      public getByType(type:string){
-       return this.get(null, type, null);
+       return createObject(this.get(null, type, null));
      }
 
     /*
@@ -67,7 +67,7 @@ export class SynactaAPIService {
     @return an observable JSON object from function get
     */
      public getChildren(type: string, id:string){
-       return this.get("Children", type, id);
+       return createObject(this.get("Children", type, id));
      }
 
     /*
@@ -77,7 +77,7 @@ export class SynactaAPIService {
     @return an observable JSON object from function get
     */
      public getChildTypes(type:string, id: string){
-       return this.get("Children/Types", type, id);
+       return createObject(this.get("Children/Types", type, id));
      }
 
     /*
@@ -87,7 +87,7 @@ export class SynactaAPIService {
     @return an observable JSON object from function get
     */
      public getDocuments(type:string, id: string){
-       return this.get("Documents", type, id);
+       return createObject(this.get("Documents", type, id));
      }
 
     /*
@@ -98,6 +98,6 @@ export class SynactaAPIService {
     @return an observable JSON object from function get
     */
      public getDocTypes(type:string, id: string){
-       return this.get("Document/Types", type, id);
+       return createObject(this.get("Document/Types", type, id));
      }
 }
