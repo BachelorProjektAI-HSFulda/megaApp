@@ -27,3 +27,5 @@ Currently only the Ionic mobile part is setup and can be used for development.
 Further Information in the Docs of Ionic https://taco.visualstudio.com/en-us/docs/tutorial-ionic/
 
 **Remember to always put into the .gitignore file all build files, temp files and everything others won't need or that will be generated.**
+
+Hallo Welt2
