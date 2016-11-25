@@ -16,6 +16,8 @@ Currently only the Ionic mobile part is setup and can be used for development.
 - `npm install`
 - `ionic serve`
 
+**Note**: Only verified on webkit based browsers.
+
 ### Visual Studio Setup
 
 - Install plugin Tools for Apache Cordova
