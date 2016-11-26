@@ -2,18 +2,20 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { IonicApp, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
-import { AboutPage } from '../pages/about/about';
-import { ContactPage } from '../pages/contact/contact';
-import { HomePage } from '../pages/home/home';
+import { FavoritePage } from '../pages/favorite/favorite';
+import { BrowserPage } from '../pages/browser/browser';
+import { RecentPage } from '../pages/recent/recent';
+import { OptionsPage} from '../pages/options/options';
 import { TabsPage } from '../pages/tabs/tabs';
 import { SynactaAPIService } from '../core/synacta/api.service';
 
 @NgModule({
   declarations: [
     MyApp,
-    AboutPage,
-    ContactPage,
-    HomePage,
+    FavoritePage,
+    BrowserPage,
+    RecentPage,
+	OptionsPage,
     TabsPage
   ],
   imports: [
@@ -23,9 +25,10 @@ import { SynactaAPIService } from '../core/synacta/api.service';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    AboutPage,
-    ContactPage,
-    HomePage,
+    FavoritePage,
+    BrowserPage,
+    RecentPage,
+	OptionsPage,
     TabsPage
   ],
   providers: [
