@@ -11,13 +11,13 @@
     Version: string;
     Hash: string;
 
-    entity_context_link: string; //@odata.context: links to type folder of this entity
+    entityContextLink: string; //@odata.context: links to type folder of this entity
     //@odata.count: int;
-    synacta_link: string;   //@odata.readLink: link of this entity in Synacta
-    children_link: string; //Child@odata.navigationLink: links to this entity's children
-    documents_link: string; //Document@odata.navigationLink: links to documents within this entity
-    parents_link: string; //Parent@odata.navigationLink: links to parent of this entity;
-    full_data_link: string;//FullODataLink@odata.navigationLink: links to complete content of this entity;
+    synactaLink: string;   //@odata.readLink: link of this entity in Synacta
+    childrenLink: string; //Child@odata.navigationLink: links to this entity's children
+    documentsLink: string; //Document@odata.navigationLink: links to documents within this entity
+    parentsLink: string; //Parent@odata.navigationLink: links to parent of this entity;
+    full_dataLink: string;//FullODataLink@odata.navigationLink: links to complete content of this entity;
     //@odata.editLink: string;
     //@odata.etag: string;
     //@odata.metadataEtag: string;
@@ -43,6 +43,9 @@
     getVersion();
     setHash(Hash: string);
     getHash();
+
+    setEntityContextLink(entityContextLink: string);
+    getEntityContextLink();
 
 
 }
