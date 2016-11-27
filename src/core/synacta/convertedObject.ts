@@ -22,16 +22,26 @@
     //@odata.metadataEtag: string;
     //@odata.PicklistLink: string;
 
-    //setID(ID: string);
-    //getID();
-    //setObjectType(ObjectType: string);
-    //getObjectType();
-    //setProperties(Properties: Map<string, string>);
-    //getProperties();
-    //setPropertyInfos(PropertyInfos: Map<string, string>);
-    //getPropertyInfos();
-    //setParentID(ParentID: string);
-    //getParentID();
+    setID(ID: string);
+    getID();
+    setObjectType(ObjectType: string);
+    getObjectType();
+    setProperties(Properties: Map<string, string>);
+    getProperties();
+    setPropertyInfos(PropertyInfos: Map<string, string>);
+    getPropertyInfos();
+    setParentID(ParentID: string);
+    getParentID();
+    setIsVirtual(IsVirtual: string);
+    getIsVirtual();
+    setFrozen(Frozen: boolean);
+    getFrozen();
+    setCheckedOutBy(CheckedOutBy: string);
+    getCheckedOutBy();
+    setVersion(Version: string);
+    getVersion();
+    setHash(Hash: string);
+    getHash();
 
 
 }
