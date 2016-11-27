@@ -13,9 +13,7 @@
 
     entityContextLink: string; //@odata.context: links to type folder of this entity
     //@odata.count: int;
-    synactaLink: string;   //@odata.readLink: link of this entity in Synacta
-    childrenLink: string; //Child@odata.navigationLink: links to this entity's children
-    documentsLink: string; //Document@odata.navigationLink: links to documents within this entity
+    synactaLink: string;   //@odata.readLink: link of this entity in Synacta      
     parentsLink: string; //Parent@odata.navigationLink: links to parent of this entity;
     fullDataLink: string;//FullODataLink@odata.navigationLink: links to complete content of this entity;
     //@odata.editLink: string;
@@ -33,7 +31,9 @@
     getPropertyInfos();
     setParentID(ParentID: string);
     getParentID();
-    setIsVirtual(IsVirtual: string);
+    setParentType(ParentType: string);
+    getParentType();
+    setIsVirtual(IsVirtual: boolean);
     getIsVirtual();
     setFrozen(Frozen: boolean);
     getFrozen();
@@ -48,10 +48,6 @@
     getEntityContextLink();
     setSynactaLink(synactaLink: string);
     getSynactaLink();
-    setChildrenLink(childrenLink: string);
-    getChildrenLink();
-    setDocumentsLink(documentsLink: string);
-    getDocumentsLink();
     setParentsLink(parentsLink: string);
     getParentsLink();
     setFullDataLink(fullDataLink: string);
@@ -61,6 +57,13 @@
 
 export interface SynContainer extends Entity {
     HasChild: boolean;
+    childrenLink: string; //Child@odata.navigationLink: links to this entity's children
+    documentsLink: string; //Document@odata.navigationLink: links to documents within this entity
+
+    setDocumentsLink(documentsLink: string);
+    getDocumentsLink();
+    setChildrenLink(childrenLink: string);
+    getChildrenLink();
 }
 
 
