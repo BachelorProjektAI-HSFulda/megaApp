@@ -17,7 +17,7 @@
     childrenLink: string; //Child@odata.navigationLink: links to this entity's children
     documentsLink: string; //Document@odata.navigationLink: links to documents within this entity
     parentsLink: string; //Parent@odata.navigationLink: links to parent of this entity;
-    full_dataLink: string;//FullODataLink@odata.navigationLink: links to complete content of this entity;
+    fullDataLink: string;//FullODataLink@odata.navigationLink: links to complete content of this entity;
     //@odata.editLink: string;
     //@odata.etag: string;
     //@odata.metadataEtag: string;
@@ -46,7 +46,16 @@
 
     setEntityContextLink(entityContextLink: string);
     getEntityContextLink();
-
+    setSynactaLink(synactaLink: string);
+    getSynactaLink();
+    setChildrenLink(childrenLink: string);
+    getChildrenLink();
+    setDocumentsLink(documentsLink: string);
+    getDocumentsLink();
+    setParentsLink(parentsLink: string);
+    getParentsLink();
+    setFullDataLink(fullDataLink: string);
+    getFullDataLink();
 
 }
 
