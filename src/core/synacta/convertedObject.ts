@@ -11,12 +11,13 @@
     Version: string;
     Hash: string;
 
-    //@odata.context: string;
-    synacta_link: string;   //Link der Entity in Synacta
-    //Child@odata.navigationLink: string; -> Link auf Kinder der Entity
-    //Document@odata.navigationLink: string; -> Link auf Dokumente innerhalb der Entity 
-    //Parent@odata.navigationLink: string;
-    //FullODataLink@odata.navigationLink: string;
+    entity_context_link: string; //@odata.context: links to type folder of this entity
+    //@odata.count: int;
+    synacta_link: string;   //@odata.readLink: link of this entity in Synacta
+    children_link: string; //Child@odata.navigationLink: links to this entity's children
+    documents_link: string; //Document@odata.navigationLink: links to documents within this entity
+    parents_link: string; //Parent@odata.navigationLink: links to parent of this entity;
+    full_data_link: string;//FullODataLink@odata.navigationLink: links to complete content of this entity;
     //@odata.editLink: string;
     //@odata.etag: string;
     //@odata.metadataEtag: string;
