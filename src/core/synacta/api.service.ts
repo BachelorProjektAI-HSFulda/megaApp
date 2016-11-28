@@ -33,7 +33,7 @@ export class SynactaAPIService {
     /*
     function that gets the root of Synacta. It needs no parameters. 
     The function is getting the root by using the function get.
-    @return an observable JSON object from function get
+    @return an observable Entity object from function createObject
     */
      public getRoot(){
          return createObject(this.get("root",null,null));
@@ -44,7 +44,7 @@ export class SynactaAPIService {
     function that gets an element out of Synacta by using the ID. 
     @param type
     @param id  
-    @return an observable JSON object from function get
+    @return an observable Entity object from function createObject
     */
      public getByID(type:string, id: string){
        return createObject(this.get(null, type, id));
@@ -54,7 +54,7 @@ export class SynactaAPIService {
     function that gets an element out of Synacta by using the type. 
     @param type
     
-    @return an observable JSON object from function get
+    @return an observable Entity object from function createObject
     */
      public getByType(type:string){
        return createObject(this.get(null, type, null));
@@ -64,7 +64,7 @@ export class SynactaAPIService {
     function that gets all the Children ob an Element using the type and the id. 
     @param type
     @param id  
-    @return an observable JSON object from function get
+    @return an observable Entity object from function createObject
     */
      public getChildren(type: string, id:string){
        return createObject(this.get("Children", type, id));
@@ -74,7 +74,7 @@ export class SynactaAPIService {
     function that gets the types of all Children by using the type and the id of the container.
     @param type
     @param id  
-    @return an observable JSON object from function get
+    @return an observable Entity object from function createObject
     */
      public getChildTypes(type:string, id: string){
        return createObject(this.get("Children/Types", type, id));
@@ -84,7 +84,7 @@ export class SynactaAPIService {
     function that gets all document in Container using the type and the id of the container. 
     @param type
     @param id  
-    @return an observable JSON object from function get
+    @return an observable Entity object from function createObject
     */
      public getDocuments(type:string, id: string){
        return createObject(this.get("Documents", type, id));
@@ -95,7 +95,7 @@ export class SynactaAPIService {
     the type and the id of the container.
     @param type
     @param id  
-    @return an observable JSON object from function get
+    @return an observable Entity object from function createObject
     */
      public getDocTypes(type:string, id: string){
        return createObject(this.get("Document/Types", type, id));
