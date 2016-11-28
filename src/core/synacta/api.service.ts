@@ -36,7 +36,8 @@ export class SynactaAPIService {
     @return an observable Entity object from function createObject
     */
      public getRoot(){
-         return createObject(this.get("root",null,null));
+         let result = createObject(this.get("root", null, null));
+         return result;
      }
 
 
@@ -46,8 +47,9 @@ export class SynactaAPIService {
     @param id  
     @return an observable Entity object from function createObject
     */
-     public getByID(type:string, id: string){
-       return createObject(this.get(null, type, id));
+     public getByID(type: string, id: string) {
+         let result = createObject(this.get(null, type, id);
+         return result;
      }
 
     /*
@@ -56,8 +58,9 @@ export class SynactaAPIService {
     
     @return an observable Entity object from function createObject
     */
-     public getByType(type:string){
-       return createObject(this.get(null, type, null));
+     public getByType(type: string) {
+         let result = createObject(this.get(null, type, null));
+         return result;
      }
 
     /*
@@ -67,7 +70,8 @@ export class SynactaAPIService {
     @return an observable Entity object from function createObject
     */
      public getChildren(type: string, id:string){
-       return createObject(this.get("Children", type, id));
+         let result = createObject(this.get("Children", type, id));
+         return result;
      }
 
     /*
@@ -77,7 +81,8 @@ export class SynactaAPIService {
     @return an observable Entity object from function createObject
     */
      public getChildTypes(type:string, id: string){
-       return createObject(this.get("Children/Types", type, id));
+         let result = createObject(this.get("Children/Types", type, id));
+         return result;
      }
 
     /*
@@ -87,7 +92,8 @@ export class SynactaAPIService {
     @return an observable Entity object from function createObject
     */
      public getDocuments(type:string, id: string){
-       return createObject(this.get("Documents", type, id));
+         let result = createObject(this.get("Documents", type, id));
+         return result;
      }
 
     /*
@@ -98,6 +104,7 @@ export class SynactaAPIService {
     @return an observable Entity object from function createObject
     */
      public getDocTypes(type:string, id: string){
-       return createObject(this.get("Document/Types", type, id));
+         let result = createObject(this.get("Document/Types", type, id));
+         return result;
      }
 }
