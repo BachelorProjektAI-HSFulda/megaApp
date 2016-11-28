@@ -16,6 +16,20 @@ export interface IGenericBaseEntity {
     CheckedOutBy: string;
     Version: string;
     Hash: string;
+    // @odata.readLink
+    // @odata.nextLink?
+    // Child@odata.navigationLink
+    // FullODataLink@odata.navigationLink
+    // StandardODataLink@odata.navigationLink
+    // NoneODataLink@odata.navigationLink
+    // Parent@odata.navigationLink
+    // @odata.context
+    // @odata.count
+    // Document@odata.navigationLink
+    // @odata.editLink
+    // @odata.etag
+    // @odata.metadataEtag
+    // @odata.PicklistLink
 }
 
 /**
@@ -30,6 +44,8 @@ export interface IEntity {
     ParentType: string;
     Frozen: boolean;
     Hash: string;
+    // @odata.readLink: string;
+    // FullODataLink@odata.navigationLink: string;
 }
 
 /**
@@ -37,6 +53,10 @@ export interface IEntity {
  * with message and navigation metadata
  */
 export interface IBaseEntityFrame<T> {
+    // @odata.context
+    // @odata.count
+    // Document@odata.navigationLink
+    // odata.editLink
     value: T[];
 }
 
@@ -47,6 +67,9 @@ export interface IContainer extends IEntity {
     IsVirtual: boolean;
     HasChild: boolean;
     Children: Set<IEntity>;
+    // @odata.context?: string;
+    // Child@odata.navigationLink: string;
+    // Document@odata.navigationLink: string;
 }
 
 /**
@@ -66,4 +89,8 @@ export interface IDocument extends IEntity {
     ParentID: string;
     ParentName: string;
     HasChildren: boolean;
+    // @odata.readLink: string;
+    // Child@odata.navigationLink: string;
+    // FullODataLink@odata.navigationLink: string;
+    // Parent@odata.navigationLink: string;
 }
