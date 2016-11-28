@@ -1,14 +1,24 @@
 import { Injectable } from '@angular/core';
 
 @Injectable()
-//genercis hinzufügen
 export class Storage{
-  public saveData(listName:string ,list : any[]){
+
+  /*
+  function that serialize the favList array and stores it
+  in   window.localStorage "favoriten"
+  @param listName
+  @param list
+  */
+  public saveData<list>(listName:string ,list : list[]){
     let file : string = JSON.stringify(list);
     window.localStorage.setItem(listName, file);
   }
-  //generics hinzufügen
-  public getData(listName:string){
+  
+  /*
+  function that returns an array with tokens
+  @return an array with tokens
+  */
+  public getData<list>(listName:string):list{
     let data = window.localStorage.getItem(listName);
     return JSON.parse(data);
   }
