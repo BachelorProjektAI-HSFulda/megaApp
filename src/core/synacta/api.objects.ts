@@ -22,7 +22,14 @@ export interface IGenericBaseEntity {
  * This object is either a container or a document
  */
 export interface IEntity {
-    // Just for composition purposes
+    Properties: Map<String, String>;
+    PropertyInfos?: Map<String, String>;
+    ID: string;
+    ObjectType: string;
+    ParentID: string;
+    ParentType: string;
+    Frozen: boolean;
+    Hash: string;
 }
 
 /**
@@ -37,16 +44,8 @@ export interface IBaseEntityFrame<T> {
  * This object provides container specific properties and functions
  */
 export interface IContainer extends IEntity {
-    Properties: Map<String, String>;
-    PropertyInfos?: Map<String, String>;
-    ID: string;
-    ObjectType: string;
-    ParentID: string;
-    ParentType: string;
     IsVirtual: boolean;
-    Frozen: boolean;
     HasChild: boolean;
-    Hash: string;
     Children: Set<IEntity>;
 }
 
@@ -54,16 +53,8 @@ export interface IContainer extends IEntity {
  * This object provides document specific properties and methods
  */
 export interface IDocument extends IEntity {
-    Properties: Map<String, String>;
-    PropertyInfos?: Map<String, String>;
-    ID: string;
-    ObjectType: string;
-    ParentID: string;
-    ParentType: string;
-    Frozen: boolean;
     CheckedOutBy: string;
     Version: string;
-    Hash: string;
 }
 
 /**
