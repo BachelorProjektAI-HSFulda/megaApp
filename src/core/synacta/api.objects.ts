@@ -66,7 +66,6 @@ export interface IBaseEntityFrame<T> {
 export interface IContainer extends IEntity {
     IsVirtual: boolean;
     HasChild: boolean;
-    Children: Set<IEntity>;
     // @odata.context?: string;
     // Child@odata.navigationLink: string;
     // Document@odata.navigationLink: string;
