@@ -36,8 +36,8 @@ export interface IGenericBaseEntity {
  * This object is either a container or a document
  */
 export interface IEntity {
-    Properties: Map<String, String>;
-    PropertyInfos?: Map<String, String>;
+    Properties: any;
+    PropertyInfos?: any;
     ID: string;
     ObjectType: string;
     ParentID: string;
