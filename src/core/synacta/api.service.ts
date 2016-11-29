@@ -48,7 +48,7 @@ export class SynactaAPIService {
     @return an observable Entity object from function createObject
     */
      public getByID(type: string, id: string) {
-         let result = createObject(this.get(null, type, id);
+         let result = createObject(this.get(null, type, id));
          return result;
      }
 
