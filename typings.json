@@ -5,5 +5,8 @@
     "core-js": "registry:dt/core-js#0.0.0+20160914114559",
     "github-electron": "registry:dt/github-electron#1.4.2+20161012142539",
     "node": "registry:dt/node#6.0.0+20161019125345"
+  },
+  "globalDevDependencies": {
+    "jasmine": "registry:dt/jasmine#2.5.0+20161025102649"
   }
 }
