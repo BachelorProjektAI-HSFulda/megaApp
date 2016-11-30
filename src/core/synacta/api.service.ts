@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers} from '@angular/http';
+import { Http, Headers } from '@angular/http';
 // TODO shorten with systemjs
 import 'rxjs/add/operator/map';
+
+import { deserialize } from 'json-typescript-mapper';
+
+import { IFrame, Frame, Entity, Container, Document } from './api.objects';
 
 const API_KEY = 'Token FHProjekt2016';
 const BASE_URL = 'https://synacta.agile-is.de/_api/base/';
@@ -17,7 +21,15 @@ export class SynactaAPIService {
 
     /* Send request to the Synacta-Endpoint
      *
-     * returns an observable Json object
+     * which contains a json object
+     * This method is async which means that your code
+     * will continue after calling this method
+     * 
+     * To actually receive data one has to subscribe
+     * to this function with a callback to hold the
+     * json result.
+     * 
+     * @returns an observable response object
      */
     private get(target: string, type: string, id: string) {
          let headers = new Headers(this.baseHeaders);
@@ -31,13 +43,22 @@ export class SynactaAPIService {
      }
 
     /*
-    function that gets the root of Synacta. It needs no parameters. 
-    The function is getting the root by using the function get.
-    @return an observable Entity object from function createObject
-    */
-     public getRoot(){
-         let result = createObject(this.get("root", null, null));
-         return result;
+     * Gets the root of Synacta. It needs no parameters. 
+     * To use just subscribe to the response of type container
+     *  Example:
+     *  subscribe(resp => variable:Container = resp);
+     * @return the root container
+     */
+     public getRoot() {
+        // Get the root container which is on the first position
+        // of the value array of the root frame (per definition)
+        // 1. map the async json response to the IFrame interface
+        // 2. use the interface to retrieve the root container
+        // 3. deserialize the raw json to a container object
+        // 4. return the container object within a observable
+        return this
+            .get("root", null, null)
+            .map((json:IFrame) => deserialize(Container, json.value[0]));
      }
 
 
