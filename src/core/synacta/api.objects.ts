@@ -6,8 +6,8 @@ import { JsonProperty } from 'json-typescript-mapper';
  * TODO - find out which fields are optional
  */
 export class GenericBaseEntity {
-    Properties?: any;
-    PropertyInfos?: any;
+    Properties: any;
+    PropertyInfos: any;
     ID: string;
     ObjectType: string;
     ParentID: string;
@@ -55,7 +55,7 @@ export class GenericBaseEntity {
  */
 export class Entity {
     Properties: any;
-    PropertyInfos?: any;
+    PropertyInfos: any;
     ID: string;
     ObjectType: string;
     ParentID: string;
