@@ -7,8 +7,8 @@ import { JsonProperty } from 'json-typescript-mapper';
  * (they are marked with "TODO")
  */
 export class GenericBaseEntity {
-    Properties: any;
-    PropertyInfos: any;
+    Properties: any = void(0);
+    PropertyInfos: any = void(0);
     ID: string;
     ObjectType: string;
     ParentID: string;
