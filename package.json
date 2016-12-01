@@ -30,6 +30,7 @@
     "ionic-angular": "2.0.0-rc.2",
     "ionic-native": "2.2.3",
     "ionicons": "3.0.0",
+    "json-typescript-mapper": "^1.0.5",
     "reflect-metadata": "^0.1.8",
     "rxjs": "5.0.0-beta.12",
     "systemjs": "^0.19.40",
