@@ -3,6 +3,8 @@ import { Http, Headers } from '@angular/http';
 // TODO shorten with systemjs
 import 'rxjs/add/operator/map';
 
+import {Observable} from 'rxjs/Observable';
+
 import { deserialize } from 'json-typescript-mapper';
 
 import { IFrame, Frame, Entity, Container, Document } from './api.objects';
