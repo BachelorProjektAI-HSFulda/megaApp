@@ -7,8 +7,8 @@ import { JsonProperty } from 'json-typescript-mapper';
  * (they are marked with "TODO")
  */
 export class GenericBaseEntity {
-    Properties: any = void(0);
-    PropertyInfos: any = void(0);
+    Properties: any;
+    PropertyInfos: any;
     ID: string;
     ObjectType: string;
     ParentID: string;
@@ -38,7 +38,7 @@ export class GenericBaseEntity {
     @JsonProperty('@odata.context')
     Context: string; //links to type folder of this entity
     @JsonProperty('@odata.count')
-    Count: number; //what is this for?
+    Count: number; //shows the amount of elements within this entity
     @JsonProperty('Document@odata.navigationLink')
     Document: string; //links to documents within this entity
     @JsonProperty('@odata.editLink')
