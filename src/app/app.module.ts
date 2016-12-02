@@ -8,6 +8,8 @@ import { RecentPage } from '../pages/recent/recent';
 import { OptionsPage} from '../pages/options/options';
 import { TabsPage } from '../pages/tabs/tabs';
 import { SynactaAPIService } from '../core/synacta/api.service';
+import { Favorits } from '../core/storage/favorits';
+import { Storage } from '../core/storage/storage';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { SynactaAPIService } from '../core/synacta/api.service';
     TabsPage
   ],
   providers: [
-    SynactaAPIService
+    SynactaAPIService,
+    Favorits,
+    Storage
   ]
 })
 export class AppModule {}

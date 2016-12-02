@@ -20,6 +20,7 @@ export class GenericBaseEntity {
     Version: string;
     Hash: string;
 
+
     // API Specific Fields
     @JsonProperty('@odata.readLink')
     ReadLink: string; //link of this entity in Synacta
@@ -49,6 +50,7 @@ export class GenericBaseEntity {
     MetadataETag: string; //TODO
     @JsonProperty('@odata.PicklistLink')
     PicklistLink: string; //TODO
+
 }
 
 /**
@@ -57,12 +59,14 @@ export class GenericBaseEntity {
 export class Entity {
     Properties: any;
     PropertyInfos: any;
+
     ID: string;
     ObjectType: string;
     ParentID: string;
     ParentType: string;
     Frozen: boolean;
     Hash: string;
+
 
     // API Specific Fields
     @JsonProperty('@odata.readLink')
@@ -81,6 +85,7 @@ export class Entity {
  */
 export interface IFrame {
     value: any[];
+
 }
 
 /**
@@ -99,6 +104,7 @@ export class Frame {
     Document: string;
     @JsonProperty('@odata.editLink')
     EditLink: string;
+
 }
 
 /**
@@ -115,12 +121,14 @@ export class Container extends Entity {
     ChildLink: string;
     @JsonProperty('Document@odata.navigationLink')
     Document: string;
+
 }
 
 /**
  * This object provides document specific properties and methods
  */
 export class Document extends Entity {
+
     CheckedOutBy: string;
     Version: string;
 }
@@ -129,11 +137,13 @@ export class Document extends Entity {
  * This object contains organization specific properties
  */
  export class Organization {
+
     ID: string;
     Name: string;
     ParentID: string;
     ParentName: string;
     HasChildren: boolean;
+
 
     @JsonProperty('@odata.readLink')
     ReadLink: string;
@@ -143,4 +153,5 @@ export class Document extends Entity {
     FullODataLink: string;
     @JsonProperty('Parent@odata.navigationLink')
     ParentLink: string;
+
 }
