@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { NavController } from 'ionic-angular';
 
-import { Favorits } from '../../core/
+import { Favorits } from '../../core/storage/favorits';
 
 @Component({
   selector: 'page-favorite',
@@ -10,7 +10,7 @@ import { Favorits } from '../../core/
 })
 export class FavoritePage {
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, private favoriten: Favorits) {
 	
   }
   
