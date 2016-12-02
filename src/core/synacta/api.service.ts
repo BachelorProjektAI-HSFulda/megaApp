@@ -66,55 +66,60 @@ export class SynactaAPIService {
     function that gets an element out of Synacta by using the ID. 
     @param type
     @param id  
-    @return an observable Entity object from function createObject
+    @return an observable Entity object
     */
      public getByID(type: string, id: string) {
-         let result = createObject(this.get(null, type, id));
-         return result;
+         return this
+             .get(null, type, id)
+             .map((json: IFrame) => deserialize(Container, json.value[0]));
      }
 
     /*
     function that gets an element out of Synacta by using the type. 
     @param type
     
-    @return an observable Entity object from function createObject
+    @return an observable Entity object
     */
      public getByType(type: string) {
-         let result = createObject(this.get(null, type, null));
-         return result;
+         return this
+             .get(null, type, null)
+             .map((json: IFrame) => deserialize(Container, json.value[0]));
      }
 
     /*
     function that gets all the Children ob an Element using the type and the id. 
     @param type
     @param id  
-    @return an observable Entity object from function createObject
+    @return an observable Entity object
     */
      public getChildren(type: string, id:string){
-         let result = createObject(this.get("Children", type, id));
-         return result;
+         return this
+             .get("Children", type, id)
+             .map((json: IFrame) => deserialize(Container, json.value[0]));
      }
 
     /*
     function that gets the types of all Children by using the type and the id of the container.
     @param type
     @param id  
-    @return an observable Entity object from function createObject
+    @return an observable Entity object
     */
      public getChildTypes(type:string, id: string){
-         let result = createObject(this.get("Children/Types", type, id));
-         return result;
+         return this
+             .get("Children/Types", type, id)
+             .map((json: IFrame) => deserialize(Container, json.value[0]));
      }
 
     /*
     function that gets all document in Container using the type and the id of the container. 
     @param type
     @param id  
-    @return an observable Entity object from function createObject
+    @return an observable Entity object
     */
      public getDocuments(type:string, id: string){
-         let result = createObject(this.get("Documents", type, id));
-         return result;
+         return this
+             .get("Documents", type, id)
+             .map((json: IFrame) => deserialize(Document, json.value[0]));
      }
 
     /*
@@ -122,10 +127,11 @@ export class SynactaAPIService {
     the type and the id of the container.
     @param type
     @param id  
-    @return an observable Entity object from function createObject
+    @return an observable Entity object
     */
      public getDocTypes(type:string, id: string){
-         let result = createObject(this.get("Document/Types", type, id));
-         return result;
+         return this
+             .get("Documents/Types", type, id)
+             .map((json: IFrame) => deserialize(Document, json.value[0]));
      }
 }
