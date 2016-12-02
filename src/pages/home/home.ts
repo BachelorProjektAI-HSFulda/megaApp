@@ -21,7 +21,7 @@ export class HomePage {
   constructor(public navCtrl: NavController, synAPI: SynactaAPIService) {
     // TODO proper error and completion handling without console.log
     // TODO parse the response object in the right way
-    synAPI.get("root", null, null).subscribe(
+    synAPI.getRoot().subscribe(
        response => this.data00 = response,
        error => console.log(error),
        () => console.log("Completed!", this.data00)
