@@ -1,3 +1,19 @@
-page-browser {
+*,
+*:after,
+*:before {
+    box-shadow: none;
+    border: none;
+}
 
+page-browser {
+    .superTitle,
+    .superTitle * {
+        font-size: 5rem;
+    }
+}
+
+.titleBar,
+.titleBar * {
+    background-color: #123456;
+    box-shadow: none;
 }
