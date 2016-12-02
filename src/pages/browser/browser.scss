@@ -17,3 +17,20 @@ page-browser {
     background-color: #123456;
     box-shadow: none;
 }
+
+.no-border,
+.no-border * {
+    border: none;
+}
+
+ion-item h2 {
+    padding-right: 30px;
+}
+
+ion-item h2,
+ion-item p {
+    display: inline-block;
+    line-height: 2rem;
+    height: 2rem;
+    vertical-align: top;
+}
