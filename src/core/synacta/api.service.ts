@@ -100,13 +100,15 @@ export class SynactaAPIService {
     @param id  
     @return an observable IFrame with Entity objects
     */
-     public getChildren(type: string, id: string): Observable<IFrame> {
+     public getChildren(type: string, id: string): Observable<Entity> {
          return this
              .get("Children", type, id)
              .map((json: IFrame) => {
+                 let result: Array<Entity>;
                  for (let value of json.value) {
-                     value = deserialize(Entity, value);
+                     result.push(deserialize(Entity, value));
                  }
+                 return result;
              });
      }
 
@@ -116,13 +118,15 @@ export class SynactaAPIService {
     @param id  
     @return an observable IFrame with Entity objects
     */
-     public getChildTypes(type: string, id: string): Observable<IFrame> {
+     public getChildTypes(type: string, id: string): Observable<Entity> {
          return this
              .get("Children/Types", type, id)
              .map((json: IFrame) => {
+                 let result: Array<Entity>;
                  for (let value of json.value) {
-                     value = deserialize(Entity, value);
+                     result.push(deserialize(Entity, value));
                  }
+                 return result;
              });
      }
      
@@ -132,13 +136,15 @@ export class SynactaAPIService {
     @param id  
     @return an observable IFrame with Document objects
     */
-     public getDocuments(type: string, id: string): Observable<IFrame> {
+     public getDocuments(type: string, id: string): Observable<Document> {
          return this
              .get("Documents", type, id)
              .map((json: IFrame) => {
+                 let result: Array<Document>;
                  for (let value of json.value) {
-                     value = deserialize(Document, value);
+                     result.push(deserialize(Document, value));
                  }
+                 return result;
              });
      }
 
@@ -149,13 +155,15 @@ export class SynactaAPIService {
     @param id  
     @return an observable IFrame with Document objects
     */
-     public getDocTypes(type: string, id: string): Observable<IFrame> {
+     public getDocTypes(type: string, id: string): Observable<Document> {
          return this
              .get("Documents/Types", type, id)
              .map((json: IFrame) => {
+                 let result: Array<Document>;
                  for (let value of json.value) {
-                     value = deserialize(Document, value);
+                     result.push(deserialize(Document, value));
                  }
+                 return result;
              });
      }
 }
