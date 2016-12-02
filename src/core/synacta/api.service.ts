@@ -51,7 +51,7 @@ export class SynactaAPIService {
      *  subscribe(resp => variable:Container = resp);
      * @return the observable root container
      */
-    public getRoot(): Observable<IFrame> {
+    public getRoot(): Observable<Container> {
         // Get the root container which is on the first position
         // of the value array of the root frame (per definition)
         // 1. map the async json response to the IFrame interface
@@ -70,7 +70,7 @@ export class SynactaAPIService {
     @param id  
     @return an observable Container object
     */
-     public getByID(type: string, id: string): Observable<IFrame> {
+     public getByID(type: string, id: string): Observable<Container> {
          return this
              .get(null, type, id)
              .map((json: IFrame) => deserialize(Container, json.value[0]));
@@ -82,13 +82,15 @@ export class SynactaAPIService {
     
     @return an observable IFrame with Entity objects
     */
-     public getByType(type: string): Observable<IFrame> {
+     public getByType(type: string): Observable<Entity[]> {
          return this
              .get(null, type, null)
              .map((json: IFrame) => {
-                 for (let value of json.value) {
-                     value = deserialize(Entity, value);
-                 }
+                let result:Array<Entity>;
+                for (let value of json.value) {
+                    result.push(deserialize(Entity, value));
+                }
+                return result;
              });
      }
 
