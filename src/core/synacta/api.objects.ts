@@ -3,11 +3,12 @@ import { JsonProperty } from 'json-typescript-mapper';
 /**
  * This object provides all functionality of the Synacta API
  * All other objects are a subset of this Interface.
- * TODO - find out which fields are optional
+ * TODO: find out how to handle parameters which can be empty
+ * (they are marked with "TODO")
  */
 export class GenericBaseEntity {
-    Properties: any;
-    PropertyInfos: any;
+    Properties: any = void(0);
+    PropertyInfos: any = void(0);
     ID: string;
     ObjectType: string;
     ParentID: string;
@@ -21,33 +22,33 @@ export class GenericBaseEntity {
 
     // API Specific Fields
     @JsonProperty('@odata.readLink')
-    ReadLink: string;
+    ReadLink: string; //link of this entity in Synacta
     @JsonProperty('@odata.nextLink')
-    NextLink: string;
+    NextLink: string; //TODO
     @JsonProperty('Child@odata.navigationLink')
-    ChildLink: string;
+    ChildLink: string; //links to this entity's children
     @JsonProperty('FullODataLink@odata.navigationLink')
-    FullODataLink: string;
+    FullODataLink: string; //links to complete content of this entity
     @JsonProperty('StandardODataLink@odata.navigationLink')
-    StandardODataLink: string;
+    StandardODataLink: string; //TODO
     @JsonProperty('NoneODataLink@odata.navigationLink')
-    NoneODataLink: string;
+    NoneODataLink: string; //TODO
     @JsonProperty('Parent@odata.navigationLink')
-    ParentLink: string;
+    ParentLink: string; //links to parent of this entity
     @JsonProperty('@odata.context')
-    Context: string;
+    Context: string; //links to type folder of this entity
     @JsonProperty('@odata.count')
-    Count: number;
+    Count: number; //what is this for?
     @JsonProperty('Document@odata.navigationLink')
-    Document: string;
+    Document: string; //links to documents within this entity
     @JsonProperty('@odata.editLink')
-    EditLink: string;
+    EditLink: string; //TODO
     @JsonProperty('@odata.etag')
-    ETag: string;
+    ETag: string; //TODO
     @JsonProperty('@odata.metadataEtag')
-    MetadataETag: string;
+    MetadataETag: string; //TODO
     @JsonProperty('@odata.PicklistLink')
-    PicklistLink: string;
+    PicklistLink: string; //TODO
 }
 
 /**
