@@ -1,12 +1,8 @@
-<ion-header no-shadow>
-    <ion-navbar>
-        <ion-title>
-            Browser
-        </ion-title>
-    </ion-navbar>
-</ion-header>
+<h1>
+    Browser
+</h1>
 
-<ion-content no-padding no-lines>
+<content>
     <!--Creating a new List -->
     <ion-list no-lines>
 
@@ -14,50 +10,46 @@
         <ion-item-sliding no-lines>
             <ion-item no-lines>
                 <!-- Item with Avatar/Icon-->
-                <ion-avatar item-left>
-                    <img src="img/bild.png">
-                </ion-avatar>
+                <img src="img/bild.png">
                 <h2> Akte 1 </h2>
                 <p> Lorem ipsum </p>
             </ion-item>
             <!-- Options for Items in this part-->
             <ion-item-options side="left">
-                <button ion-button color="primary">
+                <div class="action">
                     <ion-icon name="text"></ion-icon>
                     Bearbeiten
-                </button>
-                <button ion-button color="secondary">
-                    <ion-icon name="call"></ion-icon>
+                </div>
+                <div class="action">
+                    <ion-icon name="text"></ion-icon>
                     Favorit
-                </button>
-                <button ion-button color="tertiary">
-                    <ion-icon name="mail"></ion-icon>
+                </div>
+                <div class="action">
+                    <ion-icon name="text"></ion-icon>
                     Öffnen
-                </button>
+                </div>
             </ion-item-options>
         </ion-item-sliding>
         <ion-item-sliding>
             <ion-item>
-                <ion-avatar item-left>
-                    <img src="img/bild.png">
-                </ion-avatar>
+                <img src="img/bild.png">
                 <h2> Akte2 </h2>
                 <p> Lorem ipsum </p>
             </ion-item>
             <!-- Options for Items in this part-->
             <ion-item-options side="left">
-                <button ion-button color="primary">
+                <div class="action">
                     <ion-icon name="text"></ion-icon>
                     Bearbeiten
-                </button>
-                <button ion-button color="secondary">
-                    <ion-icon name="call"></ion-icon>
+                </div>
+                <div class="action">
+                    <ion-icon name="text"></ion-icon>
                     Favorit
-                </button>
-                <button ion-button color="tertiary">
-                    <ion-icon name="mail"></ion-icon>
-                    Oeffnen
-                </button>
+                </div>
+                <div class="action">
+                    <ion-icon name="text"></ion-icon>
+                    Öffnen
+                </div>
             </ion-item-options>
         </ion-item-sliding>
         <ion-item>
@@ -71,4 +63,4 @@
 
 
     </ion-list>
-</ion-content>
+</content>
