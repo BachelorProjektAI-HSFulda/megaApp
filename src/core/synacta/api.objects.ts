@@ -1,13 +1,3 @@
-<<<<<<< HEAD
-/**
- * This object provides all functionality of the Synacta API
- * All other objects are a subset of this Interface.
- * TODO - find out which fields are optional
- */
-export interface IGenericBaseEntity {
-    Properties?: any;
-    PropertyInfos?: any;
-=======
 import { JsonProperty } from 'json-typescript-mapper';
 
 /**
@@ -19,7 +9,6 @@ import { JsonProperty } from 'json-typescript-mapper';
 export class GenericBaseEntity {
     Properties: any = void(0);
     PropertyInfos: any = void(0);
->>>>>>> origin/epic_#42_branch
     ID: string;
     ObjectType: string;
     ParentID: string;
@@ -30,22 +19,6 @@ export class GenericBaseEntity {
     CheckedOutBy: string;
     Version: string;
     Hash: string;
-<<<<<<< HEAD
-    // @odata.readLink
-    // @odata.nextLink?
-    // Child@odata.navigationLink
-    // FullODataLink@odata.navigationLink
-    // StandardODataLink@odata.navigationLink
-    // NoneODataLink@odata.navigationLink
-    // Parent@odata.navigationLink
-    // @odata.context
-    // @odata.count
-    // Document@odata.navigationLink
-    // @odata.editLink
-    // @odata.etag
-    // @odata.metadataEtag
-    // @odata.PicklistLink
-=======
 
     // API Specific Fields
     @JsonProperty('@odata.readLink')
@@ -76,31 +49,20 @@ export class GenericBaseEntity {
     MetadataETag: string; //TODO
     @JsonProperty('@odata.PicklistLink')
     PicklistLink: string; //TODO
->>>>>>> origin/epic_#42_branch
 }
 
 /**
  * This object is either a container or a document
  */
-<<<<<<< HEAD
-export interface IEntity {
-    Properties: any;
-    PropertyInfos?: any;
-=======
 export class Entity {
     Properties: any;
     PropertyInfos: any;
->>>>>>> origin/epic_#42_branch
     ID: string;
     ObjectType: string;
     ParentID: string;
     ParentType: string;
     Frozen: boolean;
     Hash: string;
-<<<<<<< HEAD
-    // @odata.readLink: string;
-    // FullODataLink@odata.navigationLink: string;
-=======
 
     // API Specific Fields
     @JsonProperty('@odata.readLink')
@@ -110,30 +72,21 @@ export class Entity {
 }
 
 /**
- * Under a simple interface this object 
+ * Under a simple interface this object
  * is a transmission frame with only a
  * value array containing any type
- * 
+ *
  * It should be used to access the raw json
  * data that is within the frame
  */
 export interface IFrame {
     value: any[];
->>>>>>> origin/epic_#42_branch
 }
 
 /**
  * This object is a transmission frame
  * with message and navigation metadata
  */
-<<<<<<< HEAD
-export interface IBaseEntityFrame<T> {
-    // @odata.context
-    // @odata.count
-    // Document@odata.navigationLink
-    // odata.editLink
-    value: T[];
-=======
 export class Frame {
     value: Entity[];
 
@@ -146,20 +99,11 @@ export class Frame {
     Document: string;
     @JsonProperty('@odata.editLink')
     EditLink: string;
->>>>>>> origin/epic_#42_branch
 }
 
 /**
  * This object provides container specific properties and functions
  */
-<<<<<<< HEAD
-export interface IContainer extends IEntity {
-    IsVirtual: boolean;
-    HasChild: boolean;
-    // @odata.context?: string;
-    // Child@odata.navigationLink: string;
-    // Document@odata.navigationLink: string;
-=======
 export class Container extends Entity {
     IsVirtual: boolean;
     HasChild: boolean;
@@ -171,17 +115,12 @@ export class Container extends Entity {
     ChildLink: string;
     @JsonProperty('Document@odata.navigationLink')
     Document: string;
->>>>>>> origin/epic_#42_branch
 }
 
 /**
  * This object provides document specific properties and methods
  */
-<<<<<<< HEAD
-export interface IDocument extends IEntity {
-=======
 export class Document extends Entity {
->>>>>>> origin/epic_#42_branch
     CheckedOutBy: string;
     Version: string;
 }
@@ -189,22 +128,12 @@ export class Document extends Entity {
 /**
  * This object contains organization specific properties
  */
-<<<<<<< HEAD
- export interface IOrganization {
-=======
  export class Organization {
->>>>>>> origin/epic_#42_branch
     ID: string;
     Name: string;
     ParentID: string;
     ParentName: string;
     HasChildren: boolean;
-<<<<<<< HEAD
-    // @odata.readLink: string;
-    // Child@odata.navigationLink: string;
-    // FullODataLink@odata.navigationLink: string;
-    // Parent@odata.navigationLink: string;
-=======
 
     @JsonProperty('@odata.readLink')
     ReadLink: string;
@@ -214,5 +143,4 @@ export class Document extends Entity {
     FullODataLink: string;
     @JsonProperty('Parent@odata.navigationLink')
     ParentLink: string;
->>>>>>> origin/epic_#42_branch
 }
