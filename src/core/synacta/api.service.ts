@@ -85,7 +85,7 @@ export class SynactaAPIService {
          return this
              .get(null, type, null)
              .map((json: IFrame) => {
-                let result:Array<Entity>;
+                let result = new Array<Entity>();
                 for (let value of json.value) {
                     result.push(deserialize(Entity, value));
                 }
