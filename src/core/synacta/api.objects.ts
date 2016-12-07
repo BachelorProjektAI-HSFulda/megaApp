@@ -84,10 +84,10 @@ export class Entity {
 }
 
 /**
- * Under a simple interface this object 
+ * Under a simple interface this object
  * is a transmission frame with only a
  * value array containing any type
- * 
+ *
  * It should be used to access the raw json
  * data that is within the frame
  */

@@ -7,10 +7,10 @@ import { SynactaAPIService } from '../../core/synacta/api.service';
 //import {Fubar} from './fubar';
 
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+  selector: 'page-recent',
+  templateUrl: 'recent.html'
 })
-export class HomePage {
+export class RecentPage {
 
   // will be changed asynchronously
   // just for example use
