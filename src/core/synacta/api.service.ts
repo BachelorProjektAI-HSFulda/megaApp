@@ -101,11 +101,19 @@ export class SynactaAPIService {
     @return an observable IFrame with Entity objects
     */
      public getChildren(type: string, id: string): Observable<Entity> {
+     public getChildren(type: string, id: string): Observable<Entity[]> {
          return this
              .get("Children", type, id)
              .map((json: IFrame) => {
                  let result: Array<Entity>;
                  for (let value of json.value) {
+                     // TODO - Convert all received objects into a document or a container
+                     // depending on inner data
+                     // if (value[something] == something ) {
+                     //     result.push(deserialize(Container, value));
+                     // } else {
+                     //     result.push(deserialize(Document, value));   
+                     // }
                      result.push(deserialize(Entity, value));
                  }
                  return result;
