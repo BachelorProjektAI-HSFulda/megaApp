@@ -88,7 +88,7 @@ export class Favorits{
     public addTest(type : string, id : string){
       //if(this.checkFav(id))return;
       let dataFav = this.getFav();
-      if(dataFav == null) return false;
+      if(dataFav == null) dataFav = new Array<token>();
       for(let i = 0; i < dataFav.length; i++){
         if(dataFav[i].id == id) return true;
       }
