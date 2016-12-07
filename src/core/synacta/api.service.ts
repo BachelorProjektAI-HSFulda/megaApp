@@ -26,11 +26,11 @@ export class SynactaAPIService {
      * which contains a json object
      * This method is async which means that your code
      * will continue after calling this method
-     * 
+     *
      * To actually receive data one has to subscribe
      * to this function with a callback to hold the
      * json result.
-     * 
+     *
      * @returns an observable response object containing a json object
      */
     private get(target: string, type: string, id: string) {
@@ -45,7 +45,7 @@ export class SynactaAPIService {
      }
 
     /*
-     * Gets the root of Synacta. It needs no parameters. 
+     * Gets the root of Synacta. It needs no parameters.
      * To use just subscribe to the response of type container
      *  Example:
      *  subscribe(resp => variable:Container = resp);
@@ -67,13 +67,13 @@ export class SynactaAPIService {
     /*
      * This function uses a type and id to receive a specific object (container)
      * @param type
-     * @param id  
+     * @param id
      * @return an observable containing a container object
      */
      public getByID(type: string, id: string): Observable<Container> {
          return this
              .get(null, type, id)
-             .map((json: IFrame) => deserialize(Container, json.value[0]));
+             .map((json: IFrame) => deserialize(Container, json));
      }
 
     /*
@@ -96,7 +96,7 @@ export class SynactaAPIService {
     /*
      * This function uses type and id to receive the children of a specific object (container)
      * @param type
-     * @param id  
+     * @param id
      * @return an observable containing a list of Entity
      */
      public getChildren(type: string, id: string): Observable<Entity[]> {
@@ -110,7 +110,7 @@ export class SynactaAPIService {
                      // if (value[something] == something ) {
                      //     result.push(deserialize(Container, value));
                      // } else {
-                     //     result.push(deserialize(Document, value));   
+                     //     result.push(deserialize(Document, value));
                      // }
                      result.push(deserialize(Entity, value));
                  }
@@ -122,7 +122,7 @@ export class SynactaAPIService {
      * This function uses type and id to receive a string list of the types of
      * all present childs
      * @param type
-     * @param id  
+     * @param id
      * @return an observable which contains a string list
      */
 /*     public getChildTypes(type: string, id: string): Observable<String[]> {
@@ -136,12 +136,12 @@ export class SynactaAPIService {
                  return result;
              });
      }*/
-     
+
     /*
-     * This function uses type and id to receive all documents of a specific 
+     * This function uses type and id to receive all documents of a specific
      * container
      * @param type
-     * @param id  
+     * @param id
      * @return an observable containing a list of Document
      */
 /*     public getDocuments(type: string, id: string): Observable<Document[]> {
@@ -160,7 +160,7 @@ export class SynactaAPIService {
      * This function uses type and id to receive a string list of all the types
      * of the present documents of the container
      * @param type
-     * @param id  
+     * @param id
      * @return an observable which contains a string list
      */
 /*     public getDocTypes(type: string, id: string): Observable<String[]> {
