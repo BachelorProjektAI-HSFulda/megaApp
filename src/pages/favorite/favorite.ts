@@ -9,7 +9,7 @@ import { Favorits } from '../../core/storage/favorits';
   templateUrl: 'favorite.html'
 })
 export class FavoritePage implements OnInit {
-  private listofFav;
+  listofFav;
   constructor(public navCtrl: NavController, private favList: Favorits) {
     //initialize the favEntitys Array from favList
     favList.loadEntitys();
