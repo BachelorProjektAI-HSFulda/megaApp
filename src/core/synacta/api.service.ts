@@ -3,7 +3,7 @@ import { Http, Headers } from '@angular/http';
 // TODO shorten with systemjs
 import 'rxjs/add/operator/map';
 
-import {Observable} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 
 import { deserialize } from 'json-typescript-mapper';
 
@@ -31,7 +31,7 @@ export class SynactaAPIService {
      * to this function with a callback to hold the
      * json result.
      * 
-     * @returns an observable response object
+     * @returns an observable response object containing a json object
      */
     private get(target: string, type: string, id: string) {
          let headers = new Headers(this.baseHeaders);
@@ -65,11 +65,11 @@ export class SynactaAPIService {
 
 
     /*
-    function that gets an element out of Synacta by using the ID. 
-    @param type
-    @param id  
-    @return an observable Container object
-    */
+     * This function uses a type and id to receive a specific object (container)
+     * @param type
+     * @param id  
+     * @return an observable containing a container object
+     */
      public getByID(type: string, id: string): Observable<Container> {
          return this
              .get(null, type, id)
@@ -77,11 +77,10 @@ export class SynactaAPIService {
      }
 
     /*
-    function that gets an element out of Synacta by using the type. 
-    @param type
-    
-    @return an observable IFrame with Entity objects
-    */
+     * This function uses a type string to receive all objects this specific type
+     * @param type
+     * @return an observable containing a list of entities (or even container?)
+     */
      public getByType(type: string): Observable<Entity[]> {
          return this
              .get(null, type, null)
@@ -95,12 +94,11 @@ export class SynactaAPIService {
      }
 
     /*
-    function that gets all the Children of an Element using the type and the id. 
-    @param type
-    @param id  
-    @return an observable IFrame with Entity objects
-    */
-     public getChildren(type: string, id: string): Observable<Entity> {
+     * This function uses type and id to receive the children of a specific object (container)
+     * @param type
+     * @param id  
+     * @return an observable containing a list of Entity
+     */
      public getChildren(type: string, id: string): Observable<Entity[]> {
          return this
              .get("Children", type, id)
@@ -121,11 +119,12 @@ export class SynactaAPIService {
      }
 
     /*
-    function that gets the types of all Children by using the type and the id of the container.
-    @param type
-    @param id  
-    @return an observable IFrame with Entity objects
-    */
+     * This function uses type and id to receive a string list of the types of
+     * all present childs
+     * @param type
+     * @param id  
+     * @return an observable which contains a string list
+     */
 /*     public getChildTypes(type: string, id: string): Observable<String[]> {
          return this
              .get("Children/Types", type, id)
@@ -139,11 +138,12 @@ export class SynactaAPIService {
      }*/
      
     /*
-    function that gets all document in Container using the type and the id of the container. 
-    @param type
-    @param id  
-    @return an observable IFrame with Document objects
-    */
+     * This function uses type and id to receive all documents of a specific 
+     * container
+     * @param type
+     * @param id  
+     * @return an observable containing a list of Document
+     */
 /*     public getDocuments(type: string, id: string): Observable<Document[]> {
          return this
              .get("Documents", type, id)
@@ -157,12 +157,12 @@ export class SynactaAPIService {
      }*/
 
     /*
-    function that gets the types of the documents in the container using 
-    the type and the id of the container.
-    @param type
-    @param id  
-    @return an observable IFrame with Document objects
-    */
+     * This function uses type and id to receive a string list of all the types
+     * of the present documents of the container
+     * @param type
+     * @param id  
+     * @return an observable which contains a string list
+     */
 /*     public getDocTypes(type: string, id: string): Observable<String[]> {
          return this
              .get("Documents/Types", type, id)
