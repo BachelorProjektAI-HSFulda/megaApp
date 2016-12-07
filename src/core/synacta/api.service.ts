@@ -100,7 +100,7 @@ export class SynactaAPIService {
     @param id  
     @return an observable IFrame with Entity objects
     */
-     public getChildren(type: string, id: string): Observable<Entity> {
+     public getChildren(type: string, id: string): Observable<Entity[]> {
          return this
              .get("Children", type, id)
              .map((json: IFrame) => {
@@ -118,7 +118,7 @@ export class SynactaAPIService {
     @param id  
     @return an observable IFrame with Entity objects
     */
-     public getChildTypes(type: string, id: string): Observable<Entity> {
+     public getChildTypes(type: string, id: string): Observable<Entity[]> {
          return this
              .get("Children/Types", type, id)
              .map((json: IFrame) => {
@@ -136,7 +136,7 @@ export class SynactaAPIService {
     @param id  
     @return an observable IFrame with Document objects
     */
-     public getDocuments(type: string, id: string): Observable<Document> {
+     public getDocuments(type: string, id: string): Observable<Document[]> {
          return this
              .get("Documents", type, id)
              .map((json: IFrame) => {
@@ -155,7 +155,7 @@ export class SynactaAPIService {
     @param id  
     @return an observable IFrame with Document objects
     */
-     public getDocTypes(type: string, id: string): Observable<Document> {
+     public getDocTypes(type: string, id: string): Observable<Document[]> {
          return this
              .get("Documents/Types", type, id)
              .map((json: IFrame) => {
