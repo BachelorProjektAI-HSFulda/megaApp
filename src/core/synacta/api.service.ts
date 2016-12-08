@@ -77,7 +77,8 @@ export class SynactaAPIService {
      }
 
     /*
-     * This function uses a type string to receive all objects this specific type
+     * This function uses a type string to receive all objects of this specific type
+     * This function receives an IFrame
      * @param type
      * @return an observable containing a list of entities (or even container?)
      */
@@ -95,6 +96,7 @@ export class SynactaAPIService {
 
     /*
      * This function uses type and id to receive the children of a specific object (container)
+     * This function receives an IFrame
      * @param type
      * @param id
      * @return an observable containing a list of Entity
@@ -121,6 +123,7 @@ export class SynactaAPIService {
     /*
      * This function uses type and id to receive a string list of the types of
      * all present childs
+     * This function receives an IFrame
      * @param type
      * @param id
      * @return an observable which contains a string list
@@ -140,6 +143,7 @@ export class SynactaAPIService {
     /*
      * This function uses type and id to receive all documents of a specific
      * container
+     * This function receives an IFrame
      * @param type
      * @param id
      * @return an observable containing a list of Document
