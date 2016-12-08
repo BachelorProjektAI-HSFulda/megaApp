@@ -144,7 +144,7 @@ export class SynactaAPIService {
      * @param id
      * @return an observable containing a list of Document
      */
-/*     public getDocuments(type: string, id: string): Observable<Document[]> {
+     public getDocuments(type: string, id: string): Observable<Document[]> {
          return this
              .get("Documents", type, id)
              .map((json: IFrame) => {
@@ -154,7 +154,7 @@ export class SynactaAPIService {
                  }
                  return result;
              });
-     }*/
+     }
 
     /*
      * This function uses type and id to receive a string list of all the types
