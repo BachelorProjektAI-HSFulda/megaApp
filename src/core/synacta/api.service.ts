@@ -163,15 +163,15 @@ export class SynactaAPIService {
      * @param id
      * @return an observable which contains a string list
      */
-/*     public getDocTypes(type: string, id: string): Observable<String[]> {
+     public getDocTypes(type: string, id: string): Observable<String[]> {
          return this
              .get("Documents/Types", type, id)
              .map((json: IFrame) => {
-                 let result: Array<Document>;
+                 let result = new Array<String>();
                  for (let value of json.value) {
-                     result.push(deserialize(Document, value));
+                     result.push(new String(value));
                  }
                  return result;
              });
-     }*/
+     }
 }
