@@ -103,7 +103,7 @@ export class SynactaAPIService {
          return this
              .get("Children", type, id)
              .map((json: IFrame) => {
-                 let result: Array<Entity>;
+                 let result = new Array<Entity>();
                  for (let value of json.value) {
                      // TODO - Convert all received objects into a document or a container
                      // depending on inner data
