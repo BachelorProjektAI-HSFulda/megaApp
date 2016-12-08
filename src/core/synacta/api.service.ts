@@ -81,13 +81,13 @@ export class SynactaAPIService {
      * @param type
      * @return an observable containing a list of entities (or even container?)
      */
-     public getByType(type: string): Observable<Entity[]> {
+     public getByType(type: string): Observable<Container[]> {
          return this
              .get(null, type, null)
              .map((json: IFrame) => {
-                let result = new Array<Entity>();
+                let result = new Array<Container>();
                 for (let value of json.value) {
-                    result.push(deserialize(Entity, value));
+                    result.push(deserialize(Container, value));
                 }
                 return result;
              });
