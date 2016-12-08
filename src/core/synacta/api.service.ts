@@ -125,17 +125,17 @@ export class SynactaAPIService {
      * @param id
      * @return an observable which contains a string list
      */
-/*     public getChildTypes(type: string, id: string): Observable<String[]> {
+     public getChildTypes(type: string, id: string): Observable<String[]> {
          return this
              .get("Children/Types", type, id)
              .map((json: IFrame) => {
-                 let result: Array<Entity>;
+                 let result = new Array<String>();
                  for (let value of json.value) {
-                     result.push(deserialize(Entity, value));
+                     result.push(new String(value));
                  }
                  return result;
              });
-     }*/
+     }
 
     /*
      * This function uses type and id to receive all documents of a specific
