@@ -73,7 +73,7 @@ export class SynactaAPIService {
      public getByID(type: string, id: string): Observable<Container> {
          return this
              .get(null, type, id)
-             .map((json: IFrame) => deserialize(Container, json));
+             .map((json) => deserialize(Container, json));
      }
 
     /*
