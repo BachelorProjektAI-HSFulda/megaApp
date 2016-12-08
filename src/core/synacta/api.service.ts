@@ -107,14 +107,11 @@ export class SynactaAPIService {
              .map((json: IFrame) => {
                  let result = new Array<Entity>();
                  for (let value of json.value) {
-                     // TODO - Convert all received objects into a document or a container
-                     // depending on inner data
-                     // if (value[something] == something ) {
-                     //     result.push(deserialize(Container, value));
-                     // } else {
-                     //     result.push(deserialize(Document, value));
-                     // }
-                     result.push(deserialize(Entity, value));
+                     if (value["Name"]) {
+                        result.push(deserialize(Document, value));
+                     } else {
+                        result.push(deserialize(Container, value));
+                     }
                  }
                  return result;
              });
