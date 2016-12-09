@@ -4,7 +4,8 @@
   "homepage": "",
   "private": true,
   "scripts": {
-    "postinstall": "typings install && npm install ionic cordova -g",
+    "postinstall": "typings install",
+    "install-globals": "npm install ionic cordova -g",
     "build": "ionic-app-scripts build",
     "watch": "ionic-app-scripts watch",
     "serve:before": "watch",
