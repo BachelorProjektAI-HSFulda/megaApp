@@ -38,9 +38,6 @@
   },
   "devDependencies": {
     "@ionic/app-scripts": "0.0.39",
-    "@types/core-js": "^0.9.35",
-    "@types/jasmine": "^2.5.38",
-    "@types/node": "0.0.2",
     "concurrently": "^3.1.0",
     "electron-prebuilt": "^1.4.5",
     "typescript": "2.0.6",

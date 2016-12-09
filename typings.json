@@ -1,5 +1,9 @@
 {
   "name": "ionic-app-base",
   "dependencies": {},
-  "globalDependencies": {}
+  "globalDependencies": {
+    "core-js": "registry:dt/core-js#0.0.0+20160914114559",
+    "github-electron": "registry:dt/github-electron#1.4.2+20161012142539",
+    "node": "registry:dt/node#6.0.0+20161019125345"
+  }
 }
