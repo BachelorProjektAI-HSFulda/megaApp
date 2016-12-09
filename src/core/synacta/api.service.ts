@@ -3,6 +3,8 @@ import { Http, Headers } from '@angular/http';
 // TODO shorten with systemjs
 import 'rxjs/add/operator/map';
 
+import { Observable } from 'rxjs/Observable';
+
 import { deserialize } from 'json-typescript-mapper';
 
 import { IFrame, Frame, Entity, Container, Document } from './api.objects';
@@ -24,12 +26,12 @@ export class SynactaAPIService {
      * which contains a json object
      * This method is async which means that your code
      * will continue after calling this method
-     * 
+     *
      * To actually receive data one has to subscribe
      * to this function with a callback to hold the
      * json result.
-     * 
-     * @returns an observable response object
+     *
+     * @returns an observable response object containing a json object
      */
     private get(target: string, type: string, id: string) {
          let headers = new Headers(this.baseHeaders);
@@ -43,13 +45,13 @@ export class SynactaAPIService {
      }
 
     /*
-     * Gets the root of Synacta. It needs no parameters. 
+     * Gets the root of Synacta. It needs no parameters.
      * To use just subscribe to the response of type container
      *  Example:
      *  subscribe(resp => variable:Container = resp);
-     * @return the root container
+     * @return the observable root container
      */
-     public getRoot() {
+    public getRoot(): Observable<Container> {
         // Get the root container which is on the first position
         // of the value array of the root frame (per definition)
         // 1. map the async json response to the IFrame interface
@@ -63,75 +65,113 @@ export class SynactaAPIService {
 
 
     /*
-    function that gets an element out of Synacta by using the ID. 
-    @param type
-    @param id  
-    @return an observable Entity object
-    */
-     public getByID(type: string, id: string) {
+     * This function uses a type and id to receive a specific object (container)
+     * @param type
+     * @param id
+     * @return an observable containing a container object
+     */
+     public getByID(type: string, id: string): Observable<Container> {
          return this
              .get(null, type, id)
-             .map((json: IFrame) => deserialize(Container, json.value[0]));
+             .map((json: IFrame) => deserialize(Container, json));
      }
 
     /*
-    function that gets an element out of Synacta by using the type. 
-    @param type
-    
-    @return an observable Entity object
-    */
-     public getByType(type: string) {
+     * This function uses a type string to receive all objects this specific type
+     * @param type
+     * @return an observable containing a list of entities (or even container?)
+     */
+     public getByType(type: string): Observable<Entity[]> {
          return this
              .get(null, type, null)
-             .map((json: IFrame) => deserialize(Container, json.value[0]));
+             .map((json: IFrame) => {
+                let result = new Array<Entity>();
+                for (let value of json.value) {
+                    result.push(deserialize(Entity, value));
+                }
+                return result;
+             });
      }
 
     /*
-    function that gets all the Children ob an Element using the type and the id. 
-    @param type
-    @param id  
-    @return an observable Entity object
-    */
-     public getChildren(type: string, id:string){
+     * This function uses type and id to receive the children of a specific object (container)
+     * @param type
+     * @param id
+     * @return an observable containing a list of Entity
+     */
+     public getChildren(type: string, id: string): Observable<Entity[]> {
          return this
              .get("Children", type, id)
-             .map((json: IFrame) => deserialize(Container, json.value[0]));
+             .map((json: IFrame) => {
+                 let result: Array<Entity>;
+                 for (let value of json.value) {
+                     // TODO - Convert all received objects into a document or a container
+                     // depending on inner data
+                     // if (value[something] == something ) {
+                     //     result.push(deserialize(Container, value));
+                     // } else {
+                     //     result.push(deserialize(Document, value));
+                     // }
+                     result.push(deserialize(Entity, value));
+                 }
+                 return result;
+             });
      }
 
     /*
-    function that gets the types of all Children by using the type and the id of the container.
-    @param type
-    @param id  
-    @return an observable Entity object
-    */
-     public getChildTypes(type:string, id: string){
+     * This function uses type and id to receive a string list of the types of
+     * all present childs
+     * @param type
+     * @param id
+     * @return an observable which contains a string list
+     */
+/*     public getChildTypes(type: string, id: string): Observable<String[]> {
          return this
              .get("Children/Types", type, id)
-             .map((json: IFrame) => deserialize(Container, json.value[0]));
-     }
+             .map((json: IFrame) => {
+                 let result: Array<Entity>;
+                 for (let value of json.value) {
+                     result.push(deserialize(Entity, value));
+                 }
+                 return result;
+             });
+     }*/
 
     /*
-    function that gets all document in Container using the type and the id of the container. 
-    @param type
-    @param id  
-    @return an observable Entity object
-    */
-     public getDocuments(type:string, id: string){
+     * This function uses type and id to receive all documents of a specific
+     * container
+     * @param type
+     * @param id
+     * @return an observable containing a list of Document
+     */
+/*     public getDocuments(type: string, id: string): Observable<Document[]> {
          return this
              .get("Documents", type, id)
-             .map((json: IFrame) => deserialize(Document, json.value[0]));
-     }
+             .map((json: IFrame) => {
+                 let result: Array<Document>;
+                 for (let value of json.value) {
+                     result.push(deserialize(Document, value));
+                 }
+                 return result;
+             });
+     }*/
 
     /*
-    function that gets the types of the documents in the container using 
-    the type and the id of the container.
-    @param type
-    @param id  
-    @return an observable Entity object
-    */
-     public getDocTypes(type:string, id: string){
+     * This function uses type and id to receive a string list of all the types
+     * of the present documents of the container
+     * @param type
+     * @param id
+     * @return an observable which contains a string list
+     */
+/*     public getDocTypes(type: string, id: string): Observable<String[]> {
          return this
              .get("Documents/Types", type, id)
-             .map((json: IFrame) => deserialize(Document, json.value[0]));
-     }
+             .map((json: IFrame) => {
+                 let result: Array<Document>;
+                 for (let value of json.value) {
+                     result.push(deserialize(Document, value));
+                 }
+                 return result;
+             });
+     }*/
 }

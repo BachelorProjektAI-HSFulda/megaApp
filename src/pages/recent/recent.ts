@@ -4,7 +4,7 @@ import { NavController } from 'ionic-angular';
 
 import { SynactaAPIService } from '../../core/synacta/api.service';
 
-//import {Fubar} from './fubar';
+import { Favorits } from '../../core/storage/favorits';
 
 @Component({
   selector: 'page-recent',
@@ -18,7 +18,8 @@ export class RecentPage {
   data01;
   data02;
 
-  constructor(public navCtrl: NavController, synAPI: SynactaAPIService) {
+  constructor(public navCtrl: NavController, synAPI: SynactaAPIService, private favList: Favorits) {
+    favList.addTest("Vorgang", "32fae6ab-4ab1-48cc-8292-5fbf39258345");
     // TODO proper error and completion handling without console.log
     // TODO parse the response object in the right way
     synAPI.getRoot().subscribe(

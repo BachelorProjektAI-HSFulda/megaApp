@@ -4,6 +4,7 @@
 
 <content>
     <!--Creating a new List -->
+
     <ion-list no-lines>
         <h2>
             Nutzerfreundlichkeit
@@ -30,8 +31,13 @@
             <h3> Favoritenliste </h3>
             <ion-icon name="create" item-right></ion-icon>
         </ion-item>
-
-
+		<ion-item>
+			<ion-label>Startseite</ion-label>
+			<ion-select [(ngModel)]="Startseite">
+				<ion-option name="star-outline">Favorites</ion-option>
+				<ion-option name="timer">Recent</ion-option>
+			</ion-select>
+		</ion-item>	
         <h2>
             Look and Feel
         </h2>

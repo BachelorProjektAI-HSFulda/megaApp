@@ -9,48 +9,46 @@ import { JsonProperty } from 'json-typescript-mapper';
 export class GenericBaseEntity {
     Properties: any = void(0);
     PropertyInfos: any = void(0);
-    ID: string;
-    ObjectType: string;
-    ParentID: string;
-    ParentType: string;
-    IsVirtual: boolean;
-    Frozen: boolean;
-    HasChild: boolean;
-    CheckedOutBy: string;
-    Version: string;
-    Hash: string;
-
+    ID: string = void(0);
+    ObjectType: string = void(0);
+    ParentID: string = void(0);
+    ParentType: string = void(0);
+    IsVirtual: boolean = void(0);
+    Frozen: boolean = void(0);
+    HasChild: boolean = void(0);
+    CheckedOutBy: string = void(0);
+    Version: string = void(0);
+    Hash: string = void(0);
 
     // API Specific Fields
     @JsonProperty('@odata.readLink')
-    ReadLink: string; //link of this entity in Synacta
+    ReadLink: string = void(0); //link of this entity in Synacta
     @JsonProperty('@odata.nextLink')
-    NextLink: string; //TODO
+    NextLink: string = void(0); //TODO
     @JsonProperty('Child@odata.navigationLink')
-    ChildLink: string; //links to this entity's children
+    ChildLink: string = void(0); //links to this entity's children
     @JsonProperty('FullODataLink@odata.navigationLink')
-    FullODataLink: string; //links to complete content of this entity
+    FullODataLink: string = void(0); //links to complete content of this entity
     @JsonProperty('StandardODataLink@odata.navigationLink')
-    StandardODataLink: string; //TODO
+    StandardODataLink: string = void(0); //TODO
     @JsonProperty('NoneODataLink@odata.navigationLink')
-    NoneODataLink: string; //TODO
+    NoneODataLink: string = void(0); //TODO
     @JsonProperty('Parent@odata.navigationLink')
-    ParentLink: string; //links to parent of this entity
+    ParentLink: string = void(0); //links to parent of this entity
     @JsonProperty('@odata.context')
-    Context: string; //links to type folder of this entity
+    Context: string = void(0); //links to type folder of this entity
     @JsonProperty('@odata.count')
-    Count: number; //what is this for?
+    Count: number = void(0); //shows the amount of elements within this entity
     @JsonProperty('Document@odata.navigationLink')
-    Document: string; //links to documents within this entity
+    Document: string = void(0); //links to documents within this entity
     @JsonProperty('@odata.editLink')
-    EditLink: string; //TODO
+    EditLink: string = void(0); //TODO
     @JsonProperty('@odata.etag')
-    ETag: string; //TODO
+    ETag: string = void(0); //TODO
     @JsonProperty('@odata.metadataEtag')
-    MetadataETag: string; //TODO
+    MetadataETag: string = void(0); //TODO
     @JsonProperty('@odata.PicklistLink')
-    PicklistLink: string; //TODO
-
+    PicklistLink: string = void(0); //TODO
 }
 
 /**
@@ -59,7 +57,6 @@ export class GenericBaseEntity {
 export class Entity {
     Properties: any;
     PropertyInfos: any;
-
     ID: string;
     ObjectType: string;
     ParentID: string;
@@ -67,25 +64,35 @@ export class Entity {
     Frozen: boolean;
     Hash: string;
 
-
     // API Specific Fields
     @JsonProperty('@odata.readLink')
     ReadLink: string;
     @JsonProperty('FullODataLink@odata.navigationLink')
     FullODataLink: string;
+
+    constructor() {
+        this.Properties = void(0);
+        this.PropertyInfos = void(0);
+        this.ID = void(0);
+        this.ObjectType = void(0);
+        this.ParentID = void(0);
+        this.Frozen = void(0);
+        this.Hash = void(0);
+        this.ReadLink = void(0);
+        this.FullODataLink = void(0);
+    }
 }
 
 /**
- * Under a simple interface this object 
+ * Under a simple interface this object
  * is a transmission frame with only a
  * value array containing any type
- * 
+ *
  * It should be used to access the raw json
  * data that is within the frame
  */
 export interface IFrame {
     value: any[];
-
 }
 
 /**
@@ -105,6 +112,13 @@ export class Frame {
     @JsonProperty('@odata.editLink')
     EditLink: string;
 
+    constructor() {
+        this.value = void(0);
+        this.Context = void(0);
+        this.Count = void(0);
+        this.Document = void(0);
+        this.EditLink = void(0);
+    }
 }
 
 /**
@@ -122,36 +136,46 @@ export class Container extends Entity {
     @JsonProperty('Document@odata.navigationLink')
     Document: string;
 
+    constructor() {
+        super();
+        this.IsVirtual = void(0);
+        this.HasChild = void(0);
+        this.Context = void(0);
+        this.ChildLink = void(0);
+        this.Document = void(0);
+    }
 }
 
 /**
  * This object provides document specific properties and methods
  */
 export class Document extends Entity {
-
     CheckedOutBy: string;
     Version: string;
+    
+    constructor() {
+        super();
+        this.CheckedOutBy = void(0);
+        this.Version = void(0);
+    }
 }
 
 /**
  * This object contains organization specific properties
  */
  export class Organization {
-
-    ID: string;
-    Name: string;
-    ParentID: string;
-    ParentName: string;
-    HasChildren: boolean;
-
+    ID: string = void(0);
+    Name: string = void(0);
+    ParentID: string = void(0);
+    ParentName: string = void(0);
+    HasChildren: boolean = void(0);
 
     @JsonProperty('@odata.readLink')
-    ReadLink: string;
+    ReadLink: string = void(0);
     @JsonProperty('Child@odata.navigationLink')
-    ChildLink: string;
+    ChildLink: string = void(0);
     @JsonProperty('FullODataLink@odata.navigationLink')
-    FullODataLink: string;
+    FullODataLink: string = void(0);
     @JsonProperty('Parent@odata.navigationLink')
-    ParentLink: string;
-
+    ParentLink: string = void(0);
 }
