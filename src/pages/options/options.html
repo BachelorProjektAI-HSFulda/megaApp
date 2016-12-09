@@ -1,27 +1,39 @@
-<ion-header>
-    <ion-navbar>
-        <ion-title>
-            Options
-        </ion-title>
-    </ion-navbar>
-</ion-header>
+<h1>
+    Options
+</h1>
 
-<ion-content padding>
+<content>
     <!--Creating a new List -->
-        <ion-list>
-            <ion-list-header>
-                Nutzerfreundlichkeit
-            </ion-list-header>
-            <ion-item>
-                <ion-icon name="leaf" item-left></ion-icon>
-                    Startseite
-                <ion-icon name="rose" item-right></ion-icon>
-            </ion-item>
-            <ion-item>
-                <ion-icon name="leaf" item-left></ion-icon>
-                    Favoritenliste
-                <ion-icon name="rose" item-right></ion-icon>
-            </ion-item>  
-        </ion-list>
-		
-</ion-content>
+    <ion-list no-lines>
+        <h2>
+            Nutzerfreundlichkeit
+        </h2>
+        <ion-item>
+            <ion-icon name="home" item-left></ion-icon>
+            <h3> Startseite </h3>
+            <ion-icon name="create" item-right></ion-icon>
+        </ion-item>
+        <ion-item>
+            <ion-icon name="star" item-left></ion-icon>
+            <h3> Favoritenliste </h3>
+            <ion-icon name="create" item-right></ion-icon>
+        </ion-item>
+
+
+        <h2>
+            Look and Feel
+        </h2>
+        <ion-item>
+            <ion-icon name="color-fill" item-left></ion-icon>
+            <h3> Hintergrundfarbe </h3>
+            <ion-icon name="create" item-right></ion-icon>
+        </ion-item>
+        <ion-item>
+            <ion-icon name="color-palette" item-left></ion-icon>
+            <h3> Akzentfarbe </h3>
+            <ion-icon name="create" item-right></ion-icon>
+        </ion-item>
+
+    </ion-list>
+
+</content>

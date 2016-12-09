@@ -31,6 +31,16 @@ h1 {
     color: color($colors, type);
 }
 
+h2 {
+    color: color($buttonColor, first);
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 50px;
+    height: 50px;
+    padding: 0px 20px;
+    margin: 0px;
+}
+
 content {
     background-color: color($colors, primary);
     position: absolute;
@@ -50,9 +60,18 @@ ion-item * {
     color: color($colors, type);
 }
 
-ion-item h2,
+.item-md {
+    padding-left: 20px;
+}
+
+.item-md ion-icon[item-left],
+.item-md ion-icon[item-right] {
+    margin: 0px;
+}
+
+ion-item h3,
 ion-item p,
-.item-md h2,
+.item-md h3,
 .item-md p {
     display: inline-block;
     line-height: 30px;
@@ -64,8 +83,8 @@ ion-item p,
     margin: 0;
 }
 
-ion-item h2,
-.item-md h2 {
+ion-item h3,
+.item-md h3 {
     padding-right: 0px;
     padding-left: 0px;
     color: color($colors, type);
@@ -77,6 +96,7 @@ ion-item ion-icon {
     width: 25px;
     margin: 10px 0px;
     padding: 10px;
+    padding-left: 0px;
 }
 
 ion-item ion-icon:before {
@@ -130,11 +150,13 @@ ion-item-options,
     background-color: color($colors, primary);
 }
 
-.tabs-md .tab-button {
+.tabs-md .tab-button,
+.tabs-md .tab-button:hover {
     color: color($colors, secondaryType);
 }
 
-.tabs-md .tab-button[aria-selected="true"] {
+.tabs-md .tab-button[aria-selected="true"],
+.tabs-md .tab-button[aria-selected="true"]:hover {
     color: color($buttonColor, first);
 }
 
