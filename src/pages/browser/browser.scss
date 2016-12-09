@@ -67,7 +67,7 @@ ion-tab {
     z-index: -1;
     transform: translateX(-100px);
     opacity: 0;
-    transition: all .5s ease;
+    transition: all .35s ease;
 }
 
 ion-tab.show-tab {
@@ -75,7 +75,7 @@ ion-tab.show-tab {
     transform: translateX(0px);
     opacity: 1;
     transition: all .0s ease;
-    animation: tabTrans .5s .7s ease backwards;
+    animation: tabTrans .35s .5s ease backwards;
 }
 
 ion-item,
