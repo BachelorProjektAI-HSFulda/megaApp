@@ -10,6 +10,7 @@
 }
 
 page-browser {
+    /* Page specific */
     .superTitle,
     .superTitle * {
         font-size: 5rem;
@@ -30,6 +31,16 @@ h1 {
     color: color($colors, type);
 }
 
+h2 {
+    color: color($buttonColor, first);
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 50px;
+    height: 50px;
+    padding: 0px 20px;
+    margin: 0px;
+}
+
 content {
     background-color: color($colors, primary);
     position: absolute;
@@ -41,30 +52,157 @@ content {
     color: color($colors, type);
 }
 
-.no-border,
-.no-border * {
-    border: none;
+@keyframes tabTrans {
+    0% {
+        transform: translateX(100px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0px);
+        opacity: 1;
+    }
+}
+
+ion-tab {
+    z-index: -1;
+    transform: translateX(-100px);
+    opacity: 0;
+    transition: all .5s ease;
+}
+
+ion-tab.show-tab {
+    z-index: 1;
+    transform: translateX(0px);
+    opacity: 1;
+    transition: all .0s ease;
+    animation: tabTrans .5s .7s ease backwards;
 }
 
 ion-item,
 ion-item * {
     background-color: color($colors, primary);
+    padding: 0px 5px;
+    height: 50px;
+    color: color($colors, type);
 }
 
-ion-item h2 {
-    padding-right: 30px;
+.item-md {
+    padding-left: 20px;
 }
 
-ion-item h2,
-ion-item p {
+.item-md ion-icon[item-left],
+.item-md ion-icon[item-right] {
+    margin: 0px;
+}
+
+ion-item h3,
+ion-item p,
+.item-md h3,
+.item-md p {
     display: inline-block;
-    line-height: 2rem;
-    height: 2rem;
+    line-height: 30px;
+    height: 50px;
+    padding: 10px;
+    font-size: 15px;
     vertical-align: top;
+    color: color($buttonColor, first);
+    margin: 0;
+}
+
+ion-item h3,
+.item-md h3 {
+    padding-right: 0px;
+    padding-left: 0px;
+    color: color($colors, type);
+    font-weight: bold;
+}
+
+ion-item ion-icon {
+    height: 50px;
+    width: 25px;
+    margin: 10px 0px;
+    padding: 10px;
+    padding-left: 0px;
+}
+
+ion-item ion-icon:before {
+    font-size: 15px;
+    line-height: 30px;
 }
 
 .action {
     display: inline-block;
-    width: 200px;
-    background-color: color($colors, secondary);
+    position: relative;
+    padding: 5px;
+    padding-top: 20px;
+    height: 50px;
+    min-width: 50px;
+    line-height: 20px;
+    background-color: color($buttonColor, first);
+    font-size: 0px;
+    line-height: 30px;
+    text-align: center;
+    color: color($colors, negType);
+}
+
+.action ion-icon {
+    position: absolute;
+    top: 0px;
+    font-size: 15px;
+    padding-top: 10px;
+    line-height: 30px;
+    left: 0%;
+    width: 100%;
+}
+
+.action:nth-child(1) {
+    background-color: color($buttonColor, first);
+}
+
+.action:nth-child(2) {
+    background-color: color($buttonColor, second);
+}
+
+.action:nth-child(3) {
+    background-color: color($buttonColor, third);
+}
+
+ion-item-options,
+.action:nth-child(4) {
+    background-color: color($buttonColor, fourth);
+}
+
+.tabs-md .tabbar {
+    background-color: color($colors, primary);
+}
+
+.tabs-md .tab-button,
+.tabs-md .tab-button:hover {
+    color: color($colors, secondaryType);
+}
+
+.tabs-md .tab-button[aria-selected="true"],
+.tabs-md .tab-button[aria-selected="true"]:hover {
+    color: color($buttonColor, first);
+}
+
+
+/***************************RESETS****************************/
+
+.list-md>.item-block:first-child,
+.list-md>.item-wrapper:first-child .item-block {
+    border: none;
+}
+
+.list-md>.item-block:last-child,
+.list-md>.item-wrapper:last-child .item-block {
+    border: none;
+}
+
+.md ion-item .button-effect {
+    display: none;
+}
+
+.item-md ion-icon[item-left]+.item-inner {
+    margin-left: 0;
 }
