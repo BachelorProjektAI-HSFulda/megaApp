@@ -52,6 +52,32 @@ content {
     color: color($colors, type);
 }
 
+@keyframes tabTrans {
+    0% {
+        transform: translateX(100px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0px);
+        opacity: 1;
+    }
+}
+
+ion-tab {
+    z-index: -1;
+    transform: translateX(-100px);
+    opacity: 0;
+    transition: all .5s ease;
+}
+
+ion-tab.show-tab {
+    z-index: 1;
+    transform: translateX(0px);
+    opacity: 1;
+    transition: all .0s ease;
+    animation: tabTrans .5s .7s ease backwards;
+}
+
 ion-item,
 ion-item * {
     background-color: color($colors, primary);
