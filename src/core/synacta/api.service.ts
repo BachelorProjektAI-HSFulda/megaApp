@@ -73,21 +73,22 @@ export class SynactaAPIService {
      public getByID(type: string, id: string): Observable<Container> {
          return this
              .get(null, type, id)
-             .map((json: IFrame) => deserialize(Container, json));
+             .map((json) => deserialize(Container, json));
      }
 
     /*
-     * This function uses a type string to receive all objects this specific type
+     * This function uses a type string to receive all objects of this specific type
+     * This function receives an IFrame
      * @param type
      * @return an observable containing a list of entities (or even container?)
      */
-     public getByType(type: string): Observable<Entity[]> {
+     public getByType(type: string): Observable<Container[]> {
          return this
              .get(null, type, null)
              .map((json: IFrame) => {
-                let result = new Array<Entity>();
+                let result = new Array<Container>();
                 for (let value of json.value) {
-                    result.push(deserialize(Entity, value));
+                    result.push(deserialize(Container, value));
                 }
                 return result;
              });
@@ -95,6 +96,7 @@ export class SynactaAPIService {
 
     /*
      * This function uses type and id to receive the children of a specific object (container)
+     * This function receives an IFrame
      * @param type
      * @param id
      * @return an observable containing a list of Entity
@@ -103,16 +105,13 @@ export class SynactaAPIService {
          return this
              .get("Children", type, id)
              .map((json: IFrame) => {
-                 let result: Array<Entity>;
+                 let result = new Array<Entity>();
                  for (let value of json.value) {
-                     // TODO - Convert all received objects into a document or a container
-                     // depending on inner data
-                     // if (value[something] == something ) {
-                     //     result.push(deserialize(Container, value));
-                     // } else {
-                     //     result.push(deserialize(Document, value));
-                     // }
-                     result.push(deserialize(Entity, value));
+                     if (value["Name"]) {
+                        result.push(deserialize(Document, value));
+                     } else {
+                        result.push(deserialize(Container, value));
+                     }
                  }
                  return result;
              });
@@ -121,40 +120,42 @@ export class SynactaAPIService {
     /*
      * This function uses type and id to receive a string list of the types of
      * all present childs
+     * This function receives an IFrame
      * @param type
      * @param id
      * @return an observable which contains a string list
      */
-/*     public getChildTypes(type: string, id: string): Observable<String[]> {
+     public getChildTypes(type: string, id: string): Observable<String[]> {
          return this
              .get("Children/Types", type, id)
              .map((json: IFrame) => {
-                 let result: Array<Entity>;
+                 let result = new Array<String>();
                  for (let value of json.value) {
-                     result.push(deserialize(Entity, value));
+                     result.push(new String(value));
                  }
                  return result;
              });
-     }*/
+     }
 
     /*
      * This function uses type and id to receive all documents of a specific
      * container
+     * This function receives an IFrame
      * @param type
      * @param id
      * @return an observable containing a list of Document
      */
-/*     public getDocuments(type: string, id: string): Observable<Document[]> {
+     public getDocuments(type: string, id: string): Observable<Document[]> {
          return this
              .get("Documents", type, id)
              .map((json: IFrame) => {
-                 let result: Array<Document>;
+                 let result = new Array<Document>();
                  for (let value of json.value) {
                      result.push(deserialize(Document, value));
                  }
                  return result;
              });
-     }*/
+     }
 
     /*
      * This function uses type and id to receive a string list of all the types
@@ -163,15 +164,15 @@ export class SynactaAPIService {
      * @param id
      * @return an observable which contains a string list
      */
-/*     public getDocTypes(type: string, id: string): Observable<String[]> {
+     public getDocTypes(type: string, id: string): Observable<String[]> {
          return this
              .get("Documents/Types", type, id)
              .map((json: IFrame) => {
-                 let result: Array<Document>;
+                 let result = new Array<String>();
                  for (let value of json.value) {
-                     result.push(deserialize(Document, value));
+                     result.push(new String(value));
                  }
                  return result;
              });
-     }*/
+     }
 }
