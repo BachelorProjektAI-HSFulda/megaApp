@@ -149,7 +149,7 @@ export class SynactaAPIService {
          return this
              .get("Documents", type, id)
              .map((json: IFrame) => {
-                 let result: Array<Document>;
+                 let result = new Array<Document>();
                  for (let value of json.value) {
                      result.push(deserialize(Document, value));
                  }
