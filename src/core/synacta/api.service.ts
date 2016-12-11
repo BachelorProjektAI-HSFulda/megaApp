@@ -34,11 +34,20 @@ export class SynactaAPIService {
      * @returns an observable response object containing a json object
      */
     private get(target: string, type: string, id: string) {
-         let headers = new Headers(this.baseHeaders);
          let endpoint = BASE_URL;
          endpoint = (type)? endpoint + type : endpoint;
          endpoint = (id)? endpoint + "/" +id : endpoint;
          endpoint = (target) ? endpoint + target : endpoint;
+         return this.getByLink(endpoint);
+     }
+
+     /*
+      * Receive an object by navigation link
+      * @param endpoint
+      * @returns an observable response object containing a json object
+      */
+     private getByLink(endpoint: string) {
+         let headers = new Headers(this.baseHeaders);
          return this.http
              .get(endpoint, {headers: headers})
              .map(response => response.json());
