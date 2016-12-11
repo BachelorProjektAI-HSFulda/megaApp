@@ -95,15 +95,20 @@ export class SynactaAPIService {
      }
 
     /*
-     * This function uses type and id to receive the children of a specific object (container)
+     * This function receives N child elements of a specific entity object,
+     * starting at offset X.
+     * Default is offset 0 and num of elements 20.
      * This function receives an IFrame
-     * @param type
-     * @param id
+     * @param container
+     * @param num
+     * @param offset
      * @return an observable containing a list of Entity
      */
-     public getChildren(type: string, id: string): Observable<Entity[]> {
+     public getChildren(container: Container, num: Number = 20, offset: Number = 0): Observable<Entity[]> {
+         // TODO - Implement num and offset
+         // TODO - Implement hasChild?
          return this
-             .get("Children", type, id)
+             .get("Children", container.ObjectType, container.ID)
              .map((json: IFrame) => {
                  let result = new Array<Entity>();
                  for (let value of json.value) {
@@ -121,13 +126,12 @@ export class SynactaAPIService {
      * This function uses type and id to receive a string list of the types of
      * all present childs
      * This function receives an IFrame
-     * @param type
-     * @param id
+     * @param container
      * @return an observable which contains a string list
      */
-     public getChildTypes(type: string, id: string): Observable<String[]> {
+     public getChildTypes(container: Container): Observable<String[]> {
          return this
-             .get("Children/Types", type, id)
+             .get("Children/Types", container.ObjectType, container.ID)
              .map((json: IFrame) => {
                  let result = new Array<String>();
                  for (let value of json.value) {
@@ -141,13 +145,12 @@ export class SynactaAPIService {
      * This function uses type and id to receive all documents of a specific
      * container
      * This function receives an IFrame
-     * @param type
-     * @param id
+     * @param container
      * @return an observable containing a list of Document
      */
-     public getDocuments(type: string, id: string): Observable<Document[]> {
+     public getDocuments(container: Container): Observable<Document[]> {
          return this
-             .get("Documents", type, id)
+             .get("Documents", container.ObjectType, container.ID)
              .map((json: IFrame) => {
                  let result = new Array<Document>();
                  for (let value of json.value) {
@@ -160,13 +163,12 @@ export class SynactaAPIService {
     /*
      * This function uses type and id to receive a string list of all the types
      * of the present documents of the container
-     * @param type
-     * @param id
+     * @param container
      * @return an observable which contains a string list
      */
-     public getDocTypes(type: string, id: string): Observable<String[]> {
+     public getDocTypes(container: Container): Observable<String[]> {
          return this
-             .get("Documents/Types", type, id)
+             .get("Documents/Types", container.ObjectType, container.ID)
              .map((json: IFrame) => {
                  let result = new Array<String>();
                  for (let value of json.value) {
