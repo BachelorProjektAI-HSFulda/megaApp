@@ -1,20 +1,5 @@
 {
-  "name": "megaApp",
   "author": "Team1",
-  "homepage": "",
-  "private": true,
-  "scripts": {
-    "postinstall": "typings install && npm install ionic cordova -g",
-    "build": "ionic-app-scripts build",
-    "watch": "ionic-app-scripts watch",
-    "serve:before": "watch",
-    "emulate:before": "build",
-    "deploy:before": "build",
-    "build:before": "build",
-    "run:before": "build",
-    "typings": "typings",
-    "tsc": "tsc"
-  },
   "dependencies": {
     "@angular/common": "2.1.1",
     "@angular/compiler": "2.1.1",
@@ -42,5 +27,23 @@
     "electron-prebuilt": "^1.4.5",
     "typescript": "2.0.6",
     "typings": "^1.5.0"
-  }
+  },
+  "homepage": "",
+  "main": "electron_setup.js",
+  "name": "megaApp",
+  "private": true,
+  "scripts": {
+    "postinstall": "typings install && npm install ionic cordova -g",
+    "build": "ionic-app-scripts build",
+    "watch": "ionic-app-scripts watch",
+    "serve:before": "watch",
+    "emulate:before": "build",
+    "deploy:before": "build",
+    "build:before": "build",
+    "run:before": "build",
+    "typings": "typings",
+    "tsc": "tsc",
+    "start" : "electron ."
+  },
+  "version": "1.4.11"
 }
