@@ -186,4 +186,21 @@ export class SynactaAPIService {
                  return result;
              });
      }
+
+    /*
+     * This function uses a type and an id to receive the parent of a specific
+     * entity
+     * @param entity
+     * @return an observable containing a container object
+     */
+     public getParent(entity: Entity): Observable<Container> {
+         let result;
+         if(entity.Properties.Name) {
+             result = this.getByID(entity.Properties.Name,entity.ParentID);
+         }
+         else {
+             result = this.getByID(entity.Properties.Type,entity.ParentID);
+         }
+         return result;
+    }
 }
