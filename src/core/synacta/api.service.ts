@@ -195,6 +195,9 @@ export class SynactaAPIService {
      */
      public getParent(entity: Entity): Observable<Container> {
          let result;
+        /* Properties handled as
+         * JSON ? -> Maybe incorrect
+         */
          if(entity.Properties.Name) {
              result = this.getByID(entity.Properties.Name,entity.ParentID);
          }
@@ -202,5 +205,10 @@ export class SynactaAPIService {
              result = this.getByID(entity.Properties.Type,entity.ParentID);
          }
          return result;
+        /* Properties handled as
+         * Array
+         */
+         //return this
+         //   .getByID(entity.Properties[0],entity.ParentID);
     }
 }
