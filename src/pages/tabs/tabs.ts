@@ -20,5 +20,4 @@ export class TabsPage {
   constructor(/*public NavController:NavController*/) {
 	//NavController.setRoot(OptionsPage);
   }
-  
 }
