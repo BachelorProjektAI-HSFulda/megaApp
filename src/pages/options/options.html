@@ -5,7 +5,7 @@
 <content>
     <!--Creating a new List -->
 
-    <ion-list no-lines radio-group>
+    <ion-list no-lines radio-group [(ngModel)]="homepage">
         <h2>
             Nutzerfreundlichkeit
         </h2>
@@ -26,7 +26,7 @@
             <ion-label>Browser</ion-label>
             <ion-radio value="browser"></ion-radio>
         </ion-item>
-        </ion-list>
+    </ion-list>
 <!--        <ion-item>
             <ion-icon name="star" item-left></ion-icon>
             <h3> Favoritenliste </h3>
@@ -39,10 +39,11 @@
 				<ion-option name="timer">Recent</ion-option>
 			</ion-select>
 		</ion-item>	 -->
-    <ion-list no-lines radio-group>
+
         <h2>
             Look and Feel
         </h2>
+    <ion-list no-lines radio-group [(ngModel)]="backgroundColor">
         <ion-item>
             <ion-icon name="color-fill" item-left></ion-icon>
             <h3> Hintergrundfarbe </h3>
@@ -61,7 +62,7 @@
             <ion-radio value="white"></ion-radio>
         </ion-item>
     </ion-list>
-    <ion-list no-lines radio-group>
+    <ion-list no-lines radio-group [(ngModel)]="accentColor">
         <ion-item>
             <ion-icon name="color-palette" item-left></ion-icon>
             <h3> Akzentfarbe </h3>
@@ -80,5 +81,4 @@
             <ion-radio value="white"></ion-radio>
         </ion-item>
     </ion-list>
-
 </content>
