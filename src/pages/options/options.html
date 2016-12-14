@@ -5,7 +5,7 @@
 <content>
     <!--Creating a new List -->
 
-    <ion-list no-lines>
+    <ion-list no-lines radio-group>
         <h2>
             Nutzerfreundlichkeit
         </h2>
@@ -26,7 +26,8 @@
             <ion-label>Browser</ion-label>
             <ion-radio value="browser"></ion-radio>
         </ion-item>
-        <ion-item>
+        </ion-list>
+<!--        <ion-item>
             <ion-icon name="star" item-left></ion-icon>
             <h3> Favoritenliste </h3>
             <ion-icon name="create" item-right></ion-icon>
@@ -37,7 +38,8 @@
 				<ion-option name="star-outline">Favorites</ion-option>
 				<ion-option name="timer">Recent</ion-option>
 			</ion-select>
-		</ion-item>	
+		</ion-item>	 -->
+    <ion-list no-lines radio-group>
         <h2>
             Look and Feel
         </h2>
@@ -58,6 +60,8 @@
             <ion-label>Weiß</ion-label>
             <ion-radio value="white"></ion-radio>
         </ion-item>
+    </ion-list>
+    <ion-list no-lines radio-group>
         <ion-item>
             <ion-icon name="color-palette" item-left></ion-icon>
             <h3> Akzentfarbe </h3>

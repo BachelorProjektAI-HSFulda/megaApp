@@ -1,4 +1,4 @@
-*,
+/**,
 *:after,
 *:before {
     box-shadow: none;
@@ -10,7 +10,7 @@
 }
 
 page-browser {
-    /* Page specific */
+
     .superTitle,
     .superTitle * {
         font-size: 5rem;
@@ -187,8 +187,6 @@ ion-item-options,
 }
 
 
-/***************************RESETS****************************/
-
 .list-md>.item-block:first-child,
 .list-md>.item-wrapper:first-child .item-block {
     border: none;
@@ -209,4 +207,4 @@ ion-item-options,
 
 .tabbar {
     opacity: 1;
-}
+}*/
