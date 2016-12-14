@@ -22,7 +22,19 @@ export class BrowserPage {
 		response => this.daten = response,
 		error => console.log(error),
 		() => console.log("RootChildren", this.daten));
+	console.log("Test1",this.daten);
+	console.log("Test1",this.kram);
+	console.log("Test1",this.daten);
+	console.log("Test1",this.kram);
+	console.log("Test1",this.daten);
+	console.log("Test1",this.kram);
+	console.log("Test1",this.daten);
+	console.log("Test1",this.kram);
+	console.log("Test1",this.daten);
+	console.log("Test1",this.kram);
 	this.kram = this.synAPI.getChildren(this.daten);
+	
+	console.log("Children", this.kram);
 	}
  
 }
