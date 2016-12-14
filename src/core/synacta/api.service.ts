@@ -211,4 +211,24 @@ export class SynactaAPIService {
          //return this
          //   .getByID(entity.Properties[0],entity.ParentID);
     }
+
+    /*
+     * This function uses type and id (The organisation identifier) to receive a string list of the types of
+     * all present childs
+     * This function receives an IFrame
+     * @param container
+     * @return an observable which contains a string list
+     */
+    public getByOrgID(id :string, type: string): Observable<Container[]> {
+          return this
+              .getByLink('https://synacta.agile-is.de/_api/org/'+ id + '/' + type)
+              .map((json: IFrame) => {
+                 let result = new Array<Container>();
+                 for (let value of json.value) {
+                     result.push(deserialize(Container, value));
+                 }
+                 return result;
+              });
+      }
+
 }
