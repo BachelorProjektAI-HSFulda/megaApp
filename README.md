@@ -14,6 +14,7 @@ Currently only the Ionic mobile part is setup and can be used for development.
 - Make sure to have Node 6.x or 7.x at least
 
 - `npm install`
+- `npm run install-globals` 
 - `ionic serve`
 
 **Note**: Only verified on webkit based browsers.

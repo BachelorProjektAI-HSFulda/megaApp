@@ -5,7 +5,29 @@
 <content>
     <!--Creating a new List -->
     <ion-list no-lines>
-
+		<ion-item-sliding *ngFor="let item of kram">
+            <ion-item>
+                <!-- Item with Avatar/Icon-->
+                <ion-icon name="paper" item-left></ion-icon>
+                <h3>{{item.Properties.ObjectType}}</h3>
+                <p>Aktenzeichen: {{item.Properties.ID}}</p>
+            </ion-item>
+            <!-- Options for Items in this part-->
+            <ion-item-options side="left">
+                <div class="action">
+                    <ion-icon name="create"></ion-icon>
+                    Bearbeiten
+                </div>
+                <div class="action">
+                    <ion-icon name="star"></ion-icon>
+                    Favorit
+                </div>
+                <div class="action">
+                    <ion-icon name="document"></ion-icon>
+                    Öffnen
+                </div>
+            </ion-item-options>
+        </ion-item-sliding>
         <!-- Set slideable Items-->
         <ion-item-sliding>
             <ion-item>
