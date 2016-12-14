@@ -213,10 +213,11 @@ export class SynactaAPIService {
     }
 
     /*
-     * This function uses type and id (The organisation identifier) to receive a string list of the types of
-     * all present childs
+     * This function uses type and id (The organisation identifier) to receive the
+     * data from the organisation
      * This function receives an IFrame
-     * @param container
+     * @param id (organisation)
+     * @param type
      * @return an observable which contains a string list
      */
     public getByOrgID(id :string, type: string): Observable<Container[]> {
