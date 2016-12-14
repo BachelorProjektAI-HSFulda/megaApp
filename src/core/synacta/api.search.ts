@@ -15,6 +15,7 @@ export class Search {
   dataVorgang : Container[];
   demoUser:User;
 
+    //Creating a demoUser
     constructor(private synAPI: SynactaAPIService){
       this.demoUser  ={
         name: "Test",
@@ -22,6 +23,12 @@ export class Search {
       };
     }
 
+    /*
+    * This function uses a type and an id (organization id) of a demoUser to receive all necessary
+    * data. Then search the data for entities matching the specified search string
+    * @param searchString
+    * @return an observable containing a container object
+    */
     public search(searchString:string):Container[]{
       let searchResults = new Array<Container>();
 
@@ -53,7 +60,10 @@ export class Search {
       this.data = searchResults;
       return searchResults;
     }
-
+    /*
+    * returns the last correct search
+    * @return an observable containing a container object
+    */
     public getResults():Container[]{
       return this.data;
     }
