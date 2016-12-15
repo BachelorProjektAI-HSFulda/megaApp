@@ -37,7 +37,7 @@ export class SynactaAPIService {
          let endpoint = BASE_URL;
          endpoint = (type)? endpoint + type : endpoint;
          endpoint = (id)? endpoint + "/" +id : endpoint;
-         endpoint = (target) ? endpoint + target : endpoint;
+         endpoint = (target) ? endpoint + "/" +target : endpoint;
          return this.getByLink(endpoint);
      }
 

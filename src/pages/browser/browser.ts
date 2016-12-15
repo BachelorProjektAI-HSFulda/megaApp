@@ -6,35 +6,34 @@ import { Favorits } from '../../core/storage/favorits';
 
 import { SynactaAPIService } from '../../core/synacta/api.service';
 
+import { Container } from '../../core/synacta/api.objects';
+
 @Component({
   selector: 'page-browser',
   templateUrl: 'browser.html'
 })
 export class BrowserPage {
-	daten;
+	daten:Container;
 	kram;
+  test;
   constructor(public navCtrl: NavController, private favList: Favorits, private synAPI: SynactaAPIService) {
     favList.addTest("Vorgang", "32fae6ab-4ab1-48cc-8292-5fbf39258345");
     favList.addTest("Vorgang", "6b35df93-9e11-4796-b627-27e2abf0f3bd");
-	
-	
-	this.synAPI.getRoot().subscribe(
+
+
+	synAPI.getRoot().subscribe(
 		response => this.daten = response,
 		error => console.log(error),
-		() => console.log("RootChildren", this.daten));
-	console.log("Test1",this.daten);
-	console.log("Test1",this.kram);
-	console.log("Test1",this.daten);
-	console.log("Test1",this.kram);
-	console.log("Test1",this.daten);
-	console.log("Test1",this.kram);
-	console.log("Test1",this.daten);
-	console.log("Test1",this.kram);
-	console.log("Test1",this.daten);
-	console.log("Test1",this.kram);
-	this.kram = this.synAPI.getChildren(this.daten);
-	
-	console.log("Children", this.kram);
-	}
- 
+		() => {
+        console.log("Roots bloody Rooots", this.daten);
+        synAPI.getChildren(this.daten).subscribe(
+          response => this.kram = response,
+          error => console.log(error),
+          () => console.log("kids", this.kram)
+
+        )
+
+    });
+
+  }
 }
