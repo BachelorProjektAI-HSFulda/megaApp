@@ -14,20 +14,22 @@
             <h3> Startseite </h3>
             <ion-icon name="create" item-right></ion-icon>
         </ion-item>
-        <ion-item>
+
+        <ion-item class="radioOption">
             <ion-label>Zuletzt Verwendet</ion-label>
             <ion-radio value="0"></ion-radio>
         </ion-item>
-        <ion-item>
+        <ion-item class="radioOption">
             <ion-label>Favoriten</ion-label>
             <ion-radio value="1"></ion-radio>
         </ion-item>
-        <ion-item>
+        <ion-item class="radioOption">
             <ion-label>Browser</ion-label>
             <ion-radio value="2"></ion-radio>
         </ion-item>
+
     </ion-list>
-<!--        <ion-item>
+    <!--        <ion-item>
             <ion-icon name="star" item-left></ion-icon>
             <h3> Favoritenliste </h3>
             <ion-icon name="create" item-right></ion-icon>
@@ -40,27 +42,29 @@
 			</ion-select>
 		</ion-item>	 -->
 
-        <h2>
-            Look and Feel
-        </h2>
+    <h2>
+        Look and Feel
+    </h2>
     <ion-list no-lines radio-group [(ngModel)]="backgroundColor">
         <ion-item>
             <ion-icon name="color-fill" item-left></ion-icon>
             <h3> Hintergrundfarbe </h3>
             <ion-icon name="create" item-right></ion-icon>
         </ion-item>
-        <ion-item>
+
+        <ion-item class="radioOption">
             <ion-label>Blau</ion-label>
             <ion-radio checked="true" value="blue"></ion-radio>
         </ion-item>
-        <ion-item>
+        <ion-item class="radioOption">
             <ion-label>Schwarz</ion-label>
             <ion-radio value="black"></ion-radio>
         </ion-item>
-        <ion-item>
+        <ion-item class="radioOption">
             <ion-label>Weiß</ion-label>
             <ion-radio value="white"></ion-radio>
         </ion-item>
+
     </ion-list>
     <ion-list no-lines radio-group [(ngModel)]="accentColor">
         <ion-item>
@@ -68,15 +72,16 @@
             <h3> Akzentfarbe </h3>
             <ion-icon name="create" item-right></ion-icon>
         </ion-item>
-        <ion-item>
+
+        <ion-item class="radioOption">
             <ion-label>Blau</ion-label>
             <ion-radio checked="true" value="blue"></ion-radio>
         </ion-item>
-        <ion-item>
+        <ion-item class="radioOption">
             <ion-label>Schwarz</ion-label>
             <ion-radio value="black"></ion-radio>
         </ion-item>
-        <ion-item>
+        <ion-item class="radioOption">
             <ion-label>Weiß</ion-label>
             <ion-radio value="white"></ion-radio>
         </ion-item>

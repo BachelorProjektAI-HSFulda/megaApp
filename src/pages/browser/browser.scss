@@ -1,6 +1,7 @@
-/**,
+*,
 *:after,
-*:before {
+*:before,
+.input-wrapper {
     box-shadow: none;
     border: none;
     margin: 0;
@@ -10,7 +11,6 @@
 }
 
 page-browser {
-
     .superTitle,
     .superTitle * {
         font-size: 5rem;
@@ -18,7 +18,7 @@ page-browser {
 }
 
 h1 {
-    background-color: color($colors, primary);
+    background-color: $background-color;
     position: absolute;
     top: 0px;
     left: 0%;
@@ -28,7 +28,7 @@ h1 {
     line-height: 70px;
     font-size: 30px;
     padding-left: 20px;
-    color: color($colors, type);
+    color: color($colors, primary);
 }
 
 h2 {
@@ -42,14 +42,14 @@ h2 {
 }
 
 content {
-    background-color: color($colors, primary);
+    background-color: $background-color;
     position: absolute;
     top: 70px;
     bottom: 70px;
     left: 0px;
     right: 0px;
     overflow-y: scroll;
-    color: color($colors, type);
+    color: color($colors, primary);
 }
 
 @keyframes tabTrans {
@@ -80,10 +80,10 @@ ion-tab.show-tab {
 
 ion-item,
 ion-item * {
-    background-color: color($colors, primary);
+    background-color: $background-color;
     padding: 0px 5px;
     height: 50px;
-    color: color($colors, type);
+    color: color($colors, primary);
 }
 
 .item-md {
@@ -113,7 +113,7 @@ ion-item h3,
 .item-md h3 {
     padding-right: 0px;
     padding-left: 0px;
-    color: color($colors, type);
+    color: color($colors, primary);
     font-weight: bold;
 }
 
@@ -172,20 +172,22 @@ ion-item-options,
     background-color: color($buttonColor, fourth);
 }
 
+
+/* Resets */
+
 .tabs-md .tabbar {
-    background-color: color($colors, primary);
+    background-color: $background-color;
 }
 
 .tabs-md .tab-button,
 .tabs-md .tab-button:hover {
-    color: color($colors, secondaryType);
+    color: color($colors, secondary);
 }
 
 .tabs-md .tab-button[aria-selected="true"],
 .tabs-md .tab-button[aria-selected="true"]:hover {
     color: color($buttonColor, first);
 }
-
 
 .list-md>.item-block:first-child,
 .list-md>.item-wrapper:first-child .item-block {
@@ -205,6 +207,14 @@ ion-item-options,
     margin-left: 0;
 }
 
+.item-md.item-block .item-inner {
+    padding: 0;
+}
+
 .tabbar {
     opacity: 1;
-}*/
+}
+
+.item-md .radio-md {
+    position: relative;
+}
