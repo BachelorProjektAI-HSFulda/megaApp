@@ -25,11 +25,11 @@ export class BrowserPage {
 		response => this.daten = response,
 		error => console.log(error),
 		() => {
-        console.log("Roots bloody Rooots", this.daten);
+        console.log("Root", this.daten);
         synAPI.getChildren(this.daten).subscribe(
           response => this.kram = response,
           error => console.log(error),
-          () => console.log("kids", this.kram)
+          () => console.log("Children", this.kram)
 
         )
 
