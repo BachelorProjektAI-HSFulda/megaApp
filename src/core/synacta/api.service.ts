@@ -194,21 +194,6 @@ export class SynactaAPIService {
      * @return an observable containing a container object
      */
      public getParent(entity: Entity): Observable<Container> {
-         let result;
-        /* Properties handled as
-         * JSON ? -> Maybe incorrect
-         */
-         if(entity.Properties.Name) {
-             result = this.getByID(entity.Properties.Name,entity.ParentID);
-         }
-         else {
-             result = this.getByID(entity.Properties.Type,entity.ParentID);
-         }
-         return result;
-        /* Properties handled as
-         * Array
-         */
-         //return this
-         //   .getByID(entity.Properties[0],entity.ParentID);
+         return this.getByID(entity.ParentType,entity.ParentID);
     }
 }
