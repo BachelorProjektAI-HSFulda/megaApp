@@ -26,6 +26,7 @@ export class FavoritePage implements OnInit {
     //example
     console.log(favList.favEntitys);
     console.log(favList.getEntitys());
+	
   }
 
   ngOnInit():void{
