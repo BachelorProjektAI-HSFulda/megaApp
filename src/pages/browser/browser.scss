@@ -123,6 +123,7 @@ ion-item ion-icon {
     margin: 10px 0px;
     padding: 10px;
     padding-left: 0px;
+    line-height: 30px;
 }
 
 ion-item ion-icon:before {
@@ -217,4 +218,8 @@ ion-item-options,
 
 .item-md .radio-md {
     position: relative;
+}
+
+ion-item button {
+    padding: 0px;
 }
