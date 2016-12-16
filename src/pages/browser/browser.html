@@ -8,9 +8,11 @@
 		<ion-item-sliding *ngFor="let item of kram">
             <ion-item>
                 <!-- Item with Avatar/Icon-->
+				<button (click)="deeper(item)">
                 <ion-icon name="paper" item-left></ion-icon>
                 <h3>{{item.Properties.Bezeichnung}}</h3>
                 <p>Aktenzeichen: {{item.Properties.Zeichen}}</p>
+				</button>
             </ion-item>
             <!-- Options for Items in this part-->
             <ion-item-options side="left">

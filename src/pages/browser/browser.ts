@@ -36,4 +36,11 @@ export class BrowserPage {
     });
 
   }
+  
+  public deeper(children: Container): void{
+	this.synAPI.getChildren(children).subscribe(
+	response => this.kram = response,
+	error => console.log(error),
+	() => console.log("deeper", this.kram));
+  }
 }
