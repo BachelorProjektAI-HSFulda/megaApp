@@ -10,8 +10,9 @@
                 <!-- Item with Avatar/Icon-->
 				<button (click)="deeper(item)">
                 <ion-icon name="paper" item-left></ion-icon>
+				<h3>{{item.Properties.Aktenbetreff}}</h3>
                 <h3>{{item.Properties.Bezeichnung}}</h3>
-                <p>Aktenzeichen: {{item.Properties.Zeichen}}</p>
+				<p>Aktenzeichen: {{item.Properties.Aktenzeichen}}{{item.Properties.Zeichen}}</p>
 				</button>
             </ion-item>
             <!-- Options for Items in this part-->
@@ -21,54 +22,10 @@
                     Bearbeiten
                 </div>
                 <div class="action">
-                    <ion-icon name="star"></ion-icon>
-                    Favorit
-                </div>
-                <div class="action">
-                    <ion-icon name="document"></ion-icon>
-                    Öffnen
-                </div>
-            </ion-item-options>
-        </ion-item-sliding>
-        <!-- Set slideable Items-->
-        <ion-item-sliding>
-            <ion-item>
-                <!-- Item with Avatar/Icon-->
-                <ion-icon name="clipboard" item-left></ion-icon>
-                <h3> Akte 1 </h3>
-                <p> Lorem ipsum </p>
-            </ion-item>
-            <!-- Options for Items in this part-->
-            <ion-item-options side="left">
-                <div class="action">
-                    <ion-icon name="create"></ion-icon>
-                    Bearbeiten
-                </div>
-                <div class="action">
-                    <ion-icon name="star"></ion-icon>
-                    Favorit
-                </div>
-                <div class="action">
-                    <ion-icon name="document"></ion-icon>
-                    Öffnen
-                </div>
-            </ion-item-options>
-        </ion-item-sliding>
-        <ion-item-sliding>
-            <ion-item>
-                <ion-icon name="briefcase" item-left></ion-icon>
-                <h3> Akte2 </h3>
-                <p> Lorem ipsum </p>
-            </ion-item>
-            <!-- Options for Items in this part-->
-            <ion-item-options side="left">
-                <div class="action">
-                    <ion-icon name="create"></ion-icon>
-                    Bearbeiten
-                </div>
-                <div class="action">
-                    <ion-icon name="star"></ion-icon>
-                    Favorit
+					<button (click)="addEntity(item)">
+						<ion-icon name="star"></ion-icon>
+						Favorit
+					</button>
                 </div>
                 <div class="action">
                     <ion-icon name="document"></ion-icon>
