@@ -8,16 +8,22 @@
       "dom",
       "es2015"
     ],
-    "module": "es2015",
+    "module": "commonjs",
     "moduleResolution": "node",
     "sourceMap": true,
-    "target": "es5"
+    "target": "es5",
+    "suppressImplicitAnyIndexErrors": true,
+    "typeRoots": [
+      "../../node_modules/@types/" 
+    ],
+    "types": [
+      "jasmine",
+      "node"
+    ]
   },
-  "include": [
-    "src/**/*.ts"
-  ],
   "exclude": [
-    "node_modules"
+    "node_modules/*",
+    "**/*-aot.ts"
   ],
   "compileOnSave": false,
   "atom": {
