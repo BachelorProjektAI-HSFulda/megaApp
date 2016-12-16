@@ -10,7 +10,10 @@ export class OptionsPage {
 
   constructor(public navCtrl: NavController) {
       
-  }
+    }
+
+
+  //localStorage.setItem("homepage", {{ homepage );
 
   //scope.showSelectValue = function (mySelect) {
   //    console.log(mySelect);
