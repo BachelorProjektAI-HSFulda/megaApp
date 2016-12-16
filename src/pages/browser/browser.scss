@@ -107,6 +107,7 @@ ion-item p,
     vertical-align: top;
     color: color($buttonColor, first);
     margin: 0;
+    width: 200px;
 }
 
 ion-item h3,
@@ -115,6 +116,10 @@ ion-item h3,
     padding-left: 0px;
     color: color($colors, primary);
     font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    width: calc(100% - 250px);
 }
 
 ion-item ion-icon {
@@ -154,6 +159,18 @@ ion-item ion-icon:before {
     line-height: 30px;
     left: 0%;
     width: 100%;
+}
+
+.action button {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    z-index: 2;
+    background-color: transparent;
+    width: 100%;
+    height: 100%;
 }
 
 .action:nth-child(1) {
@@ -220,6 +237,14 @@ ion-item-options,
     position: relative;
 }
 
-ion-item button {
+ion-item button,
+ion-item ion-label,
+.label-md {
     padding: 0px;
+    margin: 0px;
+}
+
+ion-item button {
+    width: 100%;
+    text-align: left;
 }
