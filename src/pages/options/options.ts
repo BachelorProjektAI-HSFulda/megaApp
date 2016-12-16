@@ -9,8 +9,10 @@ import { NavController } from 'ionic-angular';
 export class OptionsPage {
 
   constructor(public navCtrl: NavController) {
-
+      
   }
 
-  
+  //scope.showSelectValue = function (mySelect) {
+  //    console.log(mySelect);
+  //}
 }
