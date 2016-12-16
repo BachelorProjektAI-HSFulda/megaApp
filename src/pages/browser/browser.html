@@ -5,12 +5,12 @@
 <content>
     <!--Creating a new List -->
     <ion-list no-lines>
-		<ion-item-sliding *ngFor="let item of kram">
+        <ion-item-sliding *ngFor="let item of kram">
             <ion-item>
                 <!-- Item with Avatar/Icon-->
-				<button (click)="deeper(item)">
+                <button (click)="deeper(item)">
                 <ion-icon name="paper" item-left></ion-icon>
-				<h3>{{item.Properties.Aktenbetreff}}</h3>
+				<!-- <h3>{{item.Properties.Aktenbetreff}}</h3> -->
                 <h3>{{item.Properties.Bezeichnung}}</h3>
 				<p>Aktenzeichen: {{item.Properties.Aktenzeichen}}{{item.Properties.Zeichen}}</p>
 				</button>
@@ -22,10 +22,9 @@
                     Bearbeiten
                 </div>
                 <div class="action">
-					<button (click)="addEntity(item)">
-						<ion-icon name="star"></ion-icon>
-						Favorit
-					</button>
+                    <button (click)="addEntity(item)"></button>
+                    <ion-icon name="star"></ion-icon>
+                    Favorit
                 </div>
                 <div class="action">
                     <ion-icon name="document"></ion-icon>
