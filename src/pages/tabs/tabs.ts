@@ -16,6 +16,8 @@ export class TabsPage {
   tab3Root: any = BrowserPage;
   tab4Root: any = OptionsPage;
 
+  homepage;
+
   constructor() {
 	
   }
