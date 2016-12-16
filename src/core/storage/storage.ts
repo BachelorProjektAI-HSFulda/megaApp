@@ -1,5 +1,11 @@
 import { Injectable } from '@angular/core';
 
+
+export interface Token{
+  Type: string;
+  ID: string;
+}
+
 @Injectable()
 export class Storage{
 
@@ -13,7 +19,7 @@ export class Storage{
     let file : string = JSON.stringify(list);
     window.localStorage.setItem(listName, file);
   }
-  
+
   /*
   function that returns an array with tokens
   @return an array with tokens

@@ -1,68 +1,33 @@
-<ion-header>
-    <ion-navbar>
-        <ion-title>
-            Favorite
-        </ion-title>
-    </ion-navbar>
-</ion-header>
+<h1>
+    Favoriten
+</h1>
 
-<ion-content padding>
+<content>
     <!--Creating a new List -->
-	<ion-list>
-        <!-- Set slideable Items-->
-        <ion-item-sliding>
+    <ion-list no-lines>
+        <ion-item-sliding *ngFor="let item of listofFav">
             <ion-item>
                 <!-- Item with Avatar/Icon-->
-                <ion-avatar item-left>
-                    <img src="img/bild.png">
-                </ion-avatar>
-                <h2> Akte 1 </h2>
-                <p> Lorem ipsum </p>
-			</ion-item>
-            <!-- Options for Items in this part-->
-			<ion-item-options side="right">
-				<button ion-button color="primary">
-					<ion-icon name="text"></ion-icon>
-					Bearbeiten
-				</button>
-				<button ion-button color="secondary">
-					<ion-icon name="call"></ion-icon>
-					Favorit
-				</button>
-				<button ion-button color="tertiary">
-					<ion-icon name="mail"></ion-icon>
-					Öffnen
-				</button>
-			</ion-item-options>
-        </ion-item-sliding>
-		<ion-item-sliding>
-            <ion-item>
-                <ion-avatar item-left>
-                    <img src="img/bild.png">
-                </ion-avatar>
-                <h2> Akte2 </h2>
-                <p> Lorem ipsum </p>
+                <ion-icon name="paper" item-left></ion-icon>
+                <h3>{{item.Properties.Aktentyp}}</h3>
+                <p>Aktenzeichen: {{item.Properties.Aktenzeichen}}</p>
             </ion-item>
             <!-- Options for Items in this part-->
-            <ion-item-options side="right">
-				<button ion-button color="primary">
-					<ion-icon name="text"></ion-icon>
-					Bearbeiten
-				</button>
-				<button ion-button color="secondary">
-					<ion-icon name="call"></ion-icon>
-					Favorit
-				</button>
-				<button ion-button color="tertiary">
-					<ion-icon name="mail"></ion-icon>
-					Öffnen
-				</button>
+            <ion-item-options side="left">
+                <div class="action">
+                    <ion-icon name="create"></ion-icon>
+                    Bearbeiten
+                </div>
+                <div class="action">
+                    <ion-icon name="star"></ion-icon>
+                    Favorit
+                </div>
+                <div class="action">
+                    <ion-icon name="document"></ion-icon>
+                    Öffnen
+                </div>
             </ion-item-options>
         </ion-item-sliding>
 
-
-
-
     </ion-list>
-
-</ion-content>
+</content>

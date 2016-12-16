@@ -10,6 +10,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { SynactaAPIService } from '../core/synacta/api.service';
 import { Favorits } from '../core/storage/favorits';
 import { Storage } from '../core/storage/storage';
+import { RecentList } from '../core/storage/recentList'
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { Storage } from '../core/storage/storage';
   providers: [
     SynactaAPIService,
     Favorits,
-    Storage
+    Storage,
+    RecentList
   ]
 })
 export class AppModule {}
