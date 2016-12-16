@@ -47,6 +47,12 @@ describe("Synacta api conversion", () => {
             expect(response.ReadLink).toEqual(RootJson["@odata.readLink"]);
         });
     }));
+
+    it("getRoot(): contains valid data in the Properties field", async(() => {
+        service.getRoot().subscribe(response => {
+            expect(response.Properties["Stufe"]).toEqual("Plan");
+        });
+    }));
     
 });
 
