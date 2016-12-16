@@ -41,4 +41,7 @@ export class BrowserPage {
 	error => console.log(error),
 	() => console.log("deeper", this.kram));
   }
+  public higher(parent: Container): void{
+  //Hier kommt noch das holen des Parentebene hin
+  }
 }
