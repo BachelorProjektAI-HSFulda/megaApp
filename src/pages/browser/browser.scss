@@ -124,6 +124,7 @@ ion-item p,
     opacity: 1;
     margin: 10px 20px;
     max-width: 300px;
+    font-weight: bold;
 }
 
 ion-item h3,
@@ -132,7 +133,6 @@ ion-item h3,
     padding-right: 0px;
     padding-left: 0px;
     color: color($colors, primary);
-    font-weight: bold;
     overflow: hidden;
     text-overflow: ellipsis;
 }
