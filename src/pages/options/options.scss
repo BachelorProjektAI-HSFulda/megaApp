@@ -20,11 +20,14 @@ ion-item.radioOption {
     bottom: 0%;
     text-align: center;
     line-height: 50px;
-    background-color: #444;
+    background-color: color($colors, primary);
+    color: $background-color;
+    transition: all .25s ease;
 }
 
 .radioOption.item-radio-checked ion-label {
-    background-color: #222;
+    background-color: color($buttonColor, first);
+    color: $background-color;
 }
 
 .radio-md .radio-icon {
