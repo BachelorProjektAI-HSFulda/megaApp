@@ -1,8 +1,8 @@
 <h1>
-	<button (click)="higher(item)">
-		<ion-icon name="arror-back"></ion-icon>
-	</button>
     Browser
+	<button (click)="higher(kram[0])">
+		<ion-icon name="arror-back">zurück</ion-icon>
+	</button>
 </h1>
 
 <content>
@@ -24,9 +24,10 @@
                     Bearbeiten
                 </div>
                 <div class="action">
-                    <button (click)="addEntity(item)"></button>
+                    <button (click)="addFav(item)">
                     <ion-icon name="star"></ion-icon>
                     Favorit
+					</button>
                 </div>
                 <div class="action">
                     <ion-icon name="document"></ion-icon>

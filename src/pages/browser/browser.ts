@@ -42,6 +42,9 @@ export class BrowserPage {
 	() => console.log("deeper", this.kram));
   }
   public higher(parent: Container): void{
-  //Hier kommt noch das holen des Parentebene hin
+  this.synAPI.getPreviousFloor(parent).subscribe(
+  response => this.kram = response,
+  error => console.log(error),
+  () => console.log("higher", this.kram));
   }
 }
