@@ -16,7 +16,7 @@ export class BrowserPage {
 	daten:Container;
 	kram;
   test;
-  constructor(public navCtrl: NavController, private synAPI: SynactaAPIService) {
+  constructor(public navCtrl: NavController, private synAPI: SynactaAPIService, private fav: Favorits) {
 
 
 	synAPI.getRoot().subscribe(
@@ -47,4 +47,7 @@ export class BrowserPage {
   error => console.log(error),
   () => console.log("higher", this.kram));
   }
+  
+  public favorite(favo: Container): void{
+  this.fav.addFav(favo);}
 }
