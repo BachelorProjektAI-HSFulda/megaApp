@@ -53,6 +53,25 @@ describe("Synacta API Service", () => {
             expect(response.Properties["Stufe"]).toEqual("Plan");
         });
     }));
+
+    it("getChildren(): receives child elements of an container", async(() => {
+        let container: Container = new Container();
+        container.ID = "0ba78e68-dd90-4681-96ef-c16015a5d4a1";
+        container.ObjectType = "Hauptgruppe";
+        service.getChildren(container).subscribe(response => {
+            expect(response[0] instanceof Entity).toEqual(true);
+            expect(response.length).toEqual(10);
+        });
+    }));
+
+    it("getChildren(): receives 10 child elements of an container", async(() => {
+        let container: Container = new Container();
+        container.ID = "0ba78e68-dd90-4681-96ef-c16015a5d4a1";
+        container.ObjectType = "Hauptgruppe";
+        service.getChildren(container, 5).subscribe(response => {
+            expect(response.length).toEqual(5);
+        });
+    }));
     
 });
 
