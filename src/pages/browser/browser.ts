@@ -16,7 +16,7 @@ export class BrowserPage {
 	daten:Container;
 	kram;
   test;
-  constructor(public navCtrl: NavController, private synAPI: SynactaAPIService) {
+  constructor(public navCtrl: NavController, private synAPI: SynactaAPIService, private fav: Favorits) {
 
 
 	synAPI.getRoot().subscribe(
@@ -42,6 +42,12 @@ export class BrowserPage {
 	() => console.log("deeper", this.kram));
   }
   public higher(parent: Container): void{
-  //Hier kommt noch das holen des Parentebene hin
+  this.synAPI.getPreviousFloor(parent).subscribe(
+  response => this.kram = response,
+  error => console.log(error),
+  () => console.log("higher", this.kram));
   }
+  
+  public favorite(favo: Container): void{
+  this.fav.addFav(favo);}
 }
