@@ -12,6 +12,8 @@ import { Favorits } from '../core/storage/favorits';
 import { Storage } from '../core/storage/storage';
 import { RecentList } from '../core/storage/recentList'
 
+import { HighlightDirective } from './highlight.directive';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -19,7 +21,8 @@ import { RecentList } from '../core/storage/recentList'
     BrowserPage,
     RecentPage,
 	OptionsPage,
-    TabsPage
+    TabsPage,
+    HighlightDirective
   ],
   imports: [
     IonicModule.forRoot(MyApp),
