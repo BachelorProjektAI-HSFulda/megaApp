@@ -16,7 +16,8 @@
     "run:before": "build",
     "typings": "typings",
     "tsc": "tsc",
-    "test": "karma start config/karma.conf.js"
+    "test": "karma start config/karma.conf.js",
+	"electron": "electron ./src/desktop/electron_setup"
   },
   "dependencies": {
     "@angular/common": "2.1.1",
