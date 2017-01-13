@@ -23,6 +23,7 @@ export class Favorits{
       dataFav.push(token);
       this.lStorage.saveData<Token>("fav", dataFav);
       this.addEntity(iEntity);
+	  console.log("addfav");
     }
 
     /*

@@ -1,5 +1,8 @@
 <h1>
     Browser
+	<button (click)="higher(kram[0])">
+		<ion-icon name="arror-back">zurück</ion-icon>
+	</button>
 </h1>
 
 <content>
@@ -10,9 +13,12 @@
                 <!-- Item with Avatar/Icon-->
                 <button (click)="deeper(item)">
                 <ion-icon name="paper" item-left></ion-icon>
-				<!-- <h3>{{item.Properties.Aktenbetreff}}</h3> -->
-                <h3>{{item.Properties.Bezeichnung}}</h3>
-				<p>Aktenzeichen: {{item.Properties.Aktenzeichen}}{{item.Properties.Zeichen}}</p>
+                <p>{{item.Properties.Aktenzeichen}}{{item.Properties.Zeichen}}</p>
+                <h3>
+                    {{item.Properties.Aktenbetreff}}{{item.Properties.Bezeichnung}}
+                </h3>
+                
+				
 				</button>
             </ion-item>
             <!-- Options for Items in this part-->
@@ -22,9 +28,10 @@
                     Bearbeiten
                 </div>
                 <div class="action">
-                    <button (click)="addEntity(item)"></button>
+                    <button (click)="favorite(item)">
                     <ion-icon name="star"></ion-icon>
-                    Favorit
+					</button>
+					Favorit
                 </div>
                 <div class="action">
                     <ion-icon name="document"></ion-icon>
