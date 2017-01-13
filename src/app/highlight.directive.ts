@@ -1,10 +1,25 @@
-import { Directive, ElementRef, Input } from '@angular/core';
-
+import { Directive, ElementRef, Input, OnInit, OnDestroy } from '@angular/core';
+import {Gesture} from 'ionic-angular/gestures/gesture';
 
 @Directive({ selector: 'content' })
 
-export class HighlightDirective {
-    constructor(el: ElementRef) {
-       el.nativeElement.style.backgroundColor = 'yellow';
-    }
+export class HighlightDirective implements OnInit, OnDestroy {
+    el: HTMLElement;
+  pressGesture: Gesture;
+
+  constructor(el: ElementRef) {
+    this.el = el.nativeElement;
+  }
+
+  ngOnInit() {
+    this.pressGesture = new Gesture(this.el);
+    this.pressGesture.listen();
+    this.pressGesture.on('panright', e => {
+      console.log('pressed!!');
+    })
+  }
+
+  ngOnDestroy() {
+    this.pressGesture.destroy();
+  }
 }
