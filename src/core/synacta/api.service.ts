@@ -200,32 +200,4 @@ export class SynactaAPIService {
          return this.getByID(entity.ParentType,entity.ParentID);
     }
 
-   /*
-    * This function uses a type and an id to receive the siblings of a specific
-    * entity
-    * @param entity
-    * @return an observable containing a list of Entities
-    */
-    public getSibling(entity: Entity): Observable<Entity[]> {
-        let response;
-        this.getParent(entity).subscribe(resp => response = resp);
-        while (!response) {
-
-        }
-        return this.getChildren(response);
-    }
-
-   /*
-    * This function uses a type and an id to receive a list of the previous floor elements
-    * @param entity
-    * @return an observable containing a list of Entities
-    */
-     public getPreviousFloor(entity: Entity): Observable<Entity[]> {
-         let response;
-         this.getParent(entity).subscribe(resp => response = resp);
-         while(!response) {
-
-         }
-         return this.getSibling(response);
-     }
 }
