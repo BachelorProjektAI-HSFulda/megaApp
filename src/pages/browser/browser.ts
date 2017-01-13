@@ -6,7 +6,7 @@ import { Favorits } from '../../core/storage/favorits';
 
 import { SynactaAPIService } from '../../core/synacta/api.service';
 
-import { Container } from '../../core/synacta/api.objects';
+import { Entity, Container } from '../../core/synacta/api.objects';
 
 @Component({
   selector: 'page-browser',
@@ -37,16 +37,25 @@ export class BrowserPage {
   
   public deeper(children: Container): void{
 	this.synAPI.getChildren(children).subscribe(
-	response => this.kram = response,
-	error => console.log(error),
-	() => console.log("deeper", this.kram));
+		response => this.kram = response,
+		error => console.log(error),
+		() => console.log("deeper", this.kram)
+	);
   }
-  public higher(parent: Container): void{
-  this.synAPI.getPreviousFloor(parent).subscribe(
-  response => this.kram = response,
-  error => console.log(error),
-  () => console.log("higher", this.kram));
+  
+  
+  public higher(current: Entity): void{
+	  this.synAPI.getParent(current).subscribe( (parent: Container) => {
+		this.synAPI.getParent(parent).subscribe( (grandparent: Container) => { 
+			this.synAPI.getChildren(grandparent).subscribe(
+				children => this.kram = children,
+				error => console.log(error),
+				() => console.log("Children", this.kram)
+			)
+		})
+	  });
   }
+  
   
   public favorite(favo: Container): void{
   this.fav.addFav(favo);}

@@ -76,6 +76,7 @@ export class Entity {
         this.ID = void(0);
         this.ObjectType = void(0);
         this.ParentID = void(0);
+		this.ParentType = void(0);
         this.Frozen = void(0);
         this.Hash = void(0);
         this.ReadLink = void(0);
