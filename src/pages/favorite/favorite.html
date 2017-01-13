@@ -5,13 +5,26 @@
 <content>
     <!--Creating a new List -->
     <ion-list no-lines>
-        <ion-item-sliding *ngFor="let item of listOfFav">
-            <ion-item>
+        <ion-item-sliding *ngFor="let item of favList.getEntitys()">
+
+            <ion-item *ngIf="!item.IsVirtual">
                 <!-- Item with Avatar/Icon-->
-                <ion-icon name="paper" item-left></ion-icon>
-                <h3>{{item.Properties.Aktentyp}}</h3>
-                <p>Aktenzeichen: {{item.Properties.Aktenzeichen}}</p>
+                <button (click)="toBrowser(item)">
+                  <ion-icon name="paper" item-left></ion-icon>
+                  <h3>{{item.Properties.Aktentyp}}</h3>
+                  <p>Aktenzeichen: {{item.Properties.Aktenzeichen}}</p>
+                </button>
             </ion-item>
+            <ion-item *ngIf="item.IsVirtual">
+                <!-- Item with Avatar/Icon-->
+                <button (click)="toBrowser(item)">
+                  <ion-icon name="paper" item-left></ion-icon>
+                  <h3>{{item.Properties.Bezeichnung}}</h3>
+  				        <p>Aktenzeichen: {{item.Properties.Aktenzeichen}}
+                  {{item.Properties.Zeichen}}</p>
+                </button>
+            </ion-item>
+
             <!-- Options for Items in this part-->
             <ion-item-options side="left">
                 <div class="action">
