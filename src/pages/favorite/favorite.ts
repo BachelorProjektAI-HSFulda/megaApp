@@ -39,7 +39,7 @@ export class FavoritePage implements OnInit {
 
   }
 
-  showAlert() {
+  remAlert() {
 	  let alert = this.alertCtrl.create({
 		  title: 'Favorit entfernt',
 		  subTitle: 'Akte/Container wurde erfolgreich von den Favoriten entfernt',
@@ -50,6 +50,6 @@ export class FavoritePage implements OnInit {
   
   public rem(obj: Container): void{
 	  this.favList.removeFav(obj);
-	  this.showAlert();
+	  this.remAlert();
   }
 }
