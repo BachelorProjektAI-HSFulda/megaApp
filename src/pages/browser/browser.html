@@ -1,6 +1,6 @@
 <h1>
     Browser
-	<button (click)="higher(kram[0])">
+    <button (click)="higher(kram[0])">
 		<ion-icon name="arror-back">zurück</ion-icon>
 	</button>
 </h1>
@@ -8,7 +8,7 @@
 <content>
     <!--Creating a new List -->
     <ion-list no-lines>
-        <ion-item-sliding *ngFor="let item of kram">
+        <ion-item-sliding *ngFor="let item of kram; let i=index">
             <ion-item>
                 <!-- Item with Avatar/Icon-->
                 <button (click)="deeper(item)">
@@ -26,11 +26,10 @@
                     <ion-icon name="create"></ion-icon>
                     Bearbeiten
                 </div>
-                <div class="action">
-                    <button (click)="favorite(item)">
-                    <ion-icon name="star"></ion-icon>
-					</button>
-					Favorit
+                <div class="action" id="favorite{{i}}">
+                    <button (click)="favorite(item, i)">
+                    <ion-icon name="star" (load)="checkFavorite(i)"></ion-icon>
+					</button> Favorit
                 </div>
                 <div class="action">
                     <ion-icon name="document"></ion-icon>

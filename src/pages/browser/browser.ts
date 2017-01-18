@@ -29,9 +29,7 @@ export class BrowserPage {
           response => this.kram = response,
           error => console.log(error),
           () => console.log("Children", this.kram)
-
         )
-
     });
 
   }
@@ -69,25 +67,32 @@ export class BrowserPage {
 				() => console.log("Children", this.kram)
 			)
 		})
-	  });
+	});
 	  }
 	  else{
 		  this.ablehnen();
 	  }
   }
   
-  showAlert() {
-	  let alert = this.alertCtrl.create({
-		  title: 'Neuer Favorit',
-		  subTitle: 'Akte/Container wurde erfolgreich zu den Favoriten hinzugefügt',
-		  buttons: ['OK']
-	  });
-	  alert.present();
+  
+  
+  
+  public favorite(favo: Container, i): void{
+		if(this.fav.checkFav(favo)) {
+			//already marked as favorite
+			this.fav.removeFav(favo);	
+			document.getElementById("favorite"+i).style.backgroundColor = "#123456";
+		} else {
+			//not marked
+			this.fav.addFav(favo);
+			document.getElementById("favorite"+i).style.backgroundColor = "#986877";
+		}
+		this.checkFavorite(favo);
+  
   }
-  
-  
-  public favorite(favo: Container): void{
-  this.fav.addFav(favo);
-  this.showAlert();}
+
+	public checkFavorite(favo: Container): void {
+		console.log("<<<<<<<<<<<<<<<<");
+	}
   
 }
