@@ -8,9 +8,12 @@
         <ion-item-sliding *ngFor="let item of listOfRec">
             <ion-item>
                 <!-- Item with Avatar/Icon-->
-                <ion-icon name="paper" item-left></ion-icon>
-                <p>{{item.Properties.Aktenzeichen}}</p>
-                <h3>{{item.Properties.Aktentyp}}</h3>
+                <ion-icon name="paper" item-left *ngIf="item.Document == undefined"></ion-icon>
+                <ion-icon name="document" item-left *ngIf="item.Document != undefined"></ion-icon>
+                <p>{{item.Properties.Aktenzeichen}}{{item.Properties.Zeichen}}</p>
+                <h3>
+                    {{item.Properties.Aktenbetreff}}{{item.Properties.Bezeichnung}}
+                </h3>
 
             </ion-item>
             <!-- Options for Items in this part-->

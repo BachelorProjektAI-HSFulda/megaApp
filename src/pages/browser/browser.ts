@@ -16,7 +16,7 @@ export class BrowserPage {
 	daten:Container;
 	kram;
   test;
-  //symbol: string = "paper";
+  
   constructor(public navCtrl: NavController, private synAPI: SynactaAPIService, private fav: Favorits, public alertCtrl: AlertController) {
 
 
