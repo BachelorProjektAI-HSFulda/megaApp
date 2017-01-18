@@ -10,14 +10,23 @@ export class OptionsPage {
   backgroundColor;
   homepage;
   accentColor;
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, private lStorage:Storage) {
       
     }
 
+public setHomepage(){
+        //this.lStorage.setItem("homepage", this.homepage );
+        window.localStorage.setItem('homepage', this.homepage);
 
-  //localStorage.setItem("homepage", {{ homepage );
+        console.log(this.homepage);
+    }
 
-  //scope.showSelectValue = function (mySelect) {
-  //    console.log(mySelect);
-  //}
+public getHomepage():number{
+        let data = window.localStorage.getItem('homepage');
+        return JSON.parse(data);
+        
+        //this.lStorage.getItem<number>("homepage");
+    }
+
+  //localStorage.setItem("homepage", {{ homepage }} );
 }
