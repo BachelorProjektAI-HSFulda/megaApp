@@ -9,8 +9,10 @@
             <ion-item>
                 <!-- Item with Avatar/Icon-->
                 <ion-icon name="paper" item-left></ion-icon>
-                <p>{{item.Properties.Aktenzeichen}}</p>
-                <h3>{{item.Properties.Aktentyp}}</h3>
+                <p>{{item.Properties.Aktenzeichen}}{{item.Properties.Zeichen}}</p>
+                <h3>
+                    {{item.Properties.Aktenbetreff}}{{item.Properties.Bezeichnung}}
+                </h3>
 
             </ion-item>
             <!-- Options for Items in this part-->
@@ -20,7 +22,9 @@
                     Bearbeiten
                 </div>
                 <div class="action">
+				<button (click)="rem(item)">
                     <ion-icon name="star"></ion-icon>
+					</button>
                     Favorit
                 </div>
                 <div class="action">

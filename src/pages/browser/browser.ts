@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { NavController } from 'ionic-angular';
+import { NavController, AlertController } from 'ionic-angular';
 
 import { Favorits } from '../../core/storage/favorits';
 
@@ -16,7 +16,8 @@ export class BrowserPage {
 	daten:Container;
 	kram;
   test;
-  constructor(public navCtrl: NavController, private synAPI: SynactaAPIService, private fav: Favorits) {
+  //symbol: string = "paper";
+  constructor(public navCtrl: NavController, private synAPI: SynactaAPIService, private fav: Favorits, public alertCtrl: AlertController) {
 
 
 	synAPI.getRoot().subscribe(
@@ -56,7 +57,18 @@ export class BrowserPage {
 	  });
   }
   
+  showAlert() {
+	  let alert = this.alertCtrl.create({
+		  title: 'Neuer Favorit',
+		  subTitle: 'Akte/Container wurde erfolgreich zu den Favoriten hinzugefügt',
+		  buttons: ['OK']
+	  });
+	  alert.present();
+  }
+  
   
   public favorite(favo: Container): void{
-  this.fav.addFav(favo);}
+  this.fav.addFav(favo);
+  this.showAlert();}
+  
 }
