@@ -1,17 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Storage } from './storage';
+import { Storage, Token } from './storage';
 import { SynactaAPIService } from '../synacta/api.service';
 import { Entity } from '../synacta/api.objects';
-
-interface token{
-  type: string;
-  id: string;
-}
 
 @Injectable()
 export class Favorits{
     favEntitys:Entity[];
-    dataFav:token[];
+    dataFav:Token[];
 
     constructor(private lStorage:Storage, private synAPI: SynactaAPIService){}
     /*
@@ -26,7 +21,9 @@ export class Favorits{
       let dataFav = this.getFav();
       if(dataFav == null)dataFav = [];
       dataFav.push(token);
-      this.lStorage.saveData<token>("fav", dataFav);
+      this.lStorage.saveData<Token>("fav", dataFav);
+      this.addEntity(iEntity);
+	  console.log("addfav");
     }
 
     /*
@@ -37,9 +34,9 @@ export class Favorits{
       if(this.checkFav(iEntity)){
           let dataFav = this.getFav();
           for(let i = 0; i < dataFav.length; i++){
-            if(dataFav[i].id == iEntity.ID){
+            if(dataFav[i].ID == iEntity.ID){
                 dataFav.splice(i,1);
-                this.lStorage.saveData<token>("fav", dataFav);
+                this.lStorage.saveData<Token>("fav", dataFav);
                 this.rmEntity(iEntity);
                 return;
             }
@@ -50,8 +47,8 @@ export class Favorits{
     function that returns an array with tokens
     @return an array with tokens
     */
-    public getFav():token[]{
-      return this.lStorage.getData<token[]>("fav");
+    public getFav():Token[]{
+      return this.lStorage.getData<Token[]>("fav");
     }
 
     /*
@@ -60,12 +57,12 @@ export class Favorits{
     @param id
     @return an Objekt from Type Token
     */
-    private bindData(iEntity: Entity) :token {
+    private bindData(iEntity: Entity) :Token {
       let type = iEntity.ObjectType;
       let id = iEntity.ID;
-      let token : token={
-        type :type,
-        id :id
+      let token : Token={
+        Type :type,
+        ID :id
       }
       return token;
     }
@@ -79,7 +76,7 @@ export class Favorits{
       let dataFav = this.getFav();
       if(dataFav == null) return false;
       for(let i = 0; i < dataFav.length; i++){
-        if(dataFav[i].id == iEntity.ID) return true;
+        if(dataFav[i].ID == iEntity.ID) return true;
       }
       return false;
     }
@@ -88,17 +85,17 @@ export class Favorits{
     public addTest(type : string, id : string){
       //if(this.checkFav(id))return;
       let dataFav = this.getFav();
-      if(dataFav == null) return false;
+      if(dataFav == null) dataFav = new Array<Token>();
       for(let i = 0; i < dataFav.length; i++){
-        if(dataFav[i].id == id) return true;
+        if(dataFav[i].ID == id) return true;
       }
-      let token:token={
-        id : id,
-        type : type
+      let token:Token={
+        ID : id,
+        Type : type
       }
       if(dataFav == null)dataFav = [];
       dataFav.push(token);
-      this.lStorage.saveData<token>("fav", dataFav);
+      this.lStorage.saveData<Token>("fav", dataFav);
     }
 
 
@@ -106,7 +103,8 @@ export class Favorits{
       let dataFav = this.getFav();
       this.favEntitys = new Array<Entity>();
       for(let i = 0; i< dataFav.length; i++){
-        this.synAPI.getByID(dataFav[i].type, dataFav[i].id)
+        console.log(dataFav[i],dataFav[i].Type, dataFav[i].ID);
+        this.synAPI.getByID(dataFav[i].Type, dataFav[i].ID)
           .subscribe(response => this.favEntitys.push(response));
       }
       return this.favEntitys;

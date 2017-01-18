@@ -1,68 +1,43 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      Browser
-    </ion-title>
-  </ion-navbar>
-</ion-header>
+<h1>
+    Browser
+	<button (click)="higher(kram[0])">
+		<ion-icon name="arror-back">zur√ºck</ion-icon>
+	</button>
+</h1>
 
-<ion-content padding>
+<content>
     <!--Creating a new List -->
-    <ion-list>
-
-        <!-- Set slideable Items-->
-        <ion-item-sliding>
+    <ion-list no-lines>
+        <ion-item-sliding *ngFor="let item of kram">
             <ion-item>
                 <!-- Item with Avatar/Icon-->
-                <ion-avatar item-left>
-                    <img src="img/bild.png">
-                </ion-avatar>
-                <h2> Akte 1 </h2>
-                <p> Lorem ipsum </p>
+                <button (click)="deeper(item)">
+                <ion-icon name="paper" item-left></ion-icon>
+                <p>{{item.Properties.Aktenzeichen}}{{item.Properties.Zeichen}}</p>
+                <h3>
+                    {{item.Properties.Aktenbetreff}}{{item.Properties.Bezeichnung}}
+                </h3>
+                
+				
+				</button>
             </ion-item>
             <!-- Options for Items in this part-->
-            <ion-item-options side="right">
-                <button ion-button color="primary">
-                    <ion-icon name="text"></ion-icon>
+            <ion-item-options side="left">
+                <div class="action">
+                    <ion-icon name="create"></ion-icon>
                     Bearbeiten
-                </button>
-                <button ion-button color="secondary">
-                    <ion-icon name="call"></ion-icon>
-                    Favorit
-                </button>
-                <button ion-button color="tertiary">
-                    <ion-icon name="mail"></ion-icon>
-                    ÷ffnen
-                </button>
+                </div>
+                <div class="action">
+                    <button (click)="favorite(item)">
+                    <ion-icon name="star"></ion-icon>
+					</button>
+					Favorit
+                </div>
+                <div class="action">
+                    <ion-icon name="document"></ion-icon>
+                    √ñffnen
+                </div>
             </ion-item-options>
         </ion-item-sliding>
-        <ion-item-sliding>
-            <ion-item>
-                <ion-avatar item-left>
-                    <img src="img/bild.png">
-                </ion-avatar>
-                <h2> Akte2 </h2>
-                <p> Lorem ipsum </p>
-            </ion-item>
-            <!-- Options for Items in this part-->
-            <ion-item-options side="right">
-                <button ion-button color="primary">
-                    <ion-icon name="text"></ion-icon>
-                    Bearbeiten
-                </button>
-                <button ion-button color="secondary">
-                    <ion-icon name="call"></ion-icon>
-                    Favorit
-                </button>
-                <button ion-button color="tertiary">
-                    <ion-icon name="mail"></ion-icon>
-                    ÷ffnen
-                </button>
-            </ion-item-options>
-        </ion-item-sliding>
-
-
-
-
     </ion-list>
-</ion-content>
+</content>
