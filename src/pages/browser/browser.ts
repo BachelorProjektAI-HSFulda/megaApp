@@ -36,12 +36,26 @@ export class BrowserPage {
 
   }
   
+  ablehnen() {
+	  let alert = this.alertCtrl.create({
+		  title: 'Fehler',
+		  subTitle: 'Es gibt keine Weitere Ebene!',
+		  buttons: ['OK']
+	  });
+	  alert.present();
+  }
   public deeper(children: Container): void{
+	  if(children.HasChild == true)
+	  {
 	this.synAPI.getChildren(children).subscribe(
 		response => this.kram = response,
 		error => console.log(error),
 		() => console.log("deeper", this.kram)
 	);
+	  }
+	  else{
+		  this.ablehnen();
+		  }
   }
   
   

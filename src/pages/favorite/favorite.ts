@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
-import { NavController } from 'ionic-angular';
+import { NavController, AlertController } from 'ionic-angular';
 
 import { Favorits } from '../../core/storage/favorits';
+
+import { Entity, Container } from '../../core/synacta/api.objects';
 
 @Component({
   selector: 'page-favorite',
@@ -10,7 +12,7 @@ import { Favorits } from '../../core/storage/favorits';
 })
 export class FavoritePage implements OnInit {
   listOfFav;
-  constructor(public navCtrl: NavController, private favList: Favorits) {
+  constructor(public navCtrl: NavController, private favList: Favorits, public alertCtrl: AlertController) {
     //initialize the favEntitys Array from favList
     favList.loadEntitys();
 
