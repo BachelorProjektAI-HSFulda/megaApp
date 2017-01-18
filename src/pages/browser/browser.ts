@@ -60,6 +60,7 @@ export class BrowserPage {
   
   
   public higher(current: Entity): void{
+	  if(current.ParentType != "Plan"){
 	  this.synAPI.getParent(current).subscribe( (parent: Container) => {
 		this.synAPI.getParent(parent).subscribe( (grandparent: Container) => { 
 			this.synAPI.getChildren(grandparent).subscribe(
@@ -69,6 +70,10 @@ export class BrowserPage {
 			)
 		})
 	  });
+	  }
+	  else{
+		  this.ablehnen();
+	  }
   }
   
   showAlert() {
