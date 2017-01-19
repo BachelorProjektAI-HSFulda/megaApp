@@ -12,7 +12,7 @@ import { Favorits } from '../core/storage/favorits';
 import { Storage } from '../core/storage/storage';
 import { RecentList } from '../core/storage/recentList'
 
-import { HighlightDirective } from './highlight.directive';
+import { GesturesDirective } from './gestures.directive';
 
 @NgModule({
   declarations: [
@@ -22,7 +22,7 @@ import { HighlightDirective } from './highlight.directive';
     RecentPage,
 	OptionsPage,
     TabsPage,
-    HighlightDirective
+    GesturesDirective
   ],
   imports: [
     IonicModule.forRoot(MyApp),

@@ -3,7 +3,7 @@ import {Gesture} from 'ionic-angular/gestures/gesture';
 
 @Directive({ selector: 'content' })
 
-export class HighlightDirective implements OnInit, OnDestroy {
+export class GesturesDirective implements OnInit, OnDestroy {
     el: HTMLElement;
     button: HTMLElement;
   pressGesture: Gesture;
@@ -17,7 +17,11 @@ export class HighlightDirective implements OnInit, OnDestroy {
   ngOnInit() {
     this.pressGesture = new Gesture(this.el);
     this.pressGesture.listen();
-    this.pressGesture.on('pan', e => {
+    this.pressGesture.on('panstart', e => {
+            this.el.style.transition = "none";
+
+    });
+    this.pressGesture.on('panmove', e => {
 
         var dir = e.direction;
         var horizontal = (dir == 4 || dir == 2);
@@ -26,6 +30,13 @@ export class HighlightDirective implements OnInit, OnDestroy {
             this.el.style.transform = "translateX("+e.deltaX+"px)";
             this.button.style.transform = "translateX("+e.deltaX/2+"px)";
         }
+
+    });
+    this.pressGesture.on('panend', e => {
+            this.el.style.transition = "all .4s ease";
+            this.el.style.transform = "translateX(0px)";
+            this.button.style.transform = "translateX(0px)";
+            
 
     });
   }
