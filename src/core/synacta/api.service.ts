@@ -204,6 +204,7 @@ export class SynactaAPIService {
     * This function deletes a given container
     * @param container
     */
+    public deleteEntity(entity: Entity): void{
         if(typeof entity == "Container") {
             this.get(null, entity.ObjectType, entity.ID);
         }
