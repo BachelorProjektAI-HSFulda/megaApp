@@ -4,16 +4,18 @@ import { NavController } from 'ionic-angular';
 
 import { Favorits } from '../../core/storage/favorits';
 
+import { BrowserPage } from '../browser/browser';
+
+import { Entity } from '../../core/synacta/api.objects';
+
 @Component({
   selector: 'page-favorite',
   templateUrl: 'favorite.html'
 })
 export class FavoritePage implements OnInit {
   listOfFav;
-  constructor(public navCtrl: NavController, private favList: Favorits) {
+  constructor(public navCtrl: NavController, public favList: Favorits) {
     //initialize the favEntitys Array from favList
-    favList.loadEntitys();
-
     console.log(favList.getFav());
     favList.addTest("Vorgang", "32fae6ab-4ab1-48cc-8292-5fbf39258345");
     favList.addTest("Vorgang", "6b35df93-9e11-4796-b627-27e2abf0f3bd");
@@ -25,8 +27,8 @@ export class FavoritePage implements OnInit {
 
     //example
     console.log(favList.favEntitys);
-    console.log(favList.getEntitys());
-	
+    console.log(favList.loadEntitys());
+
   }
 
   ngOnInit():void{
@@ -36,5 +38,10 @@ export class FavoritePage implements OnInit {
     console.log("blubb", this.listOfFav);
 
   }
+  public toBrowser(iEntity: Entity): void{
+    console.log("redirect", iEntity);  
+    this.navCtrl.push(BrowserPage, iEntity);
+  }
+
 
 }
