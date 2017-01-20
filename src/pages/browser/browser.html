@@ -28,8 +28,9 @@
                 </div>
                 <div class="action" id="favorite{{i}}">
                     <button (click)="favorite(item, i)">
-                    <ion-icon name="star" (load)="checkFavorite(i)"></ion-icon>
-					</button> Favorit
+					<ion-icon name="star" item-left *ngIf="fav.checkFav(item)"></ion-icon>
+					<ion-icon name="star-outline" item-left *ngIf="!fav.checkFav(item)"></ion-icon>
+                    </button> Favorit
                 </div>
                 <div class="action">
                     <ion-icon name="document"></ion-icon>
