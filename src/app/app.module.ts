@@ -12,6 +12,7 @@ import { Favorits } from '../core/storage/favorits';
 import { Storage } from '../core/storage/storage';
 import { Search } from '../core/synacta/api.search';
 import { RecentList } from '../core/storage/recentList';
+import { SearchFilter } from '../pages/searchFilter/searchFilter'
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { RecentList } from '../core/storage/recentList';
     BrowserPage,
     RecentPage,
 	OptionsPage,
-    TabsPage
+    TabsPage,
+    SearchFilter,
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -32,8 +34,9 @@ import { RecentList } from '../core/storage/recentList';
     FavoritePage,
     BrowserPage,
     RecentPage,
-	OptionsPage,
-    TabsPage
+	  OptionsPage,
+    TabsPage,
+    SearchFilter,
   ],
   providers: [
     SynactaAPIService,
@@ -41,6 +44,7 @@ import { RecentList } from '../core/storage/recentList';
     Storage,
     Search,
     RecentList,
+    SearchFilter
   ]
 })
 export class AppModule {}

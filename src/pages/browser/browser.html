@@ -3,6 +3,9 @@
 	<button (click)="higher(kram[0])">
 		<ion-icon name="arror-back">zurück</ion-icon>
 	</button>
+  <button ion-button icon-only (click)="presentPopover($event)">
+  <ion-icon name="more"></ion-icon>
+</button>
 </h1>
 
 <content>
@@ -17,8 +20,8 @@
                 <h3>
                     {{item.Properties.Aktenbetreff}}{{item.Properties.Bezeichnung}}
                 </h3>
-                
-				
+
+
 				</button>
             </ion-item>
             <!-- Options for Items in this part-->

@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, PopoverController } from 'ionic-angular';
 
 import { Favorits } from '../../core/storage/favorits';
 
 import { SynactaAPIService } from '../../core/synacta/api.service';
 
+import { SearchFilter } from '../searchFilter/searchFilter';
 
 import { Search } from '../../core/synacta/api.search';
 
@@ -23,7 +24,12 @@ export class BrowserPage {
   test;
 
   constructor(public navCtrl: NavController, private synAPI: SynactaAPIService,
-     private fav: Favorits, private navParams: NavParams, private finder: Search) {}
+     private fav: Favorits, private navParams: NavParams, private finder: Search,
+     public popoverCtrl: PopoverController) {
+       //finder example
+       console.log(finder.search("0100/xcvcxv"));
+       this.test = "Hallo";
+     }
 
 
   ionViewWillEnter(){
@@ -85,4 +91,14 @@ export class BrowserPage {
 
   public favorite(favo: Container): void{
   this.fav.addFav(favo);}
+
+  presentPopover(myEvent) {
+  let popover = this.popoverCtrl.create(SearchFilter,
+    (this.test)
+  );
+  popover.onDidDismiss(data => { console.log(data) });
+  popover.present({
+    ev: myEvent
+  });
+}
 }
