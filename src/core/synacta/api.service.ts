@@ -10,7 +10,7 @@ import { deserialize } from 'json-typescript-mapper';
 import { IFrame, Frame, Entity, Container, Document } from './api.objects';
 
 const API_KEY = 'Token FHProjekt2016';
-const BASE_URL = 'https://synacta.agile-is.de/_api/base/';
+const API_URL = 'https://synacta.agile-is.de/_api/';
 
 @Injectable()
 export class SynactaAPIService {
@@ -33,11 +33,21 @@ export class SynactaAPIService {
      *
      * @returns an observable response object containing a json object
      */
-    private get(target: string, type: string, id: string) {
-         let endpoint = BASE_URL;
+    private getBase(target: string, type: string, id: string) {
+         let endpoint = API_URL;
+         endpoint = endpoint + "base/";
          endpoint = (type)? endpoint + type : endpoint;
          endpoint = (id)? endpoint + "/" + id : endpoint;
          endpoint = (target) ? endpoint + "/" + target : endpoint;
+         return this.getByLink(endpoint);
+     }
+
+     private getOrg(target: string, type: string, id: string) {
+         let endpoint = API_URL;
+         endpoint = endpoint + "org/";
+         endpoint = (id)? endpoint + id : endpoint;
+         endpoint = (type)? endpoint + "/" + type : endpoint;
+         endpoint = (target)? endpoint + "/" + target : endpoint;
          return this.getByLink(endpoint);
      }
 
@@ -68,7 +78,7 @@ export class SynactaAPIService {
         // 3. deserialize the raw json to a container object
         // 4. return the container object within a observable
         return this
-            .get("root", null, null)
+            .getBase("root", null, null)
             .map((json:IFrame) => deserialize(Container, json.value[0]));
      }
 
@@ -81,7 +91,7 @@ export class SynactaAPIService {
      */
      public getByID(type: string, id: string): Observable<Container> {
          return this
-             .get(null, type, id)
+             .getBase(null, type, id)
              .map((json) => deserialize(Container, json));
      }
 
@@ -93,7 +103,7 @@ export class SynactaAPIService {
      */
      public getByType(type: string): Observable<Container[]> {
          return this
-             .get(null, type, null)
+             .getBase(null, type, null)
              .map((json: IFrame) => {
                 let result = new Array<Container>();
                 for (let value of json.value) {
@@ -118,7 +128,7 @@ export class SynactaAPIService {
          // TODO - Implement hasChild?
          // $top is the number of elements RESTful variable
          return this
-             .get("Children?$top=" + num, container.ObjectType, container.ID)
+             .getBase("Children?$top=" + num, container.ObjectType, container.ID)
              .map((json: IFrame) => {
                  let result = new Array<Entity>();
                  for (let value of json.value) {
@@ -143,7 +153,7 @@ export class SynactaAPIService {
      */
      public getChildTypes(container: Container): Observable<String[]> {
          return this
-             .get("Children/Types", container.ObjectType, container.ID)
+             .getBase("Children/Types", container.ObjectType, container.ID)
              .map((json: IFrame) => {
                  let result = new Array<String>();
                  for (let value of json.value) {
@@ -162,7 +172,7 @@ export class SynactaAPIService {
      */
      public getDocuments(container: Container): Observable<Document[]> {
          return this
-             .get("Documents", container.ObjectType, container.ID)
+             .getBase("Documents", container.ObjectType, container.ID)
              .map((json: IFrame) => {
                  let result = new Array<Document>();
                  for (let value of json.value) {
@@ -180,7 +190,7 @@ export class SynactaAPIService {
      */
      public getDocTypes(container: Container): Observable<String[]> {
          return this
-             .get("Documents/Types", container.ObjectType, container.ID)
+             .getBase("Documents/Types", container.ObjectType, container.ID)
              .map((json: IFrame) => {
                  let result = new Array<String>();
                  for (let value of json.value) {
@@ -205,12 +215,14 @@ export class SynactaAPIService {
     * @param container
     */
     public deleteEntity(entity: Entity): void{
-        if(typeof entity == "Container") {
-            this.get(null, entity.ObjectType, entity.ID);
-        }
-        else {
-            console.log("Kein Container ausgewählt: Löschung noch nicht implementiert!");
-        }
+        this.getBase(null, entity.ObjectType, entity.ID);
+    }
+
+   /*
+    *
+    */
+    public getContainersByOrg(): void{
+        this.get("/org","",,);
     }
 
 }
