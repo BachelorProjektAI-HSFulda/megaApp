@@ -12,13 +12,26 @@ import { IFrame, Frame, Entity, Container, Document } from './api.objects';
 const API_KEY = 'Token FHProjekt2016';
 const API_URL = 'https://synacta.agile-is.de/_api/';
 
+/*
+export interface Mockup{
+	Name: String;
+	Orgs: String[];
+}*/
+
 @Injectable()
 export class SynactaAPIService {
+
+	//demoUser : Mockup;
 
     baseHeaders: Headers = new Headers();
 
     constructor(private http: Http) {
         this.baseHeaders.append("Authorization", API_KEY);
+		/*this.demoUser ={
+			Name: "Team1",
+			Orgs: [1011, 1012]
+			
+		};*/
     }
 
     /* Send request to the Synacta-Endpoint
