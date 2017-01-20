@@ -1,40 +1,25 @@
 <h1>
     Browser
+	<button (click)="higher(kram[0])">
+		<ion-icon name="arror-back">zurück</ion-icon>
+	</button>
 </h1>
 
 <content>
     <!--Creating a new List -->
     <ion-list no-lines>
-
-        <!-- Set slideable Items-->
-        <ion-item-sliding no-lines>
-            <ion-item no-lines>
-                <!-- Item with Avatar/Icon-->
-                <ion-icon name="paper" item-left></ion-icon>
-                <h2> Akte 1 </h2>
-                <p> Lorem ipsum </p>
-            </ion-item>
-            <!-- Options for Items in this part-->
-            <ion-item-options side="left">
-                <div class="action">
-                    <ion-icon name="create"></ion-icon>
-                    Bearbeiten
-                </div>
-                <div class="action">
-                    <ion-icon name="star"></ion-icon>
-                    Favorit
-                </div>
-                <div class="action">
-                    <ion-icon name="document"></ion-icon>
-                    Öffnen
-                </div>
-            </ion-item-options>
-        </ion-item-sliding>
-        <ion-item-sliding>
+        <ion-item-sliding *ngFor="let item of kram">
             <ion-item>
+                <!-- Item with Avatar/Icon-->
+                <button (click)="deeper(item)">
                 <ion-icon name="paper" item-left></ion-icon>
-                <h2> Akte2 </h2>
-                <p> Lorem ipsum </p>
+                <p>{{item.Properties.Aktenzeichen}}{{item.Properties.Zeichen}}</p>
+                <h3>
+                    {{item.Properties.Aktenbetreff}}{{item.Properties.Bezeichnung}}
+                </h3>
+                
+				
+				</button>
             </ion-item>
             <!-- Options for Items in this part-->
             <ion-item-options side="left">
@@ -43,8 +28,10 @@
                     Bearbeiten
                 </div>
                 <div class="action">
+                    <button (click)="favorite(item)">
                     <ion-icon name="star"></ion-icon>
-                    Favorit
+					</button>
+					Favorit
                 </div>
                 <div class="action">
                     <ion-icon name="document"></ion-icon>

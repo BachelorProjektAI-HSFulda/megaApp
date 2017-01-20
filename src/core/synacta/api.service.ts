@@ -36,8 +36,8 @@ export class SynactaAPIService {
     private get(target: string, type: string, id: string) {
          let endpoint = BASE_URL;
          endpoint = (type)? endpoint + type : endpoint;
-         endpoint = (id)? endpoint + "/" +id : endpoint;
-         endpoint = (target) ? endpoint + target : endpoint;
+         endpoint = (id)? endpoint + "/" + id : endpoint;
+         endpoint = (target) ? endpoint + "/" + target : endpoint;
          return this.getByLink(endpoint);
      }
 
@@ -114,13 +114,16 @@ export class SynactaAPIService {
      * @return an observable containing a list of Entity
      */
      public getChildren(container: Container, num: Number = 20, offset: Number = 0): Observable<Entity[]> {
-         // TODO - Implement num and offset
+         // TODO - Implement offset
          // TODO - Implement hasChild?
+         // $top is the number of elements RESTful variable
          return this
-             .get("Children", container.ObjectType, container.ID)
+             .get("Children?$top=" + num, container.ObjectType, container.ID)
              .map((json: IFrame) => {
                  let result = new Array<Entity>();
                  for (let value of json.value) {
+                     // The existence of the 'Name' field is our only checked hint
+                     // at the moment to distinguish between containers and documents
                      if (value["Name"]) {
                         result.push(deserialize(Document, value));
                      } else {
@@ -194,23 +197,9 @@ export class SynactaAPIService {
      * @return an observable containing a container object
      */
      public getParent(entity: Entity): Observable<Container> {
-         let result;
-        /* Properties handled as
-         * JSON ? -> Maybe incorrect
-         */
-         if(entity.Properties.Name) {
-             result = this.getByID(entity.Properties.Name,entity.ParentID);
-         }
-         else {
-             result = this.getByID(entity.Properties.Type,entity.ParentID);
-         }
-         return result;
-        /* Properties handled as
-         * Array
-         */
-         //return this
-         //   .getByID(entity.Properties[0],entity.ParentID);
+         return this.getByID(entity.ParentType,entity.ParentID);
     }
+
 
     /*
      * This function uses type and id (The organisation identifier) to receive the
@@ -231,5 +220,19 @@ export class SynactaAPIService {
                  return result;
               });
       }
+
+
+   /*
+    * This function deletes a given container
+    * @param container
+    */
+    public deleteEntity(entity: Entity): void{
+        if(typeof entity == "Container") {
+            this.get(null, entity.ObjectType, entity.ID);
+        }
+        else {
+            console.log("Kein Container ausgewählt: Löschung noch nicht implementiert!");
+        }
+    }
 
 }
