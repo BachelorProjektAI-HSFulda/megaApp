@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Storage, Token } from './storage';
 import { SynactaAPIService } from '../synacta/api.service';
 import { Entity } from '../synacta/api.objects';
+import { AlertController } from 'ionic-angular';
 
 @Injectable()
 export class Favorits{
@@ -23,6 +24,7 @@ export class Favorits{
       dataFav.push(token);
       this.lStorage.saveData<Token>("fav", dataFav);
       this.addEntity(iEntity);
+	  console.log("addfav");
     }
 
     /*
@@ -71,7 +73,7 @@ export class Favorits{
     @param id
     @return a boolean
     */
-    private checkFav(iEntity:Entity) :boolean{
+    public checkFav(iEntity:Entity) :boolean{
       let dataFav = this.getFav();
       if(dataFav == null) return false;
       for(let i = 0; i < dataFav.length; i++){
@@ -125,5 +127,23 @@ export class Favorits{
       this.synAPI.getByID(iEntity.ObjectType, iEntity.ID)
       .subscribe(response => this.favEntitys.push(response));
     }
+
+    public remAlert(alertCtrl: AlertController) {
+	  let alert = alertCtrl.create({
+		  title: 'Favorit entfernt',
+		  subTitle: 'Akte/Container wurde erfolgreich von den Favoriten entfernt',
+		  buttons: ['OK']
+	  });
+	  alert.present();
+  }
+
+  public showAlert(alertCtrl: AlertController) {
+	  let alert = alertCtrl.create({
+		  title: 'Neuer Favorit',
+		  subTitle: 'Akte/Container wurde erfolgreich zu den Favoriten hinzugefügt',
+		  buttons: ['OK']
+	  });
+	  alert.present();
+  }
 
 }

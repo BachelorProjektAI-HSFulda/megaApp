@@ -3,6 +3,7 @@
   "author": "Team1",
   "homepage": "",
   "private": true,
+
   "main" : "./src/desktop/electron_setup.js",
   "scripts": {
     "install-globals": "npm install ionic cordova -g",
@@ -16,7 +17,8 @@
     "run:before": "build",
     "typings": "typings",
     "tsc": "tsc",
-    "test": "karma start config/karma.conf.js"
+    "test": "karma start config/karma.conf.js",
+    "electron": "electron ./src/desktop/electron_setup"
   },
   "dependencies": {
     "@angular/common": "2.1.1",
@@ -47,6 +49,7 @@
     "awesome-typescript-loader": "^2.2.4",
     "concurrently": "^3.1.0",
     "css-loader": "^0.23.1",
+    "electron": "^1.4.15",
     "electron-prebuilt": "^1.4.5",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.8.5",

@@ -6,7 +6,7 @@ import { SynactaAPIService } from '../../core/synacta/api.service';
 
 import { Favorits } from '../../core/storage/favorits';
 
-import { RecentList, ExpEntity} from '../../core/storage/recentList';
+import { RecentList} from '../../core/storage/recentList';
 
 @Component({
   selector: 'page-recent',

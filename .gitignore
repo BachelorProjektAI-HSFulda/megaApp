@@ -318,3 +318,7 @@ __pycache__/
 
 # Cake - Uncomment if you are using it
 # tools/
+
+# tsc compile
+src/**/*.js
+src/**/*.js.map

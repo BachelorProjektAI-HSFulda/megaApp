@@ -8,9 +8,14 @@
         <ion-item-sliding *ngFor="let item of listOfFav">
             <ion-item>
                 <!-- Item with Avatar/Icon-->
-                <ion-icon name="paper" item-left></ion-icon>
-                <h3>{{item.Properties.Aktentyp}}</h3>
-                <p>Aktenzeichen: {{item.Properties.Aktenzeichen}}</p>
+				<button (click)="toBrowser(item)">
+                <ion-icon name="paper" item-left *ngIf="item.Document == undefined"></ion-icon>
+                <ion-icon name="document" item-left *ngIf="item.Document != undefined"></ion-icon>
+                <p>{{item.Properties.Aktenzeichen}}{{item.Properties.Zeichen}}</p>
+                <h3>
+                    {{item.Properties.Aktenbetreff}}{{item.Properties.Bezeichnung}}
+                </h3>
+                </button>
             </ion-item>
             <!-- Options for Items in this part-->
             <ion-item-options side="left">
@@ -19,7 +24,9 @@
                     Bearbeiten
                 </div>
                 <div class="action">
+				<button (click)="rem(item)">
                     <ion-icon name="star"></ion-icon>
+					</button>
                     Favorit
                 </div>
                 <div class="action">
