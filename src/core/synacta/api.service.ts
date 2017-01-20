@@ -205,6 +205,7 @@ export class SynactaAPIService {
     * @param container
     */
     public deleteEntity(entity: Entity): void{
+
         if(typeof entity == "Container") {
             this.get(null, entity.ObjectType, entity.ID);
         }

@@ -3,7 +3,8 @@
   "author": "Team1",
   "homepage": "",
   "private": true,
-  "main": "./src/desktop/electron_setup.js",
+
+  "main" : "./src/desktop/electron_setup.js",
   "scripts": {
     "install-globals": "npm install ionic cordova -g",
     "install-clean": "rm -R node_modules/ && npm install",
