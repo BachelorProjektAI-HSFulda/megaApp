@@ -17,7 +17,7 @@ env:
   CXX=g++-4.8
 
 install:
-  - npm run install-globals
+  - npm install -g ionic cordova
   - npm install
 
 before_script:
