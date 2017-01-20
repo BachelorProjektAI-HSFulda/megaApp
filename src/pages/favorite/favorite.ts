@@ -6,7 +6,7 @@ import { Favorits } from '../../core/storage/favorits';
 
 import { BrowserPage } from '../browser/browser';
 
-import { Entity } from '../../core/synacta/api.objects';
+import { Entity, Container } from '../../core/synacta/api.objects';
 
 @Component({
   selector: 'page-favorite',
