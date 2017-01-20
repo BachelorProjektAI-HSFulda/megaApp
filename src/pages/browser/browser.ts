@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { NavController, AlertController } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 
 import { Favorits } from '../../core/storage/favorits';
 
@@ -14,25 +14,61 @@ import { Entity, Container } from '../../core/synacta/api.objects';
 })
 export class BrowserPage {
 	daten:Container;
+	lastUsedView:Container;
 	kram;
-  test;
+	test;
+
+  constructor(public navCtrl: NavController, private synAPI: SynactaAPIService, private fav: Favorits, public alertCtrl: AlertController, private navParams: NavParams) {}
   
-  constructor(public navCtrl: NavController, private synAPI: SynactaAPIService, private fav: Favorits, public alertCtrl: AlertController) {
 
 
-	synAPI.getRoot().subscribe(
-		response => this.daten = response,
-		error => console.log(error),
-		() => {
-        console.log("Root", this.daten);
-        synAPI.getChildren(this.daten).subscribe(
+   ionViewWillEnter(){
+    console.log(this.navParams.get('ID'), this.navParams.get('ObjectType'));
+    if(this.navParams.get('ID') == undefined){
+      if(this.lastUsedView != undefined){
+        this.synAPI.getChildren(this.lastUsedView).subscribe(
           response => this.kram = response,
           error => console.log(error),
           () => console.log("Children", this.kram)
         )
-    });
+      }
+      else{
+        this.synAPI.getRoot().subscribe(
+    response => this.daten = response,
+    error => console.log(error),
+    () => {
+            console.log("Root", this.daten);
+            this.synAPI.getChildren(this.daten).subscribe(
+              response => this.kram = response,
+              error => console.log(error),
+              () => console.log("Children", this.kram)
+            )
+        });
+      }
+    }
+    else{
+      let id = this.navParams.get('ID');
+      let type = this.navParams.get('ObjectType');
+      this.synAPI.getByID(type, id).subscribe(
+        response => this.lastUsedView = response,
+        error => console.log(error),
+        () => {
+          console.log("reDirected" , this.navParams.get('ID'))
+          this.synAPI.getChildren(this.lastUsedView).subscribe(
+            children => this.kram = children,
+            error => console.log(error),
+            () => console.log("Children", this.kram)
+          )
+        } );
+     }
+   }
 
-  }
+   
+   
+   
+   
+   
+   
   
   ablehnen() {
 	  let alert = this.alertCtrl.create({
@@ -45,27 +81,19 @@ export class BrowserPage {
   public deeper(children: Container): void{
 	  if(children.HasChild == true)
 	  {
-	this.synAPI.getChildren(children).subscribe(
-		response => this.kram = response,
-		error => console.log(error),
-		() => console.log("deeper", this.kram)
-	);
+	    this.navCtrl.push(BrowserPage, children);
 	  }
 	  else{
 		  this.ablehnen();
 		  }
-  }
-  
-  
+      }
+
+
   public higher(current: Entity): void{
 	  if(current.ParentType != "Plan"){
 	  this.synAPI.getParent(current).subscribe( (parent: Container) => {
-		this.synAPI.getParent(parent).subscribe( (grandparent: Container) => { 
-			this.synAPI.getChildren(grandparent).subscribe(
-				children => this.kram = children,
-				error => console.log(error),
-				() => console.log("Children", this.kram)
-			)
+		this.synAPI.getParent(parent).subscribe( (grandparent: Container) => {
+      this.navCtrl.push(BrowserPage, grandparent);
 		})
 	});
 	  }
@@ -73,8 +101,6 @@ export class BrowserPage {
 		  this.ablehnen();
 	  }
   }
-  
-  
   
   
   public favorite(favo: Container, i): void{
@@ -94,5 +120,4 @@ export class BrowserPage {
 	public checkFavorite(favo: Container): void {
 		console.log("<<<<<<<<<<<<<<<<");
 	}
-  
 }
