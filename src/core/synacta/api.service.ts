@@ -42,6 +42,18 @@ export class SynactaAPIService {
          return this.getByLink(endpoint);
      }
 
+    /* Send request to the Synacta-Endpoint
+     *
+     * which contains a json object
+     * This method is async which means that your code
+     * will continue after calling this method
+     * 
+     * To actually receive data one has to subscribe
+     * to this function with a callback to hold the
+     * json result.
+     * 
+     * @returns an observable response object containing a json object
+     */
      private getOrg(target: string, type: string, id: string) {
          let endpoint = API_URL;
          endpoint = endpoint + "org/";
@@ -219,10 +231,13 @@ export class SynactaAPIService {
     }
 
    /*
-    *
+    * This function uses a type and an id to receive a conatiner list of one type
+    * @param type
+    * @param id
+    * @return an observable containing a container list
     */
-    public getContainersByOrg(): void{
-        this.get("/org","",,);
+    public getContainersByOrg(type: string, id: string): Observable<Container[]>{
+        return this.getOrg(null,type,id);
     }
 
 }
