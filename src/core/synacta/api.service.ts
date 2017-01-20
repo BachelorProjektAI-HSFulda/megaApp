@@ -201,31 +201,17 @@ export class SynactaAPIService {
     }
 
    /*
-    * This function uses a type and an id to receive the siblings of a specific
-    * entity
-    * @param entity
-    * @return an observable containing a list of Entities
+    * This function deletes a given container
+    * @param container
     */
-    public getSibling(entity: Entity): Observable<Entity[]> {
-        let response;
-        this.getParent(entity).subscribe(resp => response = resp);
-        while (!response) {
+    public deleteEntity(entity: Entity): void{
 
+        if(typeof entity == "Container") {
+            this.get(null, entity.ObjectType, entity.ID);
         }
-        return this.getChildren(response);
+        else {
+            console.log("Kein Container ausgewählt: Löschung noch nicht implementiert!");
+        }
     }
 
-   /*
-    * This function uses a type and an id to receive a list of the previous floor elements
-    * @param entity
-    * @return an observable containing a list of Entities
-    */
-     public getPreviousFloor(entity: Entity): Observable<Entity[]> {
-         let response;
-         this.getParent(entity).subscribe(resp => response = resp);
-         while(!response) {
-
-         }
-         return this.getSibling(response);
-     }
 }
