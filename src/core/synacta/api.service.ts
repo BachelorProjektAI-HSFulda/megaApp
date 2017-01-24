@@ -12,26 +12,25 @@ import { IFrame, Frame, Entity, Container, Document } from './api.objects';
 const API_KEY = 'Token FHProjekt2016';
 const API_URL = 'https://synacta.agile-is.de/_api/';
 
-/*
+
 export interface Mockup{
-	Name: String;
-	Orgs: String[];
-}*/
+	Name: string;
+	Orgs: string[];
+}
 
 @Injectable()
 export class SynactaAPIService {
 
-	//demoUser : Mockup;
+	demoUser : Mockup;
 
     baseHeaders: Headers = new Headers();
 
     constructor(private http: Http) {
         this.baseHeaders.append("Authorization", API_KEY);
-		/*this.demoUser ={
+		this.demoUser ={
 			Name: "Team1",
-			Orgs: [1011, 1012]
-			
-		};*/
+			Orgs: ["1011", "1012"]
+		};
     }
 
     /* Send request to the Synacta-Endpoint
@@ -60,19 +59,20 @@ export class SynactaAPIService {
      * which contains a json object
      * This method is async which means that your code
      * will continue after calling this method
-     * 
+     *
      * To actually receive data one has to subscribe
      * to this function with a callback to hold the
      * json result.
-     * 
+     *
      * @returns an observable response object containing a json object
      */
-     private getOrg(target: string, type: string, id: string) {
+     private getOrg(target: string, type: string, id: string, searchString: string) {
          let endpoint = API_URL;
          endpoint = endpoint + "org/";
          endpoint = (id)? endpoint + id : endpoint;
          endpoint = (type)? endpoint + "/" + type : endpoint;
          endpoint = (target)? endpoint + "/" + target : endpoint;
+				 endpoint = (searchString)? endpoint + "?$filter=contains(" + searchString + ")" : endpoint;
          return this.getByLink(endpoint);
      }
 
@@ -249,8 +249,22 @@ export class SynactaAPIService {
     * @param id
     * @return an observable containing a container list
     */
-    public getContainersByOrg(type: string, id: string): Observable<Container[]>{
-        return this.getOrg(null,type,id);
+    public getContainersByOrg(type: string, id: string, searchString: string): Observable<Container[]>{
+			let search = (searchString == undefined)? null : searchString;
+			return this.getOrg(null,type,id,search)
+      .map((json: IFrame) => {
+        let result = new Array<Entity>();
+        for (let value of json.value) {
+          // The existence of the 'Name' field is our only checked hint
+          // at the moment to distinguish between containers and documents
+          if (value["Name"]) {
+            result.push(deserialize(Document, value));
+          } else {
+            result.push(deserialize(Container, value));
+          }
+        }
+        return result;
+      });
     }
 
 }
