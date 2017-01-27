@@ -76,6 +76,31 @@ export class SynactaAPIService {
          return this.getByLink(endpoint);
      }
 
+    /*
+     *
+     */
+     private postBase(target: string, type: string, id: string, body: Entity) {
+         let object = JSON.stringify(body);
+         let endpoint = API_URL;
+         endpoint = endpoint + "base/";
+         endpoint = (type)? endpoint + type : endpoint;
+         endpoint = (id)? endpoint + "/" + id : endpoint;
+         endpoint = (target) ? endpoint + "/" + target : endpoint;
+         return this.postByLink(endpoint, object);
+     }
+
+    /*
+     *
+     */
+     private deleteBase(target: string, type: string, id: string) {
+         let endpoint = API_URL;
+         endpoint = endpoint + "base/";
+         endpoint = (type)? endpoint + type : endpoint;
+         endpoint = (id)? endpoint + "/" + id : endpoint;
+         endpoint = (target) ? endpoint + "/" + target : endpoint;
+         return this.deleteByLink(endpoint);
+     }
+
      /*
       * Receive an object by navigation link
       * @param endpoint
@@ -86,6 +111,26 @@ export class SynactaAPIService {
          return this.http
              .get(endpoint, {headers: headers})
              .map(response => response.json());
+     }
+
+    /*
+     *
+     */
+     private postByLink(endpoint: string, body: string) {
+         let headers = new Headers(this.baseHeaders);
+         return this.http
+            .post(endpoint, {body}, {headers: headers})
+            .map(response => response.json());
+     }
+
+    /*
+     *
+     */
+     private deleteByLink(endpoint: string) {
+         let headers = new Headers(this.baseHeaders);
+         return this.http
+            .delete(endpoint, {headers: headers})
+            .map(response => response.json());
      }
 
     /*
@@ -240,7 +285,21 @@ export class SynactaAPIService {
     * @param container
     */
     public deleteEntity(entity: Entity): void{
-        this.getBase(null, entity.ObjectType, entity.ID);
+        this.deleteBase(null, entity.ObjectType, entity.ID);
+    }
+
+   /* This function uses a type and an id of a document to receive
+    * the file in it
+    * @param document
+    * @return
+    */
+    public getFile(document: Document): Observable<String>{
+        return this.getBase("GetFile",document.ObjectType,document.ID);
+    }
+
+    public moveEntity(entity: Entity,parent: Container): void{
+        entity.ParentID = parent.ID;
+        this.postBase("Move",entity.ObjectType,entity.ID,entity);
     }
 
    /*
