@@ -10,7 +10,7 @@ import { deserialize } from 'json-typescript-mapper';
 import { IFrame, Frame, Entity, Container, Document } from './api.objects';
 
 const API_KEY = 'Token FHProjekt2016';
-const BASE_URL = 'https://synacta.agile-is.de/_api/base/';
+const BASE_URL = 'https://synacta.agile-is.de/_api/base';
 
 @Injectable()
 export class SynactaAPIService {
@@ -35,7 +35,7 @@ export class SynactaAPIService {
      */
     private get(target: string, type: string, id: string) {
          let endpoint = BASE_URL;
-         endpoint = (type)? endpoint + type : endpoint;
+         endpoint = (type)? endpoint + "/" + type : endpoint;
          endpoint = (id)? endpoint + "/" + id : endpoint;
          endpoint = (target) ? endpoint + "/" + target : endpoint;
          return this.getByLink(endpoint);
