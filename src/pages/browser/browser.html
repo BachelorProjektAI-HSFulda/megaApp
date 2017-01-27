@@ -19,6 +19,7 @@
   </ion-searchbar>
   <!--Creating a new List -->
   <ion-list no-lines *ngIf="!viewByOrg">
+    <p *ngIf="kram.length == 0"> Hier sind keine Daten enthalten</p>
     <ion-item-sliding *ngFor="let item of kram; let i=index">
       <ion-item>
         <!-- Item with Avatar/Icon-->
@@ -34,8 +35,10 @@
       <!-- Options for Items in this part-->
       <ion-item-options side="left">
         <div class="action">
-          <ion-icon name="create"></ion-icon>
-          Bearbeiten
+          <button (click)="delete">
+            <ion-icon name="trash"></ion-icon>
+            Löschen
+          </button>
         </div>
         <div class="action" id="favorite{{i}}">
           <button (click)="favorite(item, i)">
@@ -44,8 +47,9 @@
           </button> Favorit
         </div>
         <div class="action">
-          <ion-icon name="document"></ion-icon>
-          Öffnen
+          <button (click)="meta(item)">
+            <ion-icon name="document"></ion-icon>
+          </button> Öffnen
         </div>
       </ion-item-options>
     </ion-item-sliding>
@@ -54,6 +58,7 @@
     <ion-list no-lines *ngIf="viewByOrg">
       <ion-list *ngFor="let itemSet of viewByOrgData">
         <h2>{{itemSet.Org}}</h2>
+        <p *ngIf="itemSet.Data.length == 0"> Hier sind keine Daten enthalten</p>
         <ion-item-sliding *ngFor="let item of itemSet.Data; let i=index">
           <ion-item>
             <!-- Item with Avatar/Icon-->
@@ -69,8 +74,10 @@
           <!-- Options for Items in this part-->
           <ion-item-options side="left">
             <div class="action">
-              <ion-icon name="create"></ion-icon>
-              Bearbeiten
+              <button (click)="delete">
+                <ion-icon name="trash"></ion-icon>
+                Löschen
+              </button>
             </div>
             <div class="action" id="favorite{{i}}">
               <button (click)="favorite(item, i)">
@@ -79,8 +86,9 @@
               </button> Favorit
             </div>
             <div class="action">
-              <ion-icon name="document"></ion-icon>
-              Öffnen
+              <button (click)="meta(item)">
+                <ion-icon name="document"></ion-icon>
+              </button> Öffnen
             </div>
           </ion-item-options>
         </ion-item-sliding>

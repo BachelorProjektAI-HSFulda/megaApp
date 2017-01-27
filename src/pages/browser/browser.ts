@@ -23,10 +23,10 @@ export class BrowserPage {
   viewByOrg:boolean;
   viewByOrgData:Array<OrgData>;
   daten:Container;
-	lastUsedView:Container;
+  lastUsedView:Container;
   user:Mockup;
-	kram:Array<any>;
-	searchBar:string;
+  kram:Array<any>;
+  searchBar:string;
 
   constructor(public navCtrl: NavController, private synAPI: SynactaAPIService, private fav: Favorits, public alertCtrl: AlertController, private navParams: NavParams) {
     //todo get value from option
@@ -100,6 +100,16 @@ export class BrowserPage {
 	  });
 	  alert.present();
   }
+
+  public meta(datei: Container): void{
+    if(datei.HasChild){
+      this.deeper(datei);
+    }
+    else{
+      this.navCtrl.push(datei.Properties);
+    }
+  }
+
   public deeper(children: Container): void{
     if(children.HasChild == true)
     {
@@ -180,4 +190,28 @@ export class BrowserPage {
       )
     }
   }
+  
+  public delete(del: Entity) {
+  let alert = this.alertCtrl.create({
+    title: 'Confirm purchase',
+    message: 'Wollen Sie das wirklich löschen?',
+    buttons: [
+      {
+        text: 'Ja',
+        role: 'ja',
+        handler: () => {
+        this.synAPI.deleteEntity(del);
+        }
+      },
+      {
+        text: 'Nein',
+        handler: () => {
+        console.log('Nein clicked');
+        }
+      }
+    ]
+  });
+  alert.present();
+}
+
 }
