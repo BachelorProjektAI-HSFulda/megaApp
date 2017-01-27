@@ -5,6 +5,8 @@ import 'rxjs/add/operator/map';
 
 import { Observable } from 'rxjs/Observable';
 
+import 'rxjs/Rx';
+
 import { deserialize } from 'json-typescript-mapper';
 
 import { IFrame, Frame, Entity, Container, Document } from './api.objects';
@@ -76,6 +78,31 @@ export class SynactaAPIService {
          return this.getByLink(endpoint);
      }
 
+    /*
+     *
+     */
+     private postBase(target: string, type: string, id: string, body: Entity) {
+         let object = JSON.stringify(body);
+         let endpoint = API_URL;
+         endpoint = endpoint + "base/";
+         endpoint = (type)? endpoint + type : endpoint;
+         endpoint = (id)? endpoint + "/" + id : endpoint;
+         endpoint = (target) ? endpoint + "/" + target : endpoint;
+         return this.postByLink(endpoint, object);
+     }
+
+    /*
+     *
+     */
+     private deleteBase(target: string, type: string, id: string) {
+         let endpoint = API_URL;
+         endpoint = endpoint + "base/";
+         endpoint = (type)? endpoint + type : endpoint;
+         endpoint = (id)? endpoint + "/" + id : endpoint;
+         endpoint = (target) ? endpoint + "/" + target : endpoint;
+         return this.deleteByLink(endpoint);
+     }
+
      /*
       * Receive an object by navigation link
       * @param endpoint
@@ -85,7 +112,28 @@ export class SynactaAPIService {
          let headers = new Headers(this.baseHeaders);
          return this.http
              .get(endpoint, {headers: headers})
+             .retry(5)
              .map(response => response.json());
+     }
+
+    /*
+     *
+     */
+     private postByLink(endpoint: string, body: string) {
+         let headers = new Headers(this.baseHeaders);
+         return this.http
+            .post(endpoint, {body}, {headers: headers})
+            .map(response => response.json());
+     }
+
+    /*
+     *
+     */
+     private deleteByLink(endpoint: string) {
+         let headers = new Headers(this.baseHeaders);
+         return this.http
+            .delete(endpoint, {headers: headers})
+            .map(response => response.json());
      }
 
     /*
@@ -104,6 +152,7 @@ export class SynactaAPIService {
         // 4. return the container object within a observable
         return this
             .getBase("root", null, null)
+            .retry(5)
             .map((json:IFrame) => deserialize(Container, json.value[0]));
      }
 
@@ -117,6 +166,7 @@ export class SynactaAPIService {
      public getByID(type: string, id: string): Observable<Container> {
          return this
              .getBase(null, type, id)
+             .retry(5)
              .map((json) => deserialize(Container, json));
      }
 
@@ -129,6 +179,7 @@ export class SynactaAPIService {
      public getByType(type: string): Observable<Container[]> {
          return this
              .getBase(null, type, null)
+             .retry(5)
              .map((json: IFrame) => {
                 let result = new Array<Container>();
                 for (let value of json.value) {
@@ -154,6 +205,7 @@ export class SynactaAPIService {
          // $top is the number of elements RESTful variable
          return this
              .getBase("Children?$top=" + num, container.ObjectType, container.ID)
+             .retry(5)
              .map((json: IFrame) => {
                  let result = new Array<Entity>();
                  for (let value of json.value) {
@@ -179,6 +231,7 @@ export class SynactaAPIService {
      public getChildTypes(container: Container): Observable<String[]> {
          return this
              .getBase("Children/Types", container.ObjectType, container.ID)
+             .retry(5)
              .map((json: IFrame) => {
                  let result = new Array<String>();
                  for (let value of json.value) {
@@ -198,6 +251,7 @@ export class SynactaAPIService {
      public getDocuments(container: Container): Observable<Document[]> {
          return this
              .getBase("Documents", container.ObjectType, container.ID)
+             .retry(5)
              .map((json: IFrame) => {
                  let result = new Array<Document>();
                  for (let value of json.value) {
@@ -216,6 +270,7 @@ export class SynactaAPIService {
      public getDocTypes(container: Container): Observable<String[]> {
          return this
              .getBase("Documents/Types", container.ObjectType, container.ID)
+             .retry(5)
              .map((json: IFrame) => {
                  let result = new Array<String>();
                  for (let value of json.value) {
@@ -232,15 +287,30 @@ export class SynactaAPIService {
      * @return an observable containing a container object
      */
      public getParent(entity: Entity): Observable<Container> {
-         return this.getByID(entity.ParentType,entity.ParentID);
+         return this.getByID(entity.ParentType,entity.ParentID)
+         .retry(5);
     }
 
    /*
     * This function deletes a given container
     * @param container
     */
-    public deleteEntity(entity: Entity): void{
-        this.getBase(null, entity.ObjectType, entity.ID);
+    public deleteEntity(entity: Entity): Observable<String>{
+        return this.deleteBase(null, entity.ObjectType, entity.ID);
+    }
+
+   /* This function uses a type and an id of a document to receive
+    * the file in it
+    * @param document
+    * @return
+    */
+    public getFile(document: Document): Observable<String>{
+        return this.getBase("GetFile",document.ObjectType,document.ID);
+    }
+
+    public moveEntity(entity: Entity,parent: Container): void{
+        entity.ParentID = parent.ID;
+        this.postBase("Move",entity.ObjectType,entity.ID,entity);
     }
 
    /*
@@ -252,16 +322,13 @@ export class SynactaAPIService {
     public getContainersByOrg(type: string, id: string, searchString: string): Observable<Container[]>{
 			let search = (searchString == undefined)? null : searchString;
 			return this.getOrg(null,type,id,search)
+			.retry(5)
       .map((json: IFrame) => {
-        let result = new Array<Entity>();
+        let result = new Array<Container>();
         for (let value of json.value) {
           // The existence of the 'Name' field is our only checked hint
           // at the moment to distinguish between containers and documents
-          if (value["Name"]) {
-            result.push(deserialize(Document, value));
-          } else {
-            result.push(deserialize(Container, value));
-          }
+          result.push(deserialize(Container, value));
         }
         return result;
       });
