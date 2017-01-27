@@ -91,6 +91,16 @@ export class BrowserPage {
 	  });
 	  alert.present();
   }
+
+  public meta(datei: Container): void{
+    if(datei.HasChild){
+      this.deeper(datei);
+    }
+    else{
+      this.navCtrl.push(datei.Properties);
+    }
+  }
+
   public deeper(children: Container): void{
     if(children.HasChild == true)
     {
