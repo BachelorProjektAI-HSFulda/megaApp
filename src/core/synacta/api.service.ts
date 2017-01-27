@@ -271,8 +271,8 @@ export class SynactaAPIService {
     * This function deletes a given container
     * @param container
     */
-    public deleteEntity(entity: Entity): void{
-        this.deleteBase(null, entity.ObjectType, entity.ID);
+    public deleteEntity(entity: Entity): Observable<String>{
+        return this.deleteBase(null, entity.ObjectType, entity.ID);
     }
 
    /* This function uses a type and an id of a document to receive
