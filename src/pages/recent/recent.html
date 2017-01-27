@@ -23,7 +23,8 @@
                     Bearbeiten
                 </div>
                 <div class="action">
-                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star" item-left *ngIf="fav.checkFav(item)"></ion-icon>
+					<ion-icon name="star-outline" item-left *ngIf="!fav.checkFav(item)"></ion-icon>
                     Favorit
                 </div>
                 <div class="action">

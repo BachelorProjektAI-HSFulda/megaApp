@@ -34,8 +34,10 @@
             <!-- Options for Items in this part-->
             <ion-item-options side="left">
                 <div class="action">
-                    <ion-icon name="create"></ion-icon>
-                    Bearbeiten
+					<button (click)="delete">
+						<ion-icon name="trash"></ion-icon>
+						Löschen
+					</button>
                 </div>
                 <div class="action" id="favorite{{i}}">
                     <button (click)="favorite(item, i)">

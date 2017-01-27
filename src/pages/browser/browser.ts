@@ -187,4 +187,31 @@ export class BrowserPage {
     }
     this.kram = tmp;
   }
+  
+  presentConfirm() {
+  let alert = this.alertCtrl.create({
+    title: 'Confirm purchase',
+    message: 'Wollen Sie das wirklich löschen?',
+    buttons: [
+      {
+        text: 'Ja',
+        role: 'ja',
+        handler: () => {
+        this.synAPI.deleteEntity(del);
+        }
+      },
+      {
+        text: 'Nein',
+        handler: () => {
+        console.log('Nein clicked');
+        }
+      }
+    ]
+  });
+  alert.present();
+}
+  
+  public delete(del: Entity) {
+	  presentConfirm();
+  }
 }
