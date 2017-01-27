@@ -8,12 +8,20 @@ import { SynactaAPIService, Mockup } from '../../core/synacta/api.service';
 
 import { Entity, Container } from '../../core/synacta/api.objects';
 
+
+interface OrgData{
+  Org: string;
+  Data:Array<any>;
+}
+
 @Component({
   selector: 'page-browser',
   templateUrl: 'browser.html'
 })
+
 export class BrowserPage {
   viewByOrg:boolean;
+  viewByOrgData:Array<OrgData>;
   daten:Container;
 	lastUsedView:Container;
   user:Mockup;
@@ -23,6 +31,7 @@ export class BrowserPage {
   constructor(public navCtrl: NavController, private synAPI: SynactaAPIService, private fav: Favorits, public alertCtrl: AlertController, private navParams: NavParams) {
     //todo get value from option
     this.viewByOrg = true;
+    this.viewByOrgData = new Array<OrgData>();
     this.user = synAPI.demoUser;
     this.kram = new Array<any>();
     this.searchBar = "hallo";
@@ -136,7 +145,7 @@ export class BrowserPage {
 		console.log("<<<<<<<<<<<<<<<<");
 	}
 
-  
+
   public switchView(){
     if(this.viewByOrg){
       this.viewByOrg=false
@@ -157,34 +166,18 @@ export class BrowserPage {
   }
 
   private getFromOrg(s: string){
-    let tmp = new Array<any>();
     for(let item of this.user.Orgs){
+      let tmp = new Array<any>();
       let data;
       let search = (s == null)? null : "Aktenbetreff, '"+s+"'";
       this.synAPI.getContainersByOrg("Akte", item, search).subscribe(
-        response => data = response,
+        response => tmp = response,
         error => console.log(error),
         () => {
-          console.log(data);
-          for(let item of data){
-            if(tmp.length == 0){
-              tmp.push(item)
-            }
-            let check:boolean = false;
-            for(let checkItem of tmp){
-              if(item.ID == checkItem.ID){
-                check = true
-              }
-              console.log(item.ID == checkItem.ID);
-            }
-            if(!check){
-              tmp.push(item)
-            }
-          }
-          console.log(this.kram);
+          let data:OrgData ={Org: item, Data: tmp}
+          this.viewByOrgData.push(data)
         }
       )
     }
-    this.kram = tmp;
   }
 }
