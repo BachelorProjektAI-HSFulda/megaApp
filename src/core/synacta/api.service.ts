@@ -322,17 +322,13 @@ export class SynactaAPIService {
     public getContainersByOrg(type: string, id: string, searchString: string): Observable<Container[]>{
 			let search = (searchString == undefined)? null : searchString;
 			return this.getOrg(null,type,id,search)
-			.retry(5);
+			.retry(5)
       .map((json: IFrame) => {
-        let result = new Array<Entity>();
+        let result = new Array<Container>();
         for (let value of json.value) {
           // The existence of the 'Name' field is our only checked hint
           // at the moment to distinguish between containers and documents
-          if (value["Name"]) {
-            result.push(deserialize(Document, value));
-          } else {
-            result.push(deserialize(Container, value));
-          }
+          result.push(deserialize(Container, value));
         }
         return result;
       });

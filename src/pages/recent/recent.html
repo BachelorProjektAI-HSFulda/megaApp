@@ -5,6 +5,7 @@
 <content>
     <!--Creating a new List -->
     <ion-list no-lines>
+	<p *ngIf="kram.length == 0"> Hier sind keine Daten enthalten</p>
         <ion-item-sliding *ngFor="let item of listOfRec">
             <ion-item>
                 <!-- Item with Avatar/Icon-->

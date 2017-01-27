@@ -15,10 +15,10 @@ import { Entity, Container } from '../../core/synacta/api.objects';
 export class BrowserPage {
   viewByOrg:boolean;
   daten:Container;
-	lastUsedView:Container;
+  lastUsedView:Container;
   user:Mockup;
-	kram:Array<any>;
-	searchBar:string;
+  kram:Array<any>;
+  searchBar:string;
 
   constructor(public navCtrl: NavController, private synAPI: SynactaAPIService, private fav: Favorits, public alertCtrl: AlertController, private navParams: NavParams) {
     //todo get value from option
@@ -188,7 +188,7 @@ export class BrowserPage {
     this.kram = tmp;
   }
   
-  presentConfirm() {
+  public delete(del: Entity) {
   let alert = this.alertCtrl.create({
     title: 'Confirm purchase',
     message: 'Wollen Sie das wirklich löschen?',
@@ -210,8 +210,5 @@ export class BrowserPage {
   });
   alert.present();
 }
-  
-  public delete(del: Entity) {
-	  presentConfirm();
-  }
+
 }
