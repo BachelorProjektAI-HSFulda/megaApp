@@ -1,22 +1,17 @@
 <h1>
-    Browser
     <button (click)="higher(kram[0])">
-		    <ion-icon name="arrow-back">zurück</ion-icon>
+		    <ion-icon name="arrow-back"></ion-icon>zurück
     </button>
     <button (click)="switchView()">
-        <ion-icon name="ion-log-out">Ansicht Ändern</ion-icon>
+        <ion-icon name="swap"></ion-icon>Ansicht Ändern
     </button>
 
+    <ion-searchbar *ngIf="viewByOrg" [(ngModel)]="searchBar" [showCancelButton]="shouldShowCancel" (ionInput)="startSearch($event)" (ionCancel)="onCancel($event)">
+    </ion-searchbar>
 </h1>
 
 <content>
-  <ion-searchbar
-    *ngIf="viewByOrg"
-    [(ngModel)]="searchBar"
-    [showCancelButton]="shouldShowCancel"
-    (ionInput)="startSearch($event)"
-    (ionCancel)="onCancel($event)">
-  </ion-searchbar>
+
     <!--Creating a new List -->
     <ion-list no-lines>
         <ion-item-sliding *ngFor="let item of kram; let i=index">

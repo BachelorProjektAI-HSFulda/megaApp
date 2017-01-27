@@ -1,14 +1,10 @@
-<h1>
-    Favoriten
-</h1>
-
 <content>
     <!--Creating a new List -->
     <ion-list no-lines>
         <ion-item-sliding *ngFor="let item of listOfFav">
             <ion-item>
                 <!-- Item with Avatar/Icon-->
-				<button (click)="toBrowser(item)">
+                <button (click)="toBrowser(item)">
                 <ion-icon name="paper" item-left *ngIf="item.Document == undefined"></ion-icon>
                 <ion-icon name="document" item-left *ngIf="item.Document != undefined"></ion-icon>
                 <p>{{item.Properties.Aktenzeichen}}{{item.Properties.Zeichen}}</p>
@@ -24,11 +20,10 @@
                     Bearbeiten
                 </div>
                 <div class="action">
-				              <button (click)="rem(item)">
+                    <button (click)="rem(item)">
                         <ion-icon name="star" item-left *ngIf="favList.checkFav(item)"></ion-icon>
                         <ion-icon name="star-outline" item-left *ngIf="!favList.checkFav(item)"></ion-icon>
-					            </button>
-                    Favorit
+					            </button> Favorit
                 </div>
                 <div class="action">
                     <ion-icon name="document"></ion-icon>
