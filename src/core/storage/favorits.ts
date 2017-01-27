@@ -38,7 +38,7 @@ export class Favorits{
             if(dataFav[i].ID == iEntity.ID){
                 dataFav.splice(i,1);
                 this.lStorage.saveData<Token>("fav", dataFav);
-                this.rmEntity(iEntity);
+                //this.rmEntity(iEntity);
                 return;
             }
           }

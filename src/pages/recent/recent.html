@@ -5,6 +5,7 @@
 <content>
     <!--Creating a new List -->
     <ion-list no-lines>
+	<p *ngIf="listOfRec.length == 0"> Hier sind keine Daten enthalten</p>
         <ion-item-sliding *ngFor="let item of listOfRec">
             <ion-item>
                 <!-- Item with Avatar/Icon-->
@@ -19,11 +20,8 @@
             <!-- Options for Items in this part-->
             <ion-item-options side="left">
                 <div class="action">
-                    <ion-icon name="create"></ion-icon>
-                    Bearbeiten
-                </div>
-                <div class="action">
-                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star" item-left *ngIf="fav.checkFav(item)"></ion-icon>
+					<ion-icon name="star-outline" item-left *ngIf="!fav.checkFav(item)"></ion-icon>
                     Favorit
                 </div>
                 <div class="action">
