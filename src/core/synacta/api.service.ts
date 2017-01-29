@@ -200,11 +200,9 @@ export class SynactaAPIService {
      * @return an observable containing a list of Entity
      */
      public getChildren(container: Container, num: Number = 20, offset: Number = 0): Observable<Entity[]> {
-         // TODO - Implement offset
-         // TODO - Implement hasChild?
          // $top is the number of elements RESTful variable
          return this
-             .getBase("Children?$top=" + num, container.ObjectType, container.ID)
+             .getBase("Children?$top=" + num + "&$skip=" + offset, container.ObjectType, container.ID)
              .retry(this.retries)
              .map((json: IFrame) => {
                  let result = new Array<Entity>();
