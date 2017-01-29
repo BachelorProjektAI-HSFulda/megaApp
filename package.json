@@ -6,8 +6,6 @@
 
   "main" : "./src/desktop/electron_setup.js",
   "scripts": {
-    "install-globals": "npm install ionic cordova -g",
-    "install-clean": "rm -R node_modules/ && npm install",
     "build": "ionic-app-scripts build",
     "watch": "ionic-app-scripts watch",
     "serve:before": "watch",
@@ -18,7 +16,7 @@
     "typings": "typings",
     "tsc": "tsc",
     "test": "karma start config/karma.conf.js",
-    "electron": "electron ./src/desktop/electron_setup"
+    "electron": "ionic-app-scripts build --dev && electron ./src/desktop/electron_setup.js"
   },
   "dependencies": {
     "@angular/common": "2.1.1",
@@ -50,7 +48,6 @@
     "concurrently": "^3.1.0",
     "css-loader": "^0.23.1",
     "electron": "^1.4.15",
-    "electron-prebuilt": "^1.4.5",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.8.5",
     "html-loader": "^0.4.3",
