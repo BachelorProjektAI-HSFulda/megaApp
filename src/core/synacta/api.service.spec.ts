@@ -148,7 +148,7 @@ describe("Synacta API Service", () => {
                 let url = 'https://synacta.agile-is.de/_api/base/' 
                     + parent.ObjectType 
                     + '/' + parent.ID
-                    + '/Children?$top=20';
+                    + '/Children?$top=20&$skip=0';
                 expect(connection.request.url).toEqual(url);
                 connection.mockRespond(new Response(
                     new ResponseOptions({
@@ -174,7 +174,7 @@ describe("Synacta API Service", () => {
                 let url = 'https://synacta.agile-is.de/_api/base/' 
                     + parent.ObjectType 
                     + '/' + parent.ID
-                    + '/Children?$top=5';
+                    + '/Children?$top=5&$skip=0';
                 expect(connection.request.url).toEqual(url);
                 connection.mockRespond(new Response(
                     new ResponseOptions({
@@ -200,7 +200,7 @@ describe("Synacta API Service", () => {
                 let url = 'https://synacta.agile-is.de/_api/base/' 
                     + parent.ObjectType 
                     + '/' + parent.ID
-                    + '/Children?$top=4';
+                    + '/Children?$top=4&$skip=5';
                 expect(connection.request.url).toEqual(url);
                 connection.mockRespond(new Response(
                     new ResponseOptions({
