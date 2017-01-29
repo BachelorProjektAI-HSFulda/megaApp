@@ -36,5 +36,5 @@ before_script:
 script:
   - ionic info
   - ionic build android
-  - npm build -- --dev
+  - npm run build -- --dev
   - npm test
