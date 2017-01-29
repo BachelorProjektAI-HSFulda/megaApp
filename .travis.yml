@@ -34,6 +34,7 @@ before_script:
   - ionic platform add android
 
 script:
-  - ionic build android
   - ionic info
+  - ionic build android
+  - npm build -- --dev
   - npm test
