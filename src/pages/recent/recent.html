@@ -5,22 +5,23 @@
 <content>
     <!--Creating a new List -->
     <ion-list no-lines>
+	<p *ngIf="listOfRec.length == 0"> Hier sind keine Daten enthalten</p>
         <ion-item-sliding *ngFor="let item of listOfRec">
             <ion-item>
                 <!-- Item with Avatar/Icon-->
-                <ion-icon name="paper" item-left></ion-icon>
-                <p>{{item.Properties.Aktenzeichen}}</p>
-                <h3>{{item.Properties.Aktentyp}}</h3>
+                <ion-icon name="paper" item-left *ngIf="item.Document == undefined"></ion-icon>
+                <ion-icon name="document" item-left *ngIf="item.Document != undefined"></ion-icon>
+                <p>{{item.Properties.Aktenzeichen}}{{item.Properties.Zeichen}}</p>
+                <h3>
+                    {{item.Properties.Aktenbetreff}}{{item.Properties.Bezeichnung}}
+                </h3>
 
             </ion-item>
             <!-- Options for Items in this part-->
             <ion-item-options side="left">
                 <div class="action">
-                    <ion-icon name="create"></ion-icon>
-                    Bearbeiten
-                </div>
-                <div class="action">
-                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star" item-left *ngIf="fav.checkFav(item)"></ion-icon>
+					<ion-icon name="star-outline" item-left *ngIf="!fav.checkFav(item)"></ion-icon>
                     Favorit
                 </div>
                 <div class="action">
