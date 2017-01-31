@@ -17,14 +17,20 @@ describe("Settings Service", () => {
 
     it("Constructs correctly.", () => {
         expect(settings.vault).toBeDefined();
+        expect(settings.vault.accentColor).toBeDefined();
+    });
+
+    it("Updates values in the vault.", () => {
+        settings.vault.accentColor = "red";
+        expect(settings.vault.accentColor).toEqual("red");
     });
 
     it("Can save and load values to and from local storage.", () => {
-        settings.vault.startPage = 'newTestValue';
+        settings.vault.homepage = 'newTestValue';
         settings.save();
-        settings.vault.startPage = 'otherValue';
-        expect(settings.vault.startPage).toEqual('otherValue');
+        settings.vault.homepage = 'otherValue';
+        expect(settings.vault.homepage).toEqual('otherValue');
         settings.load();
-        expect(settings.vault.startPage).toEqual('newTestValue');
+        expect(settings.vault.homepage).toEqual('newTestValue');
     });
 });
