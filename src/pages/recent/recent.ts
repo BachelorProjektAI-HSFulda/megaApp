@@ -8,6 +8,8 @@ import { Favorits } from '../../core/storage/favorits';
 
 import { RecentList} from '../../core/storage/recentList';
 
+import { Container } from '../../core/synacta/api.objects';
+
 @Component({
   selector: 'page-recent',
   templateUrl: 'recent.html'
@@ -51,5 +53,9 @@ export class RecentPage implements OnInit{
 
   ngOnInit():void{
     this.listOfRec = this.recList.recList;
+  }
+  
+  public meta(datei: Container): void{
+      this.navCtrl.push(datei.Properties);
   }
 }
