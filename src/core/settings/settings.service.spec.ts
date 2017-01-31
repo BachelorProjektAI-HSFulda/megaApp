@@ -21,8 +21,8 @@ describe("Settings Service", () => {
     });
 
     it("Updates values in the vault.", () => {
-        settings.vault.accentColor = "red";
-        expect(settings.vault.accentColor).toEqual("red");
+        settings.vault.accentColor = 'red';
+        expect(settings.vault.accentColor).toEqual('red');
     });
 
     it("Can save and load values to and from local storage.", () => {
