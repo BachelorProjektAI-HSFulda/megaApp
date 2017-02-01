@@ -4,7 +4,7 @@ import { NavController, NavParams, AlertController } from 'ionic-angular';
 
 import { Favorits } from '../../core/storage/favorits';
 
-import { SynactaAPIService, Mockup } from '../../core/synacta/api.service';
+import { SynactaAPIService, MockupUser } from '../../core/synacta/api.service';
 
 import { Entity, Container } from '../../core/synacta/api.objects';
 
@@ -24,7 +24,7 @@ export class BrowserPage {
   viewByOrgData:Array<OrgData>;
   daten:Container;
   lastUsedView:Container;
-  user:Mockup;
+  user:MockupUser;
   kram:Array<any>;
   searchBar:string;
 
@@ -102,12 +102,7 @@ export class BrowserPage {
   }
 
   public meta(datei: Container): void{
-    if(datei.HasChild){
-      this.deeper(datei);
-    }
-    else{
       this.navCtrl.push(datei.Properties);
-    }
   }
 
   public deeper(children: Container): void{

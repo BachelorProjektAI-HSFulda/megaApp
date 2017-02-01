@@ -51,4 +51,8 @@ export class FavoritePage implements OnInit {
     //obj.defavor();
 	  //this.favList.remAlert(this.alertCtrl);
   }
+  
+  public meta(datei: Container): void{
+      this.navCtrl.push(datei.Properties);
+  }
 }

@@ -17,6 +17,7 @@
     (ionInput)="startSearch($event)"
     (ionCancel)="onCancel($event)">
   </ion-searchbar>
+<<<<<<< HEAD
   <!--Creating a new List -->
   <ion-list no-lines *ngIf="!viewByOrg">
     <p *ngIf="kram.length == 0"> Hier sind keine Daten enthalten</p>
@@ -49,7 +50,7 @@
         <div class="action">
           <button (click)="meta(item)">
             <ion-icon name="document"></ion-icon>
-          </button> Öffnen
+          </button> Metadaten anzeigen
         </div>
       </ion-item-options>
     </ion-item-sliding>
@@ -88,7 +89,7 @@
             <div class="action">
               <button (click)="meta(item)">
                 <ion-icon name="document"></ion-icon>
-              </button> Öffnen
+              </button> Metadaten anzeigen
             </div>
           </ion-item-options>
         </ion-item-sliding>
