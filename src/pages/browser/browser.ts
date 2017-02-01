@@ -173,19 +173,22 @@ export class BrowserPage {
   private getFromOrg(s: string){
     for(let item of this.user.Orgs){
       let tmp = new Array<any>();
-      let data;
       let search = (s == null)? null : "Aktenbetreff, '"+s+"'";
       this.synAPI.getContainersByOrg("Akte", item, search).subscribe(
         response => tmp = response,
         error => console.log(error),
         () => {
+
           let data:OrgData ={Org: item, Data: tmp}
           this.viewByOrgData.push(data)
         }
       )
     }
+    this.viewByOrgData.splice(0,this.user.Orgs.length);
+    console.log(this.viewByOrgData);
+
   }
-  
+
   public delete(del: Entity) {
   let alert = this.alertCtrl.create({
     title: 'Confirm purchase',
