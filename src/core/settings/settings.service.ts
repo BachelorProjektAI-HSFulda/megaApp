@@ -1,11 +1,5 @@
 import { Injectable, OnInit } from '@angular/core';
 
-import { FavoritePage } from '../../pages/favorite/favorite';
-import { BrowserPage } from '../../pages/browser/browser';
-import { RecentPage } from '../../pages/recent/recent';
-import { OptionsPage } from '../../pages/options/options';
-import { TabsPage } from '../../pages/tabs/tabs';
-
 interface Settings {
     homepage;
     backgroundColor;
@@ -24,13 +18,6 @@ export class SettingsService implements OnInit {
             accentColor: "blue"
         };
         this.load();
-    }
-
-    getHomepage(): any {
-        if (this.vault.homepage == Pages.RecentPage) return RecentPage;
-        if (this.vault.homepage == Pages.BrowserPage) return BrowserPage;
-        if (this.vault.homepage == Pages.FavoritePage) return FavoritePage;
-        if (this.vault.homepage == Pages.OptionsPage) return OptionsPage;
     }
 
     ngOnInit() {
