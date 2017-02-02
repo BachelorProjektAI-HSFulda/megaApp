@@ -104,8 +104,14 @@ ion-item * {
 .item-md ion-icon[item-left],
 .item-md ion-icon[item-right] {
     margin: 0px;
+    margin-right: 10px;
     text-align: left;
     width: auto;
+}
+
+.item>ion-icon:first-child,
+.item-inner>ion-icon:first-child {
+    min-width: 0px;
 }
 
 ion-item h3,
@@ -129,7 +135,8 @@ ion-item p,
     background-color: color($buttonColor, first);
     color: $background-color;
     opacity: 1;
-    margin: 10px 20px;
+    margin: 10px;
+    margin-right: 0px;
     max-width: 300px;
     font-weight: bold;
 }
@@ -309,7 +316,7 @@ ion-item button {
 
 .searchbar-md {
     display: inline-block;
-    width: calc(100% - 130px);
+    width: calc(100% - 128px);
     padding: 0px;
     padding-top: 10px;
 }
