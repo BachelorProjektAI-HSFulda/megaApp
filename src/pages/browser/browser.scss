@@ -42,7 +42,7 @@ h2 {
     font-weight: bold;
     line-height: 50px;
     height: 50px;
-    padding: 0px 20px;
+    padding: 0px 10px;
     margin: 0px;
 }
 
@@ -96,13 +96,16 @@ ion-item * {
 }
 
 .item-md {
-    padding-left: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
     clear: both;
 }
 
 .item-md ion-icon[item-left],
 .item-md ion-icon[item-right] {
     margin: 0px;
+    text-align: left;
+    width: auto;
 }
 
 ion-item h3,
@@ -133,9 +136,7 @@ ion-item p,
 
 ion-item h3,
 .item-md h3 {
-    padding: 10px;
-    padding-right: 0px;
-    padding-left: 0px;
+    padding: 10px 0px;
     color: color($colors, primary);
     overflow: hidden;
     text-overflow: ellipsis;
@@ -325,3 +326,6 @@ ion-item button {
     height: 20px;
     width: 20px;
 }
+
+@media screen and (orientation: landscape),
+screen and (min-width: 768px) {}
