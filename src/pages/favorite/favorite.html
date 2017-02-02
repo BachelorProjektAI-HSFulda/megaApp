@@ -1,7 +1,7 @@
 <content>
     <!--Creating a new List -->
     <ion-list no-lines>
-        <p *ngIf="listOfFav.length == 0"> Hier sind keine Daten enthalten</p>
+        <p *ngIf="listOfFav.length == 0" class="noData"> Hier sind keine Daten enthalten</p>
         <ion-item-sliding *ngFor="let item of listOfFav">
             <ion-item>
                 <!-- Item with Avatar/Icon-->
