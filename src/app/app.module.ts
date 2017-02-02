@@ -11,6 +11,7 @@ import { SynactaAPIService } from '../core/synacta/api.service';
 import { Favorits } from '../core/storage/favorits';
 import { Storage } from '../core/storage/storage';
 import { RecentList } from '../core/storage/recentList'
+import { SettingsService } from '../core/settings/settings.service';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,7 @@ import { RecentList } from '../core/storage/recentList'
     FavoritePage,
     BrowserPage,
     RecentPage,
-	OptionsPage,
+	  OptionsPage,
     TabsPage
   ],
   imports: [
@@ -39,14 +40,15 @@ import { RecentList } from '../core/storage/recentList'
     FavoritePage,
     BrowserPage,
     RecentPage,
-	OptionsPage,
+	  OptionsPage,
     TabsPage
   ],
   providers: [
     SynactaAPIService,
     Favorits,
     Storage,
-    RecentList
+    RecentList,
+    SettingsService
   ]
 })
 export class AppModule {}
