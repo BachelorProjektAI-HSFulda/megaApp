@@ -334,5 +334,13 @@ ion-item button {
     width: 20px;
 }
 
+#SortOptions {
+    display: none;
+}
+
+#SortOptions.visible {
+    display: block;
+}
+
 @media screen and (orientation: landscape),
 screen and (min-width: 768px) {}

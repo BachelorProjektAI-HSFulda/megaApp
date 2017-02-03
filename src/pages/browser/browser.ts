@@ -29,6 +29,8 @@ export class BrowserPage {
   user:MockupUser;
   kram:Array<any>;
   searchBar:string;
+  sortOptionsVisible;
+  sortOptionsClass;
 
   constructor(public navCtrl: NavController, private synAPI: SynactaAPIService,
     private fav: Favorits, public alertCtrl: AlertController,
@@ -40,6 +42,9 @@ export class BrowserPage {
     this.user = synAPI.demoUser;
     this.kram = new Array<any>();
     this.searchBar = "";
+
+    this.sortOptionsVisible = false;
+    this.sortOptionsClass = "";
   }
 
 
@@ -227,7 +232,16 @@ export class BrowserPage {
 }
 
 public viewSort() {
-  
+  let sO = document.getElementById("SortOptions");
+  if(this.sortOptionsVisible == false) {
+    this.sortOptionsClass = sO.className;
+    sO.className += " visible";
+    this.sortOptionsVisible = true;
+  } else {
+    sO.className = this.sortOptionsClass;
+    this.sortOptionsVisible = false;
+  }
+    
 }
 
 }
