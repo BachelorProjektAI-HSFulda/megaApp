@@ -8,32 +8,48 @@ import { SynactaAPIService, MockupUser } from '../../core/synacta/api.service';
 
 import { Entity, Container } from '../../core/synacta/api.objects';
 
+import { SettingsService} from '../../core/settings/settings.service';
+
+
+interface OrgData{
+  Org: string;
+  Data:Array<any>;
+}
+
 @Component({
   selector: 'page-browser',
   templateUrl: 'browser.html'
 })
+
 export class BrowserPage {
   viewByOrg:boolean;
+  viewByOrgData:Array<OrgData>;
   daten:Container;
   lastUsedView:Container;
   user:MockupUser;
   kram:Array<any>;
   searchBar:string;
 
-  constructor(public navCtrl: NavController, private synAPI: SynactaAPIService, private fav: Favorits, public alertCtrl: AlertController, private navParams: NavParams) {
+  constructor(public navCtrl: NavController, private synAPI: SynactaAPIService,
+    private fav: Favorits, public alertCtrl: AlertController,
+    private navParams: NavParams, private settings: SettingsService) {
     //todo get value from option
-    this.viewByOrg = true;
+    settings.load();
+    this.viewByOrg = settings.vault.view;
+    this.viewByOrgData = new Array<OrgData>();
     this.user = synAPI.demoUser;
     this.kram = new Array<any>();
-    this.searchBar = "hallo";
+    this.searchBar = "";
   }
 
 
 
   ionViewWillEnter(){
-    console.log(this.navParams.get('ID'), this.navParams.get('ObjectType'));
     //Rebuild last View
-    if(this.navParams.get('ID') == undefined){
+    let id = this.navParams.get('ID');
+    let type = this.navParams.get('ObjectType');
+    console.log(id,type, (id == undefined));
+    if(id == undefined){
       if(this.lastUsedView != undefined){
         this.synAPI.getChildren(this.lastUsedView).subscribe(
           response => this.kram = response,
@@ -64,11 +80,9 @@ export class BrowserPage {
             });
           }
         }
-      }
-      //Build a view from navParams and set it as lastUsedView
-      else{
-        let id = this.navParams.get('ID');
-        let type = this.navParams.get('ObjectType');
+      }else{
+        //Build a view from navParams and set it as lastUsedView
+        console.log("why");
         this.synAPI.getByID(type, id).subscribe(
           response => this.lastUsedView = response,
           error => console.log(error),
@@ -79,7 +93,7 @@ export class BrowserPage {
               error => console.log(error),
               () => console.log("Children", this.kram)
             )
-          } );
+          });
         }
       }
 
@@ -91,6 +105,11 @@ export class BrowserPage {
 	  });
 	  alert.present();
   }
+
+  public meta(datei: Container): void{
+      this.navCtrl.push(datei.Properties);
+  }
+
   public deeper(children: Container): void{
     if(children.HasChild == true)
     {
@@ -136,13 +155,16 @@ export class BrowserPage {
 		console.log("<<<<<<<<<<<<<<<<");
 	}
 
-  
+
   public switchView(){
-    if(this.viewByOrg){
-      this.viewByOrg=false
+    if(this.settings.vault.view){
+      this.settings.vault.view=false;
     }
-    else this.viewByOrg=true;
-    //this.navCtrl.push(BrowserPage);
+    else{
+       this.settings.vault.view=true;
+    }
+    this.settings.save();
+    this.navCtrl.push(BrowserPage);
   }
 
 
@@ -157,37 +179,24 @@ export class BrowserPage {
   }
 
   private getFromOrg(s: string){
-    let tmp = new Array<any>();
     for(let item of this.user.Orgs){
-      let data;
+      let tmp = new Array<any>();
       let search = (s == null)? null : "Aktenbetreff, '"+s+"'";
       this.synAPI.getContainersByOrg("Akte", item, search).subscribe(
-        response => data = response,
+        response => tmp = response,
         error => console.log(error),
         () => {
-          console.log(data);
-          for(let item of data){
-            if(tmp.length == 0){
-              tmp.push(item)
-            }
-            let check:boolean = false;
-            for(let checkItem of tmp){
-              if(item.ID == checkItem.ID){
-                check = true
-              }
-              console.log(item.ID == checkItem.ID);
-            }
-            if(!check){
-              tmp.push(item)
-            }
-          }
-          console.log(this.kram);
+
+          let data:OrgData ={Org: item, Data: tmp}
+          this.viewByOrgData.push(data)
         }
       )
     }
-    this.kram = tmp;
+    this.viewByOrgData.splice(0,this.user.Orgs.length);
+    console.log(this.viewByOrgData);
+
   }
-  
+
   public delete(del: Entity) {
   let alert = this.alertCtrl.create({
     title: 'Confirm purchase',
