@@ -39,16 +39,10 @@ export class BrowserPage {
     this.viewByOrg = settings.vault.view;
     this.viewByOrgData = new Array<OrgData>();
     this.user = synAPI.demoUser;
-<<<<<<< HEAD
-    this.kram = new Array<any>();
-    this.searchBar = "";
-
     this.sortOptionsVisible = false;
     this.sortOptionsClass = "";
-=======
     this.synApiDaten = new Array<any>();
     this.searchBar = "hallo";
->>>>>>> 212cdc715da9ab80852a1d3207f3dee9c5134155
   }
 
   ionViewWillEnter(){
