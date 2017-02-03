@@ -21,7 +21,8 @@ export class SynactaAPIService {
         this.baseHeaders.append("Authorization", API_KEY);
     }
 
-    /* Send request to the Synacta-Endpoint
+    /*
+     * Send request to the Synacta-Endpoint
      *
      * which contains a json object
      * This method is async which means that your code
@@ -42,7 +43,8 @@ export class SynactaAPIService {
          return this.getByLink(endpoint);
      }
 
-    /* Send request to the Synacta-Endpoint
+    /* 
+     * Send request to the Synacta-Endpoint
      *
      * which contains a json object
      * This method is async which means that your code
@@ -64,7 +66,17 @@ export class SynactaAPIService {
      }
 
     /*
-     *
+     * Send request to the Synacte-Endpoint
+     * 
+     * which contains a json object
+     * This method is async which means that your code
+     * will continue after calling this method
+     * 
+     * To actually receive data one has to subscribe
+     * to this function with a callback to hold the
+     * json result.
+     * 
+     * @returns an observable response object containing a json object
      */
      private postBase(target: string, type: string, id: string, body: Entity) {
          let object = JSON.stringify(body);
@@ -77,7 +89,17 @@ export class SynactaAPIService {
      }
 
     /*
-     *
+     * Send request to the Synacte-Endpoint
+     * 
+     * which contains a json object
+     * This method is async which means that your code
+     * will continue after calling this method
+     * 
+     * To actually receive data one has to subscribe
+     * to this function with a callback to hold the
+     * json result.
+     * 
+     * @returns an observable response object containing a json object
      */
     private postOrg(target: string, type: string, id: string, body: Entity) {
         let object = JSON.stringify(body);
@@ -90,7 +112,17 @@ export class SynactaAPIService {
     }
 
     /*
-     *
+     * Send request to the Synacte-Endpoint
+     * 
+     * which contains a json object
+     * This method is async which means that your code
+     * will continue after calling this method
+     * 
+     * To actually receive data one has to subscribe
+     * to this function with a callback to hold the
+     * json result.
+     * 
+     * @returns an observable response object containing a json object
      */
      private deleteBase(target: string, type: string, id: string) {
          let endpoint = API_URL;
@@ -114,7 +146,9 @@ export class SynactaAPIService {
      }
 
     /*
-     *
+     * Receive an object by navigation link
+     * @param endpoint
+     * @returns an observable response object containing a json object
      */
      private postByLink(endpoint: string, body: string) {
          let headers = new Headers(this.baseHeaders);
@@ -124,7 +158,9 @@ export class SynactaAPIService {
      }
 
     /*
-     *
+     * Receive an object by navigation link
+     * @param endpoint
+     * @returns an observable response object containing a json object
      */
      private deleteByLink(endpoint: string) {
          let headers = new Headers(this.baseHeaders);
