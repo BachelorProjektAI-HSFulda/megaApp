@@ -76,9 +76,18 @@ export class BrowserPage {
               children => this.synApiDaten = children,
               error => console.log(error),
               () => console.log("Children", this.synApiDaten)
-            )
+            );
+			let tmp;
+			this.synAPI.getDocuments(this.lastUsedView).subscribe(
+			 dokuments => tmp = dokuments,
+			 error => console.log(error),
+			 () => {
+				 for(let item of tmp){
+					 this.synApiDaten.push(item)
+			 }
           } );
-        }
+        })
+	  }
       }
 
   ablehnen() {
@@ -97,13 +106,25 @@ export class BrowserPage {
   }*/
 
   public deeper(children: Container): void{
-    if(children.HasChild == true)
-    {
-      this.navCtrl.push(BrowserPage, children);
-    }
-    else{
-      this.ablehnen();
-    }
+	  if(children.ObjectType != "Dokument")
+	  {
+		let test = this.synAPI.getDocuments(children).subscribe(
+		response => test = response,
+		error => console.log(error),
+		() => console.log(test));
+	 
+		if(children.HasChild == false && test.length == 0)
+		{
+			this.ablehnen();
+		}
+		else{
+			this.navCtrl.push(BrowserPage, children);
+		}
+	  }
+	  else 
+	  {
+		  this.ablehnen();
+	  }
   }
 
   public higher(current: Entity): void{
@@ -197,7 +218,7 @@ export class BrowserPage {
 }
   public loeschen(del: Entity) {
 	  let alert = this.alertCtrl.create({
-    title: 'Confirm purchase',
+    title: 'Confirm deletion',
     message: 'Wollen Sie das wirklich löschen?',
     buttons: [
       {
