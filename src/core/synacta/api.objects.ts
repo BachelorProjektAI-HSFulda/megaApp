@@ -180,3 +180,35 @@ export class Document extends Entity {
     @JsonProperty('Parent@odata.navigationLink')
     ParentLink: string = void(0);
 }
+
+/**
+ * This object is either a deleted container or a deleted document
+ */
+export class RecycleBin {
+    Properties: any = void(0);
+    PropertyInfos: any = void(0);
+    Name: string = void(0);
+    Description: string = void(0);
+    DeletedBy: string = void(0);
+    DeletedDate: string = void(0);
+    RecycleID: string = void(0);
+    ID: string = void(0);
+    Type: string = void(0);
+    ParentID: string = void(0);
+    ParentType: string = void(0);
+    ParentName: string = void(0);
+    Organisation: string = void(0);
+
+    @JsonProperty('@odata.context')
+    ContextLink: string = void(0);
+    @JsonProperty('@odata.readLink')
+    ReadLink: string = void(0);
+    @JsonProperty('Restore@odata.navigationLink')
+    RestoreLink: string = void(0);
+    @JsonProperty('FullODataLink@odata.navigationLink')
+    FullODataLink: string = void(0);
+    @JsonProperty('StandardODataLink@odata.navigationLink')
+    StandardODataLink: string = void(0);
+    @JsonProperty('NoneODataLink@odata.navigationLink')
+    NoneODataLink: string = void(0);
+}
