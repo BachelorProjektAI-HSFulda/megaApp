@@ -229,7 +229,7 @@ public viewSort() {
     sO.className = this.sortOptionsClass;
     this.sortOptionsVisible = false;
   }
-    
+}
 
 //To Finish: ModalController
   public meta(characterNum) {
