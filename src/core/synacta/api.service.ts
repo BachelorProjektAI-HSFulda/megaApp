@@ -79,6 +79,19 @@ export class SynactaAPIService {
     /*
      *
      */
+    private postOrg(target: string, type: string, id: string, body: Entity) {
+        let object = JSON.stringify(body);
+        let endpoint = API_URL;
+        endpoint = endpoint + "org/";
+        endpoint = (id)? endpoint + id : endpoint;
+        endpoint = (type)? endpoint + "/" + type : endpoint;
+        endpoint = (target)? endpoint + "/" + target : endpoint;
+        return this.postByLink(endpoint, object);
+    }
+
+    /*
+     *
+     */
      private deleteBase(target: string, type: string, id: string) {
          let endpoint = API_URL;
          endpoint = endpoint + "base/";
@@ -275,7 +288,8 @@ export class SynactaAPIService {
         return this.deleteBase(null, entity.ObjectType, entity.ID);
     }
 
-   /* This function uses a type and an id of a document to receive
+   /* 
+    * This function uses a type and an id of a document to receive
     * the file in it
     * @param document
     * @return
@@ -297,6 +311,27 @@ export class SynactaAPIService {
     */
     public getContainersByOrg(type: string, id: string): Observable<Container[]>{
         return this.getOrg(null,type,id);
+    }
+
+   /*
+    * This function uses an id of an organisation to receive a entity list of all
+    * its deleted entities
+    * @param id
+    * @return an observable containing a entity list
+    */
+    public getRecycleBin(id: string): Observable<Entity[]>{
+        return this.getOrg("RecycleBin",null,id);
+    }
+
+   /*
+    * This function uses two ids (organisation and RecycleBin-id of entity) to
+    * restore an deleted entity back to its origin
+    * @param id
+    * @param BinId
+    * @return an observable containing an entity
+    */
+    public restoreEntity(id: string, BinId: string): Observable<Entity>{
+        return this.postOrg("Restore","RecycleBin/" + BinId,id,null);
     }
 
 }
