@@ -97,7 +97,7 @@ export class BrowserPage {
       this.deeper(datei);
     }
     else{
-      this.navCtrl.push(datei.Properties);
+      this.navCtrl.push(BrowserPage, datei.Properties);
     }
   }
 
