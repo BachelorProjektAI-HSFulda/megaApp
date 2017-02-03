@@ -1,6 +1,6 @@
 import { Component, NgModule } from '@angular/core';
 
-import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, ModalController, ViewController, Platform } from 'ionic-angular';
 
 import { Favorits } from '../../core/storage/favorits';
 
@@ -17,18 +17,16 @@ export class BrowserPage {
   daten:Container;
   lastUsedView:Container;
   user:MockupUser;
-  kram:Array<any>;
+  synApiDaten:Array<any>;
   searchBar:string;
 
-  constructor(public navCtrl: NavController, private synAPI: SynactaAPIService, private fav: Favorits, public alertCtrl: AlertController, private navParams: NavParams) {
+  constructor(public navCtrl: NavController, private synAPI: SynactaAPIService, private fav: Favorits, public alertCtrl: AlertController, private navParams: NavParams, public modalCtrl: ModalController) {
     //todo get value from option
     this.viewByOrg = true;
     this.user = synAPI.demoUser;
-    this.kram = new Array<any>();
+    this.synApiDaten = new Array<any>();
     this.searchBar = "hallo";
   }
-
-
 
   ionViewWillEnter(){
     console.log(this.navParams.get('ID'), this.navParams.get('ObjectType'));
@@ -36,9 +34,9 @@ export class BrowserPage {
     if(this.navParams.get('ID') == undefined){
       if(this.lastUsedView != undefined){
         this.synAPI.getChildren(this.lastUsedView).subscribe(
-          response => this.kram = response,
+          response => this.synApiDaten = response,
           error => console.log(error),
-          () => console.log("Children", this.kram)
+          () => console.log("Children", this.synApiDaten)
         )
       }
       //Build a view from all User Organisations
@@ -57,9 +55,9 @@ export class BrowserPage {
             () => {
               console.log("Root", this.daten);
               this.synAPI.getChildren(this.daten).subscribe(
-                response => this.kram = response,
+                response => this.synApiDaten = response,
                 error => console.log(error),
-                () => console.log("Children", this.kram)
+                () => console.log("Children", this.synApiDaten)
               )
             });
           }
@@ -75,9 +73,9 @@ export class BrowserPage {
           () => {
             console.log("reDirected" , this.navParams.get('ID'))
             this.synAPI.getChildren(this.lastUsedView).subscribe(
-              children => this.kram = children,
+              children => this.synApiDaten = children,
               error => console.log(error),
-              () => console.log("Children", this.kram)
+              () => console.log("Children", this.synApiDaten)
             )
           } );
         }
@@ -85,16 +83,18 @@ export class BrowserPage {
 
   ablehnen() {
 	  let alert = this.alertCtrl.create({
-		  title: 'Fehler',
+		  title: 'Hinweis',
 		  subTitle: 'Es gibt keine Weitere Ebene!',
 		  buttons: ['OK']
 	  });
 	  alert.present();
   }
 
-  public meta(datei: Container): void{
-      this.navCtrl.push(datei.Properties);
-  }
+ /* public meta(datei: Container): void{
+      //this.navCtrl.push(datei.Properties);//Diese Zeile kann so nicht funktionieren!!
+	  console.log("Metadaten");
+	  this.presentModal(datei);
+  }*/
 
   public deeper(children: Container): void{
     if(children.HasChild == true)
@@ -105,7 +105,6 @@ export class BrowserPage {
       this.ablehnen();
     }
   }
-
 
   public higher(current: Entity): void{
     if(!(this.viewByOrg)){
@@ -137,11 +136,10 @@ export class BrowserPage {
 
   }
 
-	public checkFavorite(favo: Container): void {
+  public checkFavorite(favo: Container): void {
 		console.log("<<<<<<<<<<<<<<<<");
 	}
 
-  
   public switchView(){
     if(this.viewByOrg){
       this.viewByOrg=false
@@ -149,7 +147,6 @@ export class BrowserPage {
     else this.viewByOrg=true;
     //this.navCtrl.push(BrowserPage);
   }
-
 
   //start the Search from searchBar
   private startSearch(){
@@ -186,15 +183,20 @@ export class BrowserPage {
               tmp.push(item)
             }
           }
-          console.log(this.kram);
+          console.log(this.synApiDaten);
         }
       )
     }
-    this.kram = tmp;
+    this.synApiDaten = tmp;
   }
   
   public delete(del: Entity) {
-  let alert = this.alertCtrl.create({
+	  console.log("Löschen_1");
+  this.loeschen(del);
+  console.log("Löschen_2");
+}
+  public loeschen(del: Entity) {
+	  let alert = this.alertCtrl.create({
     title: 'Confirm purchase',
     message: 'Wollen Sie das wirklich löschen?',
     buttons: [
@@ -202,7 +204,7 @@ export class BrowserPage {
         text: 'Ja',
         role: 'ja',
         handler: () => {
-        this.synAPI.deleteEntity(del);
+        console.log(this.synAPI.deleteEntity(del));
         }
       },
       {
@@ -214,6 +216,89 @@ export class BrowserPage {
     ]
   });
   alert.present();
+  }
+
+//To Finish: ModalController
+  public meta(characterNum) {
+	//let characterNum = 1;
+	let modal = this.modalCtrl.create(ModalPage, characterNum);
+	modal.present();
+}
 }
 
+@Component({
+  template: `
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Description
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <span ion-text color="primary" showWhen="ios">Cancel</span>
+        <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+      <ion-item>
+        <h2>{{character.name}}</h2>
+        <p>{{character.quote}}</p>
+      </ion-item>
+      <ion-item *ngFor="let item of character['items']">
+        {{item.title}}
+        <ion-note item-right>
+          {{item.note}}
+        </ion-note>
+      </ion-item>
+  </ion-list>
+</ion-content>
+`
+})
+
+@Component({
+  selector: 'page-modal',
+  templateUrl: 'modal-content.html'
+})
+export class ModalPage {
+	  character;
+	constructor(public params: NavParams, public viewCtrl: ViewController, public platform: Platform) {
+		var characters = [
+      {
+        name: 'Gollum',
+        quote: 'Sneaky little hobbitses!',
+        items: [
+          { title: 'Race', note: 'Hobbit' },
+          { title: 'Culture', note: 'River Folk' },
+          { title: 'Alter Ego', note: 'Smeagol' }
+        ]
+      },
+      {
+        name: 'Frodo',
+        quote: 'Go back, Sam! I\'m going to Mordor alone!',
+        items: [
+          { title: 'Race', note: 'Hobbit' },
+          { title: 'Culture', note: 'Shire Folk' },
+          { title: 'Weapon', note: 'Sting' }
+        ]
+      },
+      {
+        name: 'Samwise Gamgee',
+        quote: 'What we need is a few good taters.',
+        items: [
+          { title: 'Race', note: 'Hobbit' },
+          { title: 'Culture', note: 'Shire Folk' },
+          { title: 'Nickname', note: 'Sam' }
+        ]
+      }
+    ];
+    this.character = characters[this.params.get('charNum')];
+  }
+	
+	dismiss() {
+		this.viewCtrl.dismiss();
+	}
 }
+

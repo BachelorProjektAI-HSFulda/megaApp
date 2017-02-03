@@ -1,6 +1,6 @@
 <h1>
     Browser
-    <button (click)="higher(kram[0])">
+    <button (click)="higher(synApiDaten[0])">
 		    <ion-icon name="arrow-back">zurück</ion-icon>
     </button>
     <button (click)="switchView()">
@@ -19,8 +19,8 @@
   </ion-searchbar>
     <!--Creating a new List -->
     <ion-list no-lines>
-	<p *ngIf="kram.length == 0"> Hier sind keine Daten enthalten</p>
-        <ion-item-sliding *ngFor="let item of kram; let i=index">
+	<p *ngIf="synApiDaten.length == 0"> Hier sind keine Daten enthalten</p>
+        <ion-item-sliding *ngFor="let item of synApiDaten; let i=index">
 			<ion-item>
                 <!-- Item with Avatar/Icon-->
                 <button (click)="deeper(item)">
@@ -35,7 +35,7 @@
             <!-- Options for Items in this part-->
             <ion-item-options side="left">
                 <div class="action">
-					<button (click)="delete">
+					<button (click)="delete(item)">
 						<ion-icon name="trash"></ion-icon>
 						Löschen
 					</button>
@@ -47,7 +47,7 @@
                     </button> Favorit
                 </div>
                 <div class="action">
-                    <button (click)="meta(item)">
+                    <button (click)="meta({charNum: 0})">
                     <ion-icon name="document"></ion-icon>
                     </button> Metadaten anzeigen
                 </div>
