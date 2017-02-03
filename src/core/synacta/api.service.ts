@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { deserialize } from 'json-typescript-mapper';
 
-import { IFrame, Frame, Entity, Container, Document } from './api.objects';
+import { IFrame, Frame, Entity, Container, Document, RecycleBin } from './api.objects';
 
 const API_KEY = 'Token FHProjekt2016';
 const API_URL = 'https://synacta.agile-is.de/_api/';
@@ -355,7 +355,7 @@ export class SynactaAPIService {
     * @param id
     * @return an observable containing a entity list
     */
-    public getRecycleBin(id: string): Observable<Entity[]>{
+    public getRecycleBin(id: string): Observable<RecycleBin[]>{
         return this.getOrg("RecycleBin",null,id);
     }
 
