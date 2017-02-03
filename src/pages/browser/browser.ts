@@ -226,4 +226,8 @@ export class BrowserPage {
   alert.present();
 }
 
+public viewSort() {
+  
+}
+
 }

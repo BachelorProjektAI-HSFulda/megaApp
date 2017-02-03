@@ -7,17 +7,14 @@
     </button>
 
     <button (click)="viewSort()">
-        <ion-icon name="swap"></ion-icon>Ansicht Ändern
+        <ion-icon name="list"></ion-icon>Ansicht Ändern
     </button>
 
     <ion-searchbar *ngIf="viewByOrg" [(ngModel)]="searchBar" placeholder="Suche nach Aktenbetreff " [showCancelButton]="shouldShowCancel" (ionInput)="startSearch($event)" (ionCancel)="onCancel($event)">
-        <button (click)="viewFilter()">
-            <ion-icon name="swap"></ion-icon>Ansicht Ändern
-        </button>
     </ion-searchbar>
 
 
-    <ion-list no-lines radio-group [(ngModel)]="Sorting" (change)="updateSorting()">
+    <ion-list no-lines radio-group [(ngModel)]="Sorting" (change)="updateSorting()" id="SortOptions">
         <h2>
             Nutzerfreundlichkeit
         </h2>
