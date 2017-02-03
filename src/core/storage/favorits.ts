@@ -9,7 +9,9 @@ export class Favorits{
     favEntitys:Entity[];
     dataFav:Token[];
 
-    constructor(private lStorage:Storage, private synAPI: SynactaAPIService){}
+    constructor(private lStorage:Storage, private synAPI: SynactaAPIService){
+      //this.loadEntitys();
+    }
     /*
     function that saves a Token with type and id in an
     Array. Thats stored in Window.localStorage "favoriten"
@@ -49,6 +51,9 @@ export class Favorits{
     @return an array with tokens
     */
     public getFav():Token[]{
+      if(!window.localStorage.getItem('fav')){
+        this.addTest("Plan", "3df202ad-91b2-413a-9847-d12d536ed813");
+      }
       return this.lStorage.getData<Token[]>("fav");
     }
 
@@ -85,16 +90,17 @@ export class Favorits{
     //just for small Testings
     public addTest(type : string, id : string){
       //if(this.checkFav(id))return;
-      let dataFav = this.getFav();
-      if(dataFav == null) dataFav = new Array<Token>();
-      for(let i = 0; i < dataFav.length; i++){
-        if(dataFav[i].ID == id) return true;
-      }
+      // let dataFav = this.getFav();
+      // if(dataFav == null) dataFav = new Array<Token>();
+      // for(let i = 0; i < dataFav.length; i++){
+      //   if(dataFav[i].ID == id) return true;
+      // }
       let token:Token={
         ID : id,
         Type : type
       }
-      if(dataFav == null)dataFav = [];
+      //if(dataFav == null)
+      let dataFav = [];
       dataFav.push(token);
       this.lStorage.saveData<Token>("fav", dataFav);
     }
