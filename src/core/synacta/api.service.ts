@@ -353,7 +353,7 @@ export class SynactaAPIService {
     * This function uses an id of an organisation to receive a entity list of all
     * its deleted entities
     * @param id
-    * @return an observable containing a entity list
+    * @return an observable containing a recycleBin list
     */
     public getRecycleBin(id: string): Observable<RecycleBin[]>{
         return this.getOrg("RecycleBin",null,id);
@@ -363,11 +363,11 @@ export class SynactaAPIService {
     * This function uses two ids (organisation and RecycleBin-id of entity) to
     * restore an deleted entity back to its origin
     * @param id
-    * @param BinId
+    * @param RecycleObject
     * @return an observable containing an entity
     */
-    public restoreEntity(id: string, BinId: string): Observable<Entity>{
-        return this.postOrg("Restore","RecycleBin/" + BinId,id,null);
+    public restoreEntity(id: string, RecycleObject: RecycleBin): Observable<Entity>{
+        return this.postOrg("Restore","RecycleBin/" + RecycleObject.RecycleID,id,null);
     }
 
 }
