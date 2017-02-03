@@ -220,7 +220,8 @@ export class BrowserPage {
   }
 
 public viewSort() {
-  let sO = document.getElementById("SortOptions");
+  let sOs = document.getElementsByClassName("sortOptions");
+  let sO = sOs[sOs.length-1];
   if(this.sortOptionsVisible == false) {
     this.sortOptionsClass = sO.className;
     sO.className += " visible";

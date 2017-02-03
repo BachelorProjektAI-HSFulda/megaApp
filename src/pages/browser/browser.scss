@@ -334,11 +334,11 @@ ion-item button {
     width: 20px;
 }
 
-#SortOptions {
+.invisible {
     display: none;
 }
 
-#SortOptions.visible {
+.invisible.visible {
     display: block;
 }
 
