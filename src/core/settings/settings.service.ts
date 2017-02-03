@@ -4,6 +4,7 @@ export interface Settings {
     startPage: string;
     background: Color;
     accent: Color;
+    view: boolean;
 }
 
 @Injectable()
@@ -12,10 +13,11 @@ export class SettingsService {
     vault: Settings;
 
     constructor() {
-        this.vault = { 
+        this.vault = {
             startPage: 'RecentPage',
             background: Color.Blue,
-            accent: Color.Black
+            accent: Color.Black,
+            view: false,
         };
     }
 
@@ -24,6 +26,9 @@ export class SettingsService {
     }
 
     load() {
+        if(!window.localStorage.getItem('settings')){
+          this.save();
+        }
         this.vault = JSON.parse(window.localStorage.getItem('settings'));
     }
 

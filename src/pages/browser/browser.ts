@@ -8,6 +8,8 @@ import { SynactaAPIService, MockupUser } from '../../core/synacta/api.service';
 
 import { Entity, Container } from '../../core/synacta/api.objects';
 
+import { SettingsService, Settings } from '../../core/settings/settings.service';
+
 
 interface OrgData{
   Org: string;
@@ -28,21 +30,26 @@ export class BrowserPage {
   kram:Array<any>;
   searchBar:string;
 
-  constructor(public navCtrl: NavController, private synAPI: SynactaAPIService, private fav: Favorits, public alertCtrl: AlertController, private navParams: NavParams) {
+  constructor(public navCtrl: NavController, private synAPI: SynactaAPIService,
+    private fav: Favorits, public alertCtrl: AlertController,
+    private navParams: NavParams, private settings: SettingsService) {
     //todo get value from option
-    this.viewByOrg = true;
+    settings.load();
+    this.viewByOrg = settings.vault.view;
     this.viewByOrgData = new Array<OrgData>();
     this.user = synAPI.demoUser;
     this.kram = new Array<any>();
-    this.searchBar = "hallo";
+    this.searchBar = "";
   }
 
 
 
   ionViewWillEnter(){
-    console.log(this.navParams.get('ID'), this.navParams.get('ObjectType'));
     //Rebuild last View
-    if(this.navParams.get('ID') == undefined){
+    let id = this.navParams.get('ID');
+    let type = this.navParams.get('ObjectType');
+    console.log(id,type, (id == undefined));
+    if(id == undefined){
       if(this.lastUsedView != undefined){
         this.synAPI.getChildren(this.lastUsedView).subscribe(
           response => this.kram = response,
@@ -73,11 +80,9 @@ export class BrowserPage {
             });
           }
         }
-      }
-      //Build a view from navParams and set it as lastUsedView
-      else{
-        let id = this.navParams.get('ID');
-        let type = this.navParams.get('ObjectType');
+      }else{
+        //Build a view from navParams and set it as lastUsedView
+        console.log("why");
         this.synAPI.getByID(type, id).subscribe(
           response => this.lastUsedView = response,
           error => console.log(error),
@@ -88,7 +93,7 @@ export class BrowserPage {
               error => console.log(error),
               () => console.log("Children", this.kram)
             )
-          } );
+          });
         }
       }
 
@@ -152,11 +157,14 @@ export class BrowserPage {
 
 
   public switchView(){
-    if(this.viewByOrg){
-      this.viewByOrg=false
+    if(this.settings.vault.view){
+      this.settings.vault.view=false;
     }
-    else this.viewByOrg=true;
-    //this.navCtrl.push(BrowserPage);
+    else{
+       this.settings.vault.view=true;
+    }
+    this.settings.save();
+    this.navCtrl.push(BrowserPage);
   }
 
 
