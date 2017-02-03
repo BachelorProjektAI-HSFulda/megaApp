@@ -6,22 +6,53 @@
         <ion-icon name="swap"></ion-icon>Ansicht Ändern
     </button>
 
-    <ion-searchbar *ngIf="viewByOrg" [(ngModel)]="searchBar" [showCancelButton]="shouldShowCancel" (ionInput)="startSearch($event)" (ionCancel)="onCancel($event)">
+    <button (click)="viewSort()">
+        <ion-icon name="swap"></ion-icon>Ansicht Ändern
+    </button>
+
+    <ion-searchbar *ngIf="viewByOrg" [(ngModel)]="searchBar" placeholder="Suche nach Aktenbetreff " [showCancelButton]="shouldShowCancel" (ionInput)="startSearch($event)" (ionCancel)="onCancel($event)">
+        <button (click)="viewFilter()">
+            <ion-icon name="swap"></ion-icon>Ansicht Ändern
+        </button>
     </ion-searchbar>
+
+
+    <ion-list no-lines radio-group [(ngModel)]="Sorting" (change)="updateSorting()">
+        <h2>
+            Nutzerfreundlichkeit
+        </h2>
+        <ion-item>
+            <ion-icon name="home" item-left></ion-icon>
+            <h3> Sortieren nach </h3>
+            <ion-icon name="create" item-right></ion-icon>
+        </ion-item>
+
+        <ion-item class="radioOption">
+            <ion-label>Sort1</ion-label>
+            <ion-radio value="Sort1"></ion-radio>
+        </ion-item>
+        <ion-item class="radioOption">
+            <ion-label>Sort2</ion-label>
+            <ion-radio value="Sort2"></ion-radio>
+        </ion-item>
+        <ion-item class="radioOption">
+            <ion-label>Sort3</ion-label>
+            <ion-radio value="Sort3"></ion-radio>
+        </ion-item>
+
+    </ion-list>
+
+
+
+
+
 </h1>
 
 <content>
-    <button (click)="higher(kram[0])">
-    <ion-icon name="arrow-back">zurück</ion-icon>
-  </button>
-    <button (click)="switchView()">
-    <ion-icon name="ion-log-out">Ansicht Ändern</ion-icon>
-  </button>
-    <ion-searchbar *ngIf="viewByOrg" [(ngModel)]="searchBar" placeholder="Suche nach Aktenbetreff " [showCancelButton]="shouldShowCancel" (ionInput)="startSearch($event)" (ionCancel)="onCancel($event)">
-    </ion-searchbar>
+
     <!--Creating a new List -->
     <ion-list no-lines *ngIf="!viewByOrg">
-        <p *ngIf="kram.length == 0"> Hier sind keine Daten enthalten</p>
+        <p *ngIf="kram.length == 0" class="noData"> Hier sind keine Daten enthalten</p>
         <ion-item-sliding *ngFor="let item of kram; let i=index">
             <ion-item>
                 <!-- Item with Avatar/Icon-->
@@ -97,7 +128,7 @@
         </ion-list>
         <ion-list no-lines>
             <div *ngIf="viewByOrgData.length == 0">
-                <p *ngIf="kram.length == 0"> Hier sind keine Daten enthalten</p>
+                <p *ngIf="kram.length == 0" class="noData"> Hier sind keine Daten enthalten</p>
             </div>
             <ion-item-sliding *ngFor="let item of kram; let i=index">
                 <ion-item>
