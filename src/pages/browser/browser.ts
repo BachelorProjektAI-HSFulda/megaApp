@@ -8,7 +8,7 @@ import { SynactaAPIService, MockupUser } from '../../core/synacta/api.service';
 
 import { Entity, Container } from '../../core/synacta/api.objects';
 
-import { SettingsService, Settings } from '../../core/settings/settings.service';
+import { SettingsService} from '../../core/settings/settings.service';
 
 
 interface OrgData{

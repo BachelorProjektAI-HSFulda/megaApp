@@ -8,7 +8,7 @@ import { BrowserPage } from '../browser/browser';
 
 import { Entity, Container } from '../../core/synacta/api.objects';
 
-import { SettingsService, Settings } from '../../core/settings/settings.service';
+import { SettingsService} from '../../core/settings/settings.service';
 
 @Component({
   selector: 'page-favorite',
