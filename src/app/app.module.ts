@@ -23,7 +23,15 @@ import { SettingsService } from '../core/settings/settings.service';
     TabsPage
   ],
   imports: [
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, {
+      backButtonText: 'Go Back',
+      iconMode: 'md',
+      modalEnter: 'modal-slide-in',
+      modalLeave: 'modal-slide-out',
+      tabsPlacement: 'bottom',
+      pageTransition: 'ios',
+      mode: 'md'
+    }, {}),
     HttpModule
   ],
   bootstrap: [IonicApp],

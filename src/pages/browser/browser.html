@@ -1,30 +1,62 @@
 <h1>
-    Browser
+    <button (click)="higher(kram[0])">
+		    <ion-icon name="arrow-back"></ion-icon>zurück
+    </button>
+    <button (click)="switchView()">
+        <ion-icon name="swap"></ion-icon>Ansicht Ändern
+    </button>
+
+    <button (click)="viewSort()">
+        <ion-icon name="swap"></ion-icon>Ansicht Ändern
+    </button>
+
+    <ion-searchbar *ngIf="viewByOrg" [(ngModel)]="searchBar" placeholder="Suche nach Aktenbetreff " [showCancelButton]="shouldShowCancel" (ionInput)="startSearch($event)" (ionCancel)="onCancel($event)">
+        <button (click)="viewFilter()">
+            <ion-icon name="swap"></ion-icon>Ansicht Ändern
+        </button>
+    </ion-searchbar>
+
+
+    <ion-list no-lines radio-group [(ngModel)]="Sorting" (change)="updateSorting()">
+        <h2>
+            Nutzerfreundlichkeit
+        </h2>
+        <ion-item>
+            <ion-icon name="home" item-left></ion-icon>
+            <h3> Sortieren nach </h3>
+            <ion-icon name="create" item-right></ion-icon>
+        </ion-item>
+
+        <ion-item class="radioOption">
+            <ion-label>Sort1</ion-label>
+            <ion-radio value="Sort1"></ion-radio>
+        </ion-item>
+        <ion-item class="radioOption">
+            <ion-label>Sort2</ion-label>
+            <ion-radio value="Sort2"></ion-radio>
+        </ion-item>
+        <ion-item class="radioOption">
+            <ion-label>Sort3</ion-label>
+            <ion-radio value="Sort3"></ion-radio>
+        </ion-item>
+
+    </ion-list>
+
+
+
+
 
 </h1>
 
 <content>
-  <button (click)="higher(kram[0])">
-    <ion-icon name="arrow-back">zurück</ion-icon>
-  </button>
-  <button (click)="switchView()">
-    <ion-icon name="ion-log-out">Ansicht Ändern</ion-icon>
-  </button>
-  <ion-searchbar
-    *ngIf="viewByOrg"
-    [(ngModel)]="searchBar"
-    placeholder="Suche nach Aktenbetreff "
-    [showCancelButton]="shouldShowCancel"
-    (ionInput)="startSearch($event)"
-    (ionCancel)="onCancel($event)">
-  </ion-searchbar>
-  <!--Creating a new List -->
-  <ion-list no-lines *ngIf="!viewByOrg">
-    <p *ngIf="kram.length == 0"> Hier sind keine Daten enthalten</p>
-    <ion-item-sliding *ngFor="let item of kram; let i=index">
-      <ion-item>
-        <!-- Item with Avatar/Icon-->
-        <button (click)="deeper(item)">
+
+    <!--Creating a new List -->
+    <ion-list no-lines *ngIf="!viewByOrg">
+        <p *ngIf="kram.length == 0" class="noData"> Hier sind keine Daten enthalten</p>
+        <ion-item-sliding *ngFor="let item of kram; let i=index">
+            <ion-item>
+                <!-- Item with Avatar/Icon-->
+                <button (click)="deeper(item)">
           <ion-icon name="paper" item-left *ngIf="item.Document == undefined"></ion-icon>
           <ion-icon name="document" item-left *ngIf="item.Document != undefined"></ion-icon>
           <p>{{item.Properties.Aktenzeichen}}{{item.Properties.Zeichen}}</p>
@@ -32,38 +64,38 @@
             {{item.Properties.Aktenbetreff}}{{item.Properties.Bezeichnung}}
           </h3>
         </button>
-      </ion-item>
-      <!-- Options for Items in this part-->
-      <ion-item-options side="left">
-        <div class="action">
-          <button (click)="delete">
+            </ion-item>
+            <!-- Options for Items in this part-->
+            <ion-item-options side="left">
+                <div class="action">
+                    <button (click)="delete">
             <ion-icon name="trash"></ion-icon>
             Löschen
           </button>
-        </div>
-        <div class="action" id="favorite{{i}}">
-          <button (click)="favorite(item, i)">
+                </div>
+                <div class="action" id="favorite{{i}}">
+                    <button (click)="favorite(item, i)">
             <ion-icon name="star" item-left *ngIf="fav.checkFav(item)"></ion-icon>
             <ion-icon name="star-outline" item-left *ngIf="!fav.checkFav(item)"></ion-icon>
           </button> Favorit
-        </div>
-        <div class="action">
-          <button (click)="meta(item)">
+                </div>
+                <div class="action">
+                    <button (click)="meta(item)">
             <ion-icon name="document"></ion-icon>
           </button> Metadaten anzeigen
-        </div>
-      </ion-item-options>
-    </ion-item-sliding>
-  </ion-list>
+                </div>
+            </ion-item-options>
+        </ion-item-sliding>
+    </ion-list>
 
     <ion-list no-lines *ngIf="viewByOrg">
-      <ion-list *ngFor="let itemSet of viewByOrgData">
-        <h2>{{itemSet.Org}}</h2>
-        <p *ngIf="itemSet.Data.length == 0"> Hier sind keine Daten enthalten</p>
-        <ion-item-sliding *ngFor="let item of itemSet.Data; let i=index">
-          <ion-item>
-            <!-- Item with Avatar/Icon-->
-            <button (click)="deeper(item)">
+        <ion-list *ngFor="let itemSet of viewByOrgData">
+            <h2>{{itemSet.Org}}</h2>
+            <p *ngIf="itemSet.Data.length == 0"> Hier sind keine Daten enthalten</p>
+            <ion-item-sliding *ngFor="let item of itemSet.Data; let i=index">
+                <ion-item>
+                    <!-- Item with Avatar/Icon-->
+                    <button (click)="deeper(item)">
               <ion-icon name="paper" item-left *ngIf="item.Document == undefined"></ion-icon>
               <ion-icon name="document" item-left *ngIf="item.Document != undefined"></ion-icon>
               <p>{{item.Properties.Aktenzeichen}}{{item.Properties.Zeichen}}</p>
@@ -71,37 +103,37 @@
                 {{item.Properties.Aktenbetreff}}{{item.Properties.Bezeichnung}}
               </h3>
             </button>
-          </ion-item>
-          <!-- Options for Items in this part-->
-          <ion-item-options side="left">
-            <div class="action">
-              <button (click)="delete">
+                </ion-item>
+                <!-- Options for Items in this part-->
+                <ion-item-options side="left">
+                    <div class="action">
+                        <button (click)="delete">
                 <ion-icon name="trash"></ion-icon>
                 Löschen
               </button>
-            </div>
-            <div class="action" id="favorite{{i}}">
-              <button (click)="favorite(item, i)">
+                    </div>
+                    <div class="action" id="favorite{{i}}">
+                        <button (click)="favorite(item, i)">
                 <ion-icon name="star" item-left *ngIf="fav.checkFav(item)"></ion-icon>
                 <ion-icon name="star-outline" item-left *ngIf="!fav.checkFav(item)"></ion-icon>
               </button> Favorit
-            </div>
-            <div class="action">
-              <button (click)="meta(item)">
+                    </div>
+                    <div class="action">
+                        <button (click)="meta(item)">
                 <ion-icon name="document"></ion-icon>
               </button> Metadaten anzeigen
+                    </div>
+                </ion-item-options>
+            </ion-item-sliding>
+        </ion-list>
+        <ion-list no-lines>
+            <div *ngIf="viewByOrgData.length == 0">
+                <p *ngIf="kram.length == 0" class="noData"> Hier sind keine Daten enthalten</p>
             </div>
-          </ion-item-options>
-        </ion-item-sliding>
-      </ion-list>
-      <ion-list no-lines >
-        <div *ngIf="viewByOrgData.length == 0">
-          <p *ngIf="kram.length == 0" > Hier sind keine Daten enthalten</p>
-        </div>
-        <ion-item-sliding *ngFor="let item of kram; let i=index">
-          <ion-item>
-            <!-- Item with Avatar/Icon-->
-            <button (click)="deeper(item)">
+            <ion-item-sliding *ngFor="let item of kram; let i=index">
+                <ion-item>
+                    <!-- Item with Avatar/Icon-->
+                    <button (click)="deeper(item)">
               <ion-icon name="paper" item-left *ngIf="item.Document == undefined"></ion-icon>
               <ion-icon name="document" item-left *ngIf="item.Document != undefined"></ion-icon>
               <p>{{item.Properties.Aktenzeichen}}{{item.Properties.Zeichen}}</p>
@@ -109,28 +141,28 @@
                 {{item.Properties.Aktenbetreff}}{{item.Properties.Bezeichnung}}
               </h3>
             </button>
-          </ion-item>
-          <!-- Options for Items in this part-->
-          <ion-item-options side="left">
-            <div class="action">
-              <button (click)="delete">
+                </ion-item>
+                <!-- Options for Items in this part-->
+                <ion-item-options side="left">
+                    <div class="action">
+                        <button (click)="delete">
                 <ion-icon name="trash"></ion-icon>
                 Löschen
               </button>
-            </div>
-            <div class="action" id="favorite{{i}}">
-              <button (click)="favorite(item, i)">
+                    </div>
+                    <div class="action" id="favorite{{i}}">
+                        <button (click)="favorite(item, i)">
                 <ion-icon name="star" item-left *ngIf="fav.checkFav(item)"></ion-icon>
                 <ion-icon name="star-outline" item-left *ngIf="!fav.checkFav(item)"></ion-icon>
               </button> Favorit
-            </div>
-            <div class="action">
-              <button (click)="meta(item)">
+                    </div>
+                    <div class="action">
+                        <button (click)="meta(item)">
                 <ion-icon name="document"></ion-icon>
               </button> Metadaten anzeigen
-            </div>
-          </ion-item-options>
-        </ion-item-sliding>
-      </ion-list>
+                    </div>
+                </ion-item-options>
+            </ion-item-sliding>
+        </ion-list>
     </ion-list>
 </content>
