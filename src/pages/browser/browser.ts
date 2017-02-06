@@ -33,6 +33,8 @@ export class BrowserPage {
   searchBar:string;
   sortOptionsVisible;
   sortOptionsClass;
+  sorting:string;
+
 
   constructor(public navCtrl: NavController, private synAPI: SynactaAPIService, private fav: Favorits, public alertCtrl: AlertController,
   private navParams: NavParams, public modalCtrl: ModalController, private settings: SettingsService,
@@ -232,6 +234,33 @@ public viewSort() {
     this.sortOptionsVisible = false;
   }
 }
+
+public updateSorting(){
+  console.log(this.sorting);
+  if(this.sorting == "Aktenzeichen"){
+    if(this.viewByOrg){
+      for(let n=0; n < this.viewByOrgData.length; n++){
+        this.viewByOrgData[n].Data = this.sortService.sortByAktenzeichen(false,
+          this.viewByOrgData[n].Data)
+        }
+      }else{
+        this.synApiDaten = this.sortService.sortByAktenzeichen(false,
+          this.synApiDaten)
+        }
+  }
+  else{
+    let sotierenErstelltam:boolean = (this.sorting == "Erstellt am")? true:false;
+    if(this.viewByOrg){
+      for(let n=0; n < this.viewByOrgData.length; n++){
+        this.viewByOrgData[n].Data = this.sortService.sortByDate(false, sotierenErstelltam,
+          this.viewByOrgData[n].Data)
+        }
+      }else{
+        this.synApiDaten = this.sortService.sortByDate(false, sotierenErstelltam,
+          this.synApiDaten)
+        }
+      }
+    }
 
 //To Finish: ModalController
   public meta(characterNum) {
