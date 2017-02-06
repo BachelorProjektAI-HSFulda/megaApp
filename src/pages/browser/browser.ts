@@ -10,10 +10,12 @@ import { Entity, Container } from '../../core/synacta/api.objects';
 
 import { SettingsService} from '../../core/settings/settings.service';
 
+import { SortService } from '../../core/sort/sort.service'
+
 
 interface OrgData{
   Org: string;
-  Data:Array<any>;
+  Data:Array<Container>;
 }
 
 @Component({
@@ -31,9 +33,12 @@ export class BrowserPage {
   searchBar:string;
   sortOptionsVisible;
   sortOptionsClass;
+  sorting:string;
 
-  constructor(public navCtrl: NavController, private synAPI: SynactaAPIService, private fav: Favorits, public alertCtrl: AlertController, 
-  private navParams: NavParams, public modalCtrl: ModalController, private settings: SettingsService) {
+
+  constructor(public navCtrl: NavController, private synAPI: SynactaAPIService, private fav: Favorits, public alertCtrl: AlertController,
+  private navParams: NavParams, public modalCtrl: ModalController, private settings: SettingsService,
+  private sortService : SortService) {
     //todo get value from option
     settings.load();
     this.viewByOrg = settings.vault.view;
@@ -181,14 +186,12 @@ export class BrowserPage {
         response => tmp = response,
         error => console.log(error),
         () => {
-          let data:OrgData ={Org: item, Data: tmp}
-          this.viewByOrgData.push(data)
+          let data:OrgData ={Org: item, Data: tmp};
+          this.viewByOrgData.push(data);
         }
       )
     }
-    this.viewByOrgData.splice(0,this.user.Orgs.length);
-    console.log(this.viewByOrgData);
-
+    this.viewByOrgData.splice(0,this.user.Orgs.length);;
   }
 
   public delete(del: Entity) {
@@ -231,6 +234,33 @@ public viewSort() {
     this.sortOptionsVisible = false;
   }
 }
+
+public updateSorting(){
+  console.log(this.sorting);
+  if(this.sorting == "Aktenzeichen"){
+    if(this.viewByOrg){
+      for(let n=0; n < this.viewByOrgData.length; n++){
+        this.viewByOrgData[n].Data = this.sortService.sortByAktenzeichen(false,
+          this.viewByOrgData[n].Data)
+        }
+      }else{
+        this.synApiDaten = this.sortService.sortByAktenzeichen(false,
+          this.synApiDaten)
+        }
+  }
+  else{
+    let sotierenErstelltam:boolean = (this.sorting == "Erstellt am")? true:false;
+    if(this.viewByOrg){
+      for(let n=0; n < this.viewByOrgData.length; n++){
+        this.viewByOrgData[n].Data = this.sortService.sortByDate(false, sotierenErstelltam,
+          this.viewByOrgData[n].Data)
+        }
+      }else{
+        this.synApiDaten = this.sortService.sortByDate(false, sotierenErstelltam,
+          this.synApiDaten)
+        }
+      }
+    }
 
 //To Finish: ModalController
   public meta(characterNum) {
@@ -311,10 +341,9 @@ export class ModalPage {
     ];
     this.character = characters[this.params.get('charNum')];
   }
-	
+
 	dismiss() {
 		this.viewCtrl.dismiss();
 	}
 
 }
-
