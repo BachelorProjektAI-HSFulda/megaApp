@@ -10,10 +10,12 @@ import { Entity, Container } from '../../core/synacta/api.objects';
 
 import { SettingsService} from '../../core/settings/settings.service';
 
+import { SortService } from '../../core/sort/sort.service'
+
 
 interface OrgData{
   Org: string;
-  Data:Array<any>;
+  Data:Array<Container>;
 }
 
 @Component({
@@ -32,8 +34,9 @@ export class BrowserPage {
   sortOptionsVisible;
   sortOptionsClass;
 
-  constructor(public navCtrl: NavController, private synAPI: SynactaAPIService, private fav: Favorits, public alertCtrl: AlertController, 
-  private navParams: NavParams, public modalCtrl: ModalController, private settings: SettingsService) {
+  constructor(public navCtrl: NavController, private synAPI: SynactaAPIService, private fav: Favorits, public alertCtrl: AlertController,
+  private navParams: NavParams, public modalCtrl: ModalController, private settings: SettingsService,
+  private sortService : SortService) {
     //todo get value from option
     settings.load();
     this.viewByOrg = settings.vault.view;
@@ -181,14 +184,12 @@ export class BrowserPage {
         response => tmp = response,
         error => console.log(error),
         () => {
-          let data:OrgData ={Org: item, Data: tmp}
-          this.viewByOrgData.push(data)
+          let data:OrgData ={Org: item, Data: tmp};
+          this.viewByOrgData.push(data);
         }
       )
     }
-    this.viewByOrgData.splice(0,this.user.Orgs.length);
-    console.log(this.viewByOrgData);
-
+    this.viewByOrgData.splice(0,this.user.Orgs.length);;
   }
 
   public delete(del: Entity) {
@@ -311,10 +312,9 @@ export class ModalPage {
     ];
     this.character = characters[this.params.get('charNum')];
   }
-	
+
 	dismiss() {
 		this.viewCtrl.dismiss();
 	}
 
 }
-
