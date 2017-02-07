@@ -1,22 +1,30 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 
-export interface Settings {
-    startPage: string;
-    background: Color;
-    accent: Color;
+
+interface Settings {
+    homepage;
+    backgroundColor;
+    accentColor;
+    view;
 }
 
 @Injectable()
-export class SettingsService {
+export class SettingsService implements OnInit {
 
     vault: Settings;
 
     constructor() {
-        this.vault = { 
-            startPage: 'RecentPage',
-            background: Color.Blue,
-            accent: Color.Black
+        this.vault = {
+            homepage: "0",
+            backgroundColor: "blue",
+            accentColor: "blue",
+            view: false,
         };
+        this.load();
+    }
+
+    ngOnInit() {
+        this.load();
     }
 
     save() {
@@ -24,11 +32,18 @@ export class SettingsService {
     }
 
     load() {
-        this.vault = JSON.parse(window.localStorage.getItem('settings'));
+
+      if(!window.localStorage.getItem('settings')){
+        this.save();
+      }
+      let raw = window.localStorage.getItem('settings');
+      if (raw != null) this.vault = JSON.parse(raw);
+
     }
 
-}
+  }
 
-export enum Color {
-    Blue, Black, White
+
+export enum Pages {
+    RecentPage, FavoritePage, BrowserPage, OptionsPage
 }

@@ -13,6 +13,7 @@ import { Favorits } from '../core/storage/favorits';
 import { Storage } from '../core/storage/storage';
 import { RecentList } from '../core/storage/recentList'
 import { SettingsService } from '../core/settings/settings.service';
+import { SortService } from '../core/sort/sort.service'
 
 @NgModule({
   declarations: [
@@ -20,12 +21,20 @@ import { SettingsService } from '../core/settings/settings.service';
     FavoritePage,
     BrowserPage,
     RecentPage,
-	OptionsPage,
+    OptionsPage,
     TabsPage,
-	ModalPage
+    ModalPage
   ],
   imports: [
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, {
+      backButtonText: 'Go Back',
+      iconMode: 'md',
+      modalEnter: 'modal-slide-in',
+      modalLeave: 'modal-slide-out',
+      tabsPlacement: 'bottom',
+      pageTransition: 'ios',
+      mode: 'md'
+    }, {}),
     HttpModule
   ],
   bootstrap: [IonicApp],
@@ -34,16 +43,17 @@ import { SettingsService } from '../core/settings/settings.service';
     FavoritePage,
     BrowserPage,
     RecentPage,
-	OptionsPage,
+    OptionsPage,
     TabsPage,
-	ModalPage
+    ModalPage
   ],
   providers: [
     SynactaAPIService,
     Favorits,
     Storage,
     RecentList,
-    SettingsService
+    SettingsService,
+    SortService
   ]
 })
 export class AppModule {}

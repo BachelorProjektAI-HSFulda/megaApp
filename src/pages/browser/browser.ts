@@ -8,30 +8,54 @@ import { SynactaAPIService, MockupUser } from '../../core/synacta/api.service';
 
 import { Entity, Container } from '../../core/synacta/api.objects';
 
+import { SettingsService} from '../../core/settings/settings.service';
+
+import { SortService } from '../../core/sort/sort.service'
+
+
+interface OrgData{
+  Org: string;
+  Data:Array<Container>;
+}
+
 @Component({
   selector: 'page-browser',
   templateUrl: 'browser.html'
 })
+
 export class BrowserPage {
   viewByOrg:boolean;
+  viewByOrgData:Array<OrgData>;
   daten:Container;
   lastUsedView:Container;
   user:MockupUser;
   synApiDaten:Array<any>;
   searchBar:string;
+  sortOptionsVisible;
+  sortOptionsClass;
+  sorting:string;
 
-  constructor(public navCtrl: NavController, private synAPI: SynactaAPIService, private fav: Favorits, public alertCtrl: AlertController, private navParams: NavParams, public modalCtrl: ModalController) {
+
+  constructor(public navCtrl: NavController, private synAPI: SynactaAPIService, private fav: Favorits, public alertCtrl: AlertController,
+  private navParams: NavParams, public modalCtrl: ModalController, private settings: SettingsService,
+  private sortService : SortService) {
     //todo get value from option
-    this.viewByOrg = true;
+    settings.load();
+    this.viewByOrg = settings.vault.view;
+    this.viewByOrgData = new Array<OrgData>();
     this.user = synAPI.demoUser;
+    this.sortOptionsVisible = false;
+    this.sortOptionsClass = "";
     this.synApiDaten = new Array<any>();
     this.searchBar = "hallo";
   }
 
   ionViewWillEnter(){
-    console.log(this.navParams.get('ID'), this.navParams.get('ObjectType'));
     //Rebuild last View
-    if(this.navParams.get('ID') == undefined){
+    let id = this.navParams.get('ID');
+    let type = this.navParams.get('ObjectType');
+    console.log(id,type, (id == undefined));
+    if(id == undefined){
       if(this.lastUsedView != undefined){
         this.synAPI.getChildren(this.lastUsedView).subscribe(
           response => this.synApiDaten = response,
@@ -62,11 +86,9 @@ export class BrowserPage {
             });
           }
         }
-      }
-      //Build a view from navParams and set it as lastUsedView
-      else{
-        let id = this.navParams.get('ID');
-        let type = this.navParams.get('ObjectType');
+      }else{
+        //Build a view from navParams and set it as lastUsedView
+        console.log("why");
         this.synAPI.getByID(type, id).subscribe(
           response => this.lastUsedView = response,
           error => console.log(error),
@@ -99,11 +121,6 @@ export class BrowserPage {
 	  alert.present();
   }
 
- /* public meta(datei: Container): void{
-      //this.navCtrl.push(datei.Properties);//Diese Zeile kann so nicht funktionieren!!
-	  console.log("Metadaten");
-	  this.presentModal(datei);
-  }*/
 
   public deeper(children: Container): void{
 	  if(children.ObjectType != "Dokument")
@@ -162,11 +179,14 @@ export class BrowserPage {
 	}
 
   public switchView(){
-    if(this.viewByOrg){
-      this.viewByOrg=false
+    if(this.settings.vault.view){
+      this.settings.vault.view=false;
     }
-    else this.viewByOrg=true;
-    //this.navCtrl.push(BrowserPage);
+    else{
+       this.settings.vault.view=true;
+    }
+    this.settings.save();
+    this.navCtrl.push(BrowserPage);
   }
 
   //start the Search from searchBar
@@ -180,37 +200,21 @@ export class BrowserPage {
   }
 
   private getFromOrg(s: string){
-    let tmp = new Array<any>();
     for(let item of this.user.Orgs){
-      let data;
+      let tmp = new Array<any>();
       let search = (s == null)? null : "Aktenbetreff, '"+s+"'";
       this.synAPI.getContainersByOrg("Akte", item, search).subscribe(
-        response => data = response,
+        response => tmp = response,
         error => console.log(error),
         () => {
-          console.log(data);
-          for(let item of data){
-            if(tmp.length == 0){
-              tmp.push(item)
-            }
-            let check:boolean = false;
-            for(let checkItem of tmp){
-              if(item.ID == checkItem.ID){
-                check = true
-              }
-              console.log(item.ID == checkItem.ID);
-            }
-            if(!check){
-              tmp.push(item)
-            }
-          }
-          console.log(this.synApiDaten);
+          let data:OrgData ={Org: item, Data: tmp};
+          this.viewByOrgData.push(data);
         }
       )
     }
-    this.synApiDaten = tmp;
+    this.viewByOrgData.splice(0,this.user.Orgs.length);;
   }
-  
+
   public delete(del: Entity) {
 	  console.log("Löschen_1");
   this.loeschen(del);
@@ -239,6 +243,46 @@ export class BrowserPage {
   alert.present();
   }
 
+public viewSort() {
+  let sOs = document.getElementsByClassName("sortOptions");
+  let sO = sOs[sOs.length-1];
+  if(this.sortOptionsVisible == false) {
+    this.sortOptionsClass = sO.className;
+    sO.className += " visible";
+    this.sortOptionsVisible = true;
+  } else {
+    sO.className = this.sortOptionsClass;
+    this.sortOptionsVisible = false;
+  }
+}
+
+public updateSorting(){
+  console.log(this.sorting);
+  if(this.sorting == "Aktenzeichen"){
+    if(this.viewByOrg){
+      for(let n=0; n < this.viewByOrgData.length; n++){
+        this.viewByOrgData[n].Data = this.sortService.sortByAktenzeichen(false,
+          this.viewByOrgData[n].Data)
+        }
+      }else{
+        this.synApiDaten = this.sortService.sortByAktenzeichen(false,
+          this.synApiDaten)
+        }
+  }
+  else{
+    let sotierenErstelltam:boolean = (this.sorting == "Erstellt am")? true:false;
+    if(this.viewByOrg){
+      for(let n=0; n < this.viewByOrgData.length; n++){
+        this.viewByOrgData[n].Data = this.sortService.sortByDate(false, sotierenErstelltam,
+          this.viewByOrgData[n].Data)
+        }
+      }else{
+        this.synApiDaten = this.sortService.sortByDate(false, sotierenErstelltam,
+          this.synApiDaten)
+        }
+      }
+    }
+
 //To Finish: ModalController
   public meta(characterNum) {
 	//let characterNum = 1;
@@ -246,6 +290,7 @@ export class BrowserPage {
 	modal.present();
 }
 }
+
 
 @Component({
   template: `
@@ -317,9 +362,9 @@ export class ModalPage {
     ];
     this.character = characters[this.params.get('charNum')];
   }
-	
+
 	dismiss() {
 		this.viewCtrl.dismiss();
 	}
-}
 
+}
