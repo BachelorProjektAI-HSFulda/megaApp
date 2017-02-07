@@ -17,9 +17,13 @@ export class OptionsPage {
   pages = Pages;
 
   constructor(public navCtrl: NavController, private settings: SettingsService) {
-      this.backgroundColor = this.settings.vault.backgroundColor;
-      this.homepage = this.settings.vault.homepage;
-      this.accentColor = this.settings.vault.accentColor;
+    this.load();
+  }
+
+  load() {
+    this.backgroundColor = this.settings.vault.backgroundColor;
+    this.homepage = this.settings.vault.homepage;
+    this.accentColor = this.settings.vault.accentColor;
   }
 
   save() {
@@ -28,6 +32,11 @@ export class OptionsPage {
     this.settings.vault.accentColor = this.accentColor;
     this.settings.save();
     window.location.reload();
+  }
+
+  loadDefaults() {
+    this.settings.loadDefaults();
+    this.load();
   }
 
   //scope.showSelectValue = function (mySelect) {
