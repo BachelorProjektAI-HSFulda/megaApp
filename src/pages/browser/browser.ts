@@ -1,4 +1,4 @@
-import { Component, NgModule } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { NavController, NavParams, AlertController, ModalController, ViewController, Platform } from 'ionic-angular';
 
@@ -285,34 +285,35 @@ public updateSorting(){
 
 //To Finish: ModalController
   public meta(characterNum) {
-	//let characterNum = 1;
+	  console.log("Aufruf der Methode");
 	let modal = this.modalCtrl.create(ModalPage, characterNum);
+	console.log("Variable definieren");
 	modal.present();
+	console.log("present aufgerufen");
 }
 }
 
 
 @Component({
   template: `
-<ion-header>
-  <ion-toolbar>
-    <ion-title>
+  <h2>
+    <p>
       Description
-    </ion-title>
-    <ion-buttons start>
+    </p>
       <button ion-button (click)="dismiss()">
-        <span ion-text color="primary" showWhen="ios">Cancel</span>
-        <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+        <p ion-text color="primary" >
+			Cancel
+		</p>
       </button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-<ion-content>
-  <ion-list>
+</h2>
+
+<content>
+  <ion-list no-lines>
       <ion-item>
         <h2>{{character.name}}</h2>
         <p>{{character.quote}}</p>
       </ion-item>
+
       <ion-item *ngFor="let item of character['items']">
         {{item.title}}
         <ion-note item-right>
@@ -320,17 +321,17 @@ public updateSorting(){
         </ion-note>
       </ion-item>
   </ion-list>
-</ion-content>
+</content>
 `
 })
 
-@Component({
-  selector: 'page-modal',
-  templateUrl: 'modal-content.html'
-})
+
 export class ModalPage {
 	  character;
-	constructor(public params: NavParams, public viewCtrl: ViewController, public platform: Platform) {
+	constructor(
+	public params: NavParams, 
+	public viewCtrl: ViewController, 
+	public platform: Platform) {
 		var characters = [
       {
         name: 'Gollum',

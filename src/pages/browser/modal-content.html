@@ -1,17 +1,16 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>
+<h2>
+    <p>
       Description
-    </ion-title>
+    </p>
       <button ion-button (click)="dismiss()">
-        <span ion-text color="primary" showWhen="ios">Cancel</span>
-        <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+        <p ion-text color="primary" >
+			Cancel
+		</p>
       </button>
-  </ion-toolbar>
-</ion-header>
+</h2>
 
-<ion-content>
-  <ion-list>
+<content>
+  <ion-list no-lines>
       <ion-item>
         <h2>{{character.name}}</h2>
         <p>{{character.quote}}</p>
@@ -24,4 +23,4 @@
         </ion-note>
       </ion-item>
   </ion-list>
-</ion-content>
+</content>
