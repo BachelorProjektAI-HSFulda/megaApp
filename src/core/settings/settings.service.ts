@@ -1,4 +1,4 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 
 interface Settings {
@@ -9,22 +9,22 @@ interface Settings {
 }
 
 @Injectable()
-export class SettingsService implements OnInit {
+export class SettingsService {
 
     vault: Settings;
 
     constructor() {
+        this.loadDefaults();
+        this.load();
+    }
+
+    loadDefaults() {
         this.vault = {
             homepage: "0",
             backgroundColor: "blue",
             accentColor: "blue",
-            view: false,
+            view: false
         };
-        this.load();
-    }
-
-    ngOnInit() {
-        this.load();
     }
 
     save() {
