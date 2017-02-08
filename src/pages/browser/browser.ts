@@ -283,13 +283,9 @@ public updateSorting(){
       }
     }
 
-//To Finish: ModalController
   public meta(metaDaten: Entity) {
-	  console.log("Aufruf der Methode");
 	let modal = this.modalCtrl.create(ModalPage, metaDaten);
-	console.log("Variable definieren");
 	modal.present();
-	console.log("present aufgerufen");
 }
 }
 
@@ -308,8 +304,8 @@ public updateSorting(){
       </ion-item>
 
       <ion-item *ngFor="let item of character['items']">
-        <h3>{{item.title}}</h3>
         <p>{{item.note}}</p>
+		<h3>{{item.title}}</h3>
       </ion-item>
   </ion-list>
 </content>
@@ -324,8 +320,6 @@ export class ModalPage {
 	public params: NavParams, 
 	public viewCtrl: ViewController, 
 	public platform: Platform) {
-		//datenMeta = this.params.get('datenVon');
-		console.log(this.datenMeta);
 		if(this.datenMeta.ObjectType == "Hauptgruppe")
 		{
 			var characters = [
@@ -341,8 +335,8 @@ export class ModalPage {
 			var characters = [
 			{ Bezeichnung: this.datenMeta.Properties.Aktenbetreff,
 			items: [
-			{ title: 'Erstellt am:', note: this.datenMeta.Properties.ErstelltAm},
-			{ title: 'Erstellt von', note: this.datenMeta.Properties.ErstelltVon},
+			{ title: 'Erstellt am:', note: this.datenMeta.Properties['Erstellt am']},
+			{ title: 'Erstellt von', note: this.datenMeta.Properties['Erstellt von']},
 			{ title: 'Geheimschutzstufe', note: this.datenMeta.Properties.Geheimschutzstufe},
 			{ title: 'ID', note: this.datenMeta.ID},
 			{ title: 'Organisation', note: this.datenMeta.Properties.Organisation}
@@ -354,8 +348,8 @@ export class ModalPage {
 			var characters = [
 			{ Bezeichnung: this.datenMeta.Properties.Name,
 			items: [
-			{ title: 'Erstellt am:', note: this.datenMeta.Properties.ErstelltAm},
-			{ title: 'Erstellt von', note: this.datenMeta.Properties.ErstelltVon},
+			{ title: 'Erstellt am:', note: this.datenMeta.Properties['Erstellt am']},
+			{ title: 'Erstellt von', note: this.datenMeta.Properties['Erstellt von']},
 			{ title: 'Geheimschutzstufe', note: this.datenMeta.Properties.Geheimschutzstufe},
 			{ title: 'ID', note: this.datenMeta.ID},
 			{ title: 'Organisation', note: this.datenMeta.Properties.Organisation},
