@@ -284,9 +284,9 @@ public updateSorting(){
     }
 
 //To Finish: ModalController
-  public meta(characterNum) {
+  public meta(metaDaten: Entity) {
 	  console.log("Aufruf der Methode");
-	let modal = this.modalCtrl.create(ModalPage, characterNum);
+	let modal = this.modalCtrl.create(ModalPage, metaDaten);
 	console.log("Variable definieren");
 	modal.present();
 	console.log("present aufgerufen");
@@ -298,21 +298,18 @@ public updateSorting(){
   template: `
 <content>
 <button ion-button (click)="dismiss()">
-        <p ion-text color="primary" >
+        <p>
 			Cancel
 		</p>
       </button>
   <ion-list no-lines>
       <ion-item>
-        <h2>{{character.name}}</h2>
-        <p>{{character.quote}}</p>
+        <h2>{{character.Bezeichnung}}</h2>
       </ion-item>
 
       <ion-item *ngFor="let item of character['items']">
-        {{item.title}}
-        <ion-note item-right>
-          {{item.note}}
-        </ion-note>
+        <h3>{{item.title}}</h3>
+        <p>{{item.note}}</p>
       </ion-item>
   </ion-list>
 </content>
@@ -322,40 +319,53 @@ public updateSorting(){
 
 export class ModalPage {
 	  character;
+	  datenMeta = this.params.get('datenVon');
 	constructor(
 	public params: NavParams, 
 	public viewCtrl: ViewController, 
 	public platform: Platform) {
-		var characters = [
-      {
-        name: 'Gollum',
-        quote: 'Sneaky little hobbitses!',
-        items: [
-          { title: 'Race', note: 'Hobbit' },
-          { title: 'Culture', note: 'River Folk' },
-          { title: 'Alter Ego', note: 'Smeagol' }
-        ]
-      },
-      {
-        name: 'Frodo',
-        quote: 'Go back, Sam! I\'m going to Mordor alone!',
-        items: [
-          { title: 'Race', note: 'Hobbit' },
-          { title: 'Culture', note: 'Shire Folk' },
-          { title: 'Weapon', note: 'Sting' }
-        ]
-      },
-      {
-        name: 'Samwise Gamgee',
-        quote: 'What we need is a few good taters.',
-        items: [
-          { title: 'Race', note: 'Hobbit' },
-          { title: 'Culture', note: 'Shire Folk' },
-          { title: 'Nickname', note: 'Sam' }
-        ]
-      }
-    ];
-    this.character = characters[this.params.get('charNum')];
+		//datenMeta = this.params.get('datenVon');
+		console.log(this.datenMeta);
+		if(this.datenMeta.ObjectType == "Hauptgruppe")
+		{
+			var characters = [
+			{ Bezeichnung: this.datenMeta.Properties.Bezeichnung,
+			items: [
+			{ title: 'Stufe', note: this.datenMeta.Properties.Stufe},
+			{ title: 'ID', note: this.datenMeta.ID }
+			]
+			}];
+		}
+		else if(this.datenMeta.ObjectType == "Akte")
+		{
+			var characters = [
+			{ Bezeichnung: this.datenMeta.Properties.Aktenbetreff,
+			items: [
+			{ title: 'Erstellt am:', note: this.datenMeta.Properties.ErstelltAm},
+			{ title: 'Erstellt von', note: this.datenMeta.Properties.ErstelltVon},
+			{ title: 'Geheimschutzstufe', note: this.datenMeta.Properties.Geheimschutzstufe},
+			{ title: 'ID', note: this.datenMeta.ID},
+			{ title: 'Organisation', note: this.datenMeta.Properties.Organisation}
+			]
+			}];
+		}
+		else if(this.datenMeta.ObjectType == "Dokument")
+		{
+			var characters = [
+			{ Bezeichnung: this.datenMeta.Properties.Name,
+			items: [
+			{ title: 'Erstellt am:', note: this.datenMeta.Properties.ErstelltAm},
+			{ title: 'Erstellt von', note: this.datenMeta.Properties.ErstelltVon},
+			{ title: 'Geheimschutzstufe', note: this.datenMeta.Properties.Geheimschutzstufe},
+			{ title: 'ID', note: this.datenMeta.ID},
+			{ title: 'Organisation', note: this.datenMeta.Properties.Organisation},
+			{ title: 'Erweiterung', note: this.datenMeta.Properties.Erweiterung}
+			]
+			}];
+		}
+		
+		
+    this.character = characters[0];
   }
 
 	dismiss() {

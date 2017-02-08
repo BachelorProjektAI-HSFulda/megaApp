@@ -1,20 +1,19 @@
 <content>
 	<button ion-button (click)="dismiss()">
-        <p ion-text color="primary" >
+        <p>
 			Cancel
 		</p>
     </button>
   <ion-list no-lines>
       <ion-item>
-        <h2>{{character.name}}</h2>
-        <p>{{character.quote}}</p>
+        <h2>{{character.Bezeichnung}}</h2>
       </ion-item>
 
       <ion-item *ngFor="let item of character['items']">
-        {{item.title}}
-        <ion-note item-right>
-          {{item.note}}
-        </ion-note>
+        <p>{{item.title}}</p>
+        
+        <h3>  {{item.note}}</h3>
+       
       </ion-item>
   </ion-list>
 </content>
