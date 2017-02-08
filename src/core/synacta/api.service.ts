@@ -33,7 +33,7 @@ export class SynactaAPIService {
 			Name: "Team1",
 			Orgs: ["1011", "1012"]
 		};
-        this.retries = 5;
+        this.retries = 3;
         this.timeout = 5000;
     }
 
