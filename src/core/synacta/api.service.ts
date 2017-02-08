@@ -22,8 +22,9 @@ export interface MockupUser {
 @Injectable()
 export class SynactaAPIService {
 
-	demoUser : MockupUser;
+	demoUser: MockupUser;
     retries: number;
+    timeout: number;
     baseHeaders: Headers = new Headers();
 
     constructor(private http: Http) {
@@ -33,6 +34,7 @@ export class SynactaAPIService {
 			Orgs: ["1011", "1012"]
 		};
         this.retries = 5;
+        this.timeout = 5000;
     }
 
     /* Send request to the Synacta-Endpoint
@@ -112,6 +114,7 @@ export class SynactaAPIService {
          let headers = new Headers(this.baseHeaders);
          return this.http
              .get(endpoint, {headers: headers})
+             .timeout(this.timeout)
              .retry(this.retries)
              .map(response => response.json());
      }
@@ -123,6 +126,8 @@ export class SynactaAPIService {
          let headers = new Headers(this.baseHeaders);
          return this.http
             .post(endpoint, {body}, {headers: headers})
+            .timeout(this.timeout)
+            .retry(this.retries)
             .map(response => response.json());
      }
 
@@ -133,6 +138,8 @@ export class SynactaAPIService {
          let headers = new Headers(this.baseHeaders);
          return this.http
             .delete(endpoint, {headers: headers})
+            .timeout(this.timeout)
+            .retry(this.retries)
             .map(response => response.json());
      }
 
