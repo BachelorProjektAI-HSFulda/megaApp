@@ -296,18 +296,12 @@ public updateSorting(){
 
 @Component({
   template: `
-  <h2>
-    <p>
-      Description
-    </p>
-      <button ion-button (click)="dismiss()">
+<content>
+<button ion-button (click)="dismiss()">
         <p ion-text color="primary" >
 			Cancel
 		</p>
       </button>
-</h2>
-
-<content>
   <ion-list no-lines>
       <ion-item>
         <h2>{{character.name}}</h2>
