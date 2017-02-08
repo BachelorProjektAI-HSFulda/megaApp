@@ -23,6 +23,7 @@ ion-item.radioOption {
     background-color: $background-color;
     color: color($colors, primary);
     transition: all .25s ease;
+    font-size: 16px;
 }
 
 .radioOption ion-label:before {
