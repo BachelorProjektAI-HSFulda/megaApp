@@ -33,7 +33,7 @@ export class BrowserPage {
   searchBar:string;
   sortOptionsVisible;
   sortOptionsClass;
-  sorting:string;
+  sorting;
 
 
   constructor(public navCtrl: NavController, private synAPI: SynactaAPIService, private fav: Favorits, public alertCtrl: AlertController,
@@ -137,7 +137,7 @@ export class BrowserPage {
 			this.navCtrl.push(BrowserPage, children);
 		}
 	  }
-	  else 
+	  else
 	  {
 		  this.ablehnen();
 	  }
@@ -242,50 +242,77 @@ export class BrowserPage {
   alert.present();
   }
 
-public viewSort() {
-  let sOs = document.getElementsByClassName("sortOptions");
-  let sO = sOs[sOs.length-1];
-  if(this.sortOptionsVisible == false) {
-    this.sortOptionsClass = sO.className;
-    sO.className += " visible";
-    this.sortOptionsVisible = true;
-  } else {
-    sO.className = this.sortOptionsClass;
-    this.sortOptionsVisible = false;
+  public viewSort() {
+    console.log("my sort:", this.sorting);
+    if(this.sorting != undefined){
+    }
+    let sOs = document.getElementsByClassName("sortOptions");
+    let sO = sOs[sOs.length-1];
+    if(this.sortOptionsVisible == false) {
+      this.sortOptionsClass = sO.className;
+      sO.className += " visible";
+      this.sortOptionsVisible = true;
+    } else {
+      sO.className = this.sortOptionsClass;
+      this.sortOptionsVisible = false;
+    }
   }
-}
 
-public updateSorting(){
-  console.log(this.sorting);
-  if(this.sorting == "Aktenzeichen"){
-    if(this.viewByOrg){
-      for(let n=0; n < this.viewByOrgData.length; n++){
-        this.viewByOrgData[n].Data = this.sortService.sortByAktenzeichen(false,
-          this.viewByOrgData[n].Data)
-        }
-      }else{
-        this.synApiDaten = this.sortService.sortByAktenzeichen(false,
-          this.synApiDaten)
-        }
-  }
-  else{
-    let sotierenErstelltam:boolean = (this.sorting == "Erstellt am")? true:false;
-    if(this.viewByOrg){
-      for(let n=0; n < this.viewByOrgData.length; n++){
-        this.viewByOrgData[n].Data = this.sortService.sortByDate(false, sotierenErstelltam,
-          this.viewByOrgData[n].Data)
-        }
-      }else{
-        this.synApiDaten = this.sortService.sortByDate(false, sotierenErstelltam,
-          this.synApiDaten)
-        }
-      }
+  public updateSorting(){
+    let input : string = this.sorting
+    let sorttype: string;
+    let sortOption: boolean;
+
+    switch(input){
+      case "AZfalse":
+      sorttype = "AkZ"
+      sortOption = false;
+      break;
+      case "AZtrue":
+      sorttype = "AkZ"
+      sortOption = true;
+      break;
+      case "Gafalse":
+      sorttype = "GeA"
+      sortOption = false;
+      break;
+      case "Gatrue":
+      sorttype = "GeA"
+      sortOption = true;
+      break;
+      case "Erafalse":
+      sorttype = "ErA"
+      sortOption = false;
+      break;
+      case "Eratrue":
+      sorttype = "ErA"
+      sortOption = true;
+      break;
+      default:;
     }
 
+    if(sorttype == "AkZ"){
+      for(let n=0; n < this.viewByOrgData.length; n++){
+        this.viewByOrgData[n].Data = this.sortService.sortByAktenzeichen(sortOption, this.viewByOrgData[n].Data)
+      }
+    }
+    else if(sorttype == "GeA"){
+      for(let n=0; n < this.viewByOrgData.length; n++){
+        this.viewByOrgData[n].Data = this.sortService.sortByDate(sortOption, false, this.viewByOrgData[n].Data)
+      }
+    }
+    else if(sorttype == "ErA"){
+      for(let n=0; n < this.viewByOrgData.length; n++){
+        this.viewByOrgData[n].Data = this.sortService.sortByDate(sortOption, true,this.viewByOrgData[n].Data)
+      }
+    }
+  }
+
+
   public meta(metaDaten: Entity) {
-	let modal = this.modalCtrl.create(ModalPage, metaDaten);
-	modal.present();
-}
+    let modal = this.modalCtrl.create(ModalPage, metaDaten);
+    modal.present();
+  }
 }
 
 
@@ -316,8 +343,8 @@ export class ModalPage {
 	  character;
 	  datenMeta = this.params.get('datenVon');
 	constructor(
-	public params: NavParams, 
-	public viewCtrl: ViewController, 
+	public params: NavParams,
+	public viewCtrl: ViewController,
 	public platform: Platform) {
 		if(this.datenMeta.ObjectType == "Hauptgruppe")
 		{
@@ -356,8 +383,8 @@ export class ModalPage {
 			]
 			}];
 		}
-		
-		
+
+
     this.character = characters[0];
   }
 
