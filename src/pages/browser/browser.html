@@ -46,7 +46,7 @@
 
     <!--Creating a new List -->
     <ion-list no-lines *ngIf="!viewByOrg">
-        <p *ngIf="synApiDaten.length == 0" class="noData"> Hier sind keine Daten enthalten</p>
+        <p *ngIf="synApiDaten.length == 0" class="noData">{{ dataStatusMessage }}</p>
         <ion-item-sliding *ngFor="let item of synApiDaten; let i=index">
             <ion-item>
                 <!-- Item with Avatar/Icon-->
@@ -85,7 +85,7 @@
     <ion-list no-lines *ngIf="viewByOrg">
         <ion-list *ngFor="let itemSet of viewByOrgData">
             <h2>{{itemSet.Org}}</h2>
-            <p *ngIf="itemSet.Data.length == 0"> Hier sind keine Daten enthalten</p>
+            <p *ngIf="itemSet.Data.length == 0">{{ dataStatusMessage }}</p>
             <ion-item-sliding *ngFor="let item of itemSet.Data; let i=index">
                 <ion-item>
                     <!-- Item with Avatar/Icon-->
@@ -122,7 +122,7 @@
         </ion-list>
         <ion-list no-lines>
             <div *ngIf="viewByOrgData.length == 0">
-                <p *ngIf="synApiDaten.length == 0" class="noData"> Hier sind keine Daten enthalten</p>
+                <p *ngIf="synApiDaten.length == 0" class="noData">{{ dataStatusMessage }}</p>
             </div>
             <ion-item-sliding *ngFor="let item of synApiDaten; let i=index">
                 <ion-item>

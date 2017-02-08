@@ -34,7 +34,7 @@ export class BrowserPage {
   sortOptionsVisible;
   sortOptionsClass;
   sorting:string;
-
+  dataStatusMessage:string;
 
   constructor(public navCtrl: NavController, private synAPI: SynactaAPIService, private favService: Favorits, public alertCtrl: AlertController,
   private navParams: NavParams, public modalCtrl: ModalController, private settings: SettingsService,
@@ -47,7 +47,8 @@ export class BrowserPage {
     this.sortOptionsVisible = false;
     this.sortOptionsClass = "";
     this.synApiDaten = new Array<any>();
-    this.searchBar = "hallo";
+    this.searchBar = "Suchbegriff eintippen...";
+    this.dataStatusMessage = "Daten werden geladen...";
   }
 
   ionViewDidEnter(){
