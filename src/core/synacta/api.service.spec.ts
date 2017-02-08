@@ -64,7 +64,7 @@ describe("Synacta API Service", () => {
         expect(service).toBeDefined();
     });
 
-    it("get's the root object and converts it properly.", async( () => {
+    it("get's the root object and converts it properly.", (done) => {
         mockBackend.connections.subscribe(
             (connection: MockConnection) => {
                 expect(connection.request.url).toEqual('https://synacta.agile-is.de/_api/base/root');
@@ -80,10 +80,11 @@ describe("Synacta API Service", () => {
             expect(response).toBeDefined();
             expect(response instanceof Container).toBeTruthy();
             expect(response.ID).toEqual(MockRootValue.ID);
+            done();
         });
-    }));
+    });
  
-    it("returns correct data in api fields", async(() => {
+    it("returns correct data in api fields", (done) => {
         mockBackend.connections.subscribe(
             (connection: MockConnection) => {
                 expect(connection.request.url).toEqual('https://synacta.agile-is.de/_api/base/root');
@@ -98,10 +99,11 @@ describe("Synacta API Service", () => {
         service.getRoot().subscribe( (response:Container) => { 
             expect(response).toBeDefined();
             expect(response.ReadLink).toEqual(MockRootValue["@odata.readLink"]);
+            done();
         });
-    }));
+    });
 
-    it("responds with object that contains valid properties", async(() => {
+    it("responds with object that contains valid properties", (done) => {
         mockBackend.connections.subscribe(
             (connection: MockConnection) => {
                 expect(connection.request.url).toEqual('https://synacta.agile-is.de/_api/base/root');
@@ -115,10 +117,11 @@ describe("Synacta API Service", () => {
         
         service.getRoot().subscribe( (response:Container) => {
             expect(response.Properties["Stufe"]).toEqual("Plan");
+            done();
         });
-    }));
+    });
 
-    it("get's correct object by ID", async( () => {
+    it("get's correct object by ID", (done) => { 
         mockBackend.connections.subscribe(
             (connection: MockConnection) => {
                 let url = 'https://synacta.agile-is.de/_api/base/' 
@@ -135,10 +138,11 @@ describe("Synacta API Service", () => {
 
         service.getByID(MockContainer.ObjectType, MockContainer.ID).subscribe( (response:Container) => {
             expect(response.Properties["Typ"]).toEqual(MockContainer.ObjectType);
+            done();
         });
-    }));
+    });
 
-    it("receives child elements of an container", async(() => {
+    it("receives child elements of an container", (done) => {
         let parent: Container = new Container();
         parent.ID = getChildren.parentID;
         parent.ObjectType = getChildren.parentType;
@@ -161,10 +165,11 @@ describe("Synacta API Service", () => {
         service.getChildren(parent).subscribe(response => {
             expect(response[0] instanceof Entity).toEqual(true);
             expect(response.length).toEqual(10);
+            done();
         });
-    }));
+    });
 
-    it("receives 5 child elements of an container", async(() => {
+    it("receives 5 child elements of an container", (done) => {
         let parent: Container = new Container();
         parent.ID = getChildren.parentID;
         parent.ObjectType = getChildren.parentType;
@@ -187,10 +192,11 @@ describe("Synacta API Service", () => {
         service.getChildren(parent, 5).subscribe(response => {
             expect(response[0] instanceof Entity).toEqual(true);
             expect(response.length).toEqual(5);
+            done();
         });
-    }));
+    });
 
-    it("receives 4 child elements of an container starting by element 5", async( () => {
+    it("receives 4 child elements of an container starting by element 5", (done) => {
         let parent: Container = new Container();
         parent.ID = getChildren.parentID;
         parent.ObjectType = getChildren.parentType;
@@ -214,7 +220,8 @@ describe("Synacta API Service", () => {
             expect(response[0] instanceof Entity).toEqual(true);
             expect(response.length).toEqual(4);
             expect(response[0].ID).toEqual(Mock4BeginningAt5["value"][0]["ID"]);
+            done();
         });
-    }));
+    });
     
 });
