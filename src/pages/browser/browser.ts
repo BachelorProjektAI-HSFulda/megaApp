@@ -129,8 +129,7 @@ export class BrowserPage {
 		response => test = response,
 		error => console.log(error),
 		() => console.log(test));
-	 
-		if(children.HasChild == false && test.length == 0)
+		if(children.HasChild == false && test.length == null)
 		{
 			this.ablehnen();
 		}
