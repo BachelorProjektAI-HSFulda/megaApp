@@ -36,7 +36,7 @@ export class BrowserPage {
   sorting:string;
 
 
-  constructor(public navCtrl: NavController, private synAPI: SynactaAPIService, private fav: Favorits, public alertCtrl: AlertController,
+  constructor(public navCtrl: NavController, private synAPI: SynactaAPIService, private favService: Favorits, public alertCtrl: AlertController,
   private navParams: NavParams, public modalCtrl: ModalController, private settings: SettingsService,
   private sortService : SortService) {
     //todo get value from option
@@ -112,7 +112,7 @@ export class BrowserPage {
 	  }
       }
 
-  ablehnen() {
+  displayLayerWarning() {
 	  let alert = this.alertCtrl.create({
 		  title: 'Hinweis',
 		  subTitle: 'Es gibt keine Weitere Ebene!',
@@ -122,60 +122,46 @@ export class BrowserPage {
   }
 
 
-  public deeper(children: Container): void{
-	  if(children.ObjectType != "Dokument")
-	  {
-		let test = this.synAPI.getDocuments(children).subscribe(
-		response => test = response,
-		error => console.log(error),
-		() => console.log(test));
-		if(children.HasChild == false && test.length == null)
-		{
-			this.ablehnen();
-		}
-		else{
-			this.navCtrl.push(BrowserPage, children);
-		}
-	  }
-	  else 
-	  {
-		  this.ablehnen();
-	  }
+  public downHandler(item): boolean {
+    if (item instanceof Container && item.HasChild) {
+      this.synAPI.getDocuments(item).toPromise().then( () => {
+        this.navCtrl.push(BrowserPage, item);
+      });
+      return true;
+    }
+    else {
+      this.displayLayerWarning();
+      return false;
+    }
   }
 
-  public higher(current: Entity): void{
-    if(!(this.viewByOrg)){
-      if(current.ParentType != "Plan"){
-      this.synAPI.getParent(current).subscribe( (parent: Container) => {
-        this.synAPI.getParent(parent).subscribe( (grandparent: Container) => {
-          this.navCtrl.push(BrowserPage, grandparent);
-        })
+  public upHandler(): boolean {
+    if( (this.lastUsedView.ObjectType == "Plan") ) {
+      this.displayLayerWarning();
+      return false;
+    }
+    if( !(this.viewByOrg) ) {
+      this.synAPI.getParent(this.lastUsedView).subscribe( (parent: Container) => {
+        this.navCtrl.push(BrowserPage, parent);
       });
     }
-    else{
-      this.ablehnen();
+    else {
+      this.navCtrl.push(BrowserPage);
     }
-  }this.navCtrl.push(BrowserPage);
-
+    return true;
   }
 
-  public favorite(favo: Container, i): void{
-		if(this.fav.checkFav(favo)) {
+  public favorite(fav: Container, i): void{
+		if(this.favService.checkFav(fav)) {
 			//already marked as favorite
-			this.fav.removeFav(favo);
+			this.favService.removeFav(fav);
 			document.getElementById("favorite"+i).style.backgroundColor = "#123456";
 		} else {
 			//not marked
-			this.fav.addFav(favo);
+			this.favService.addFav(fav);
 			document.getElementById("favorite"+i).style.backgroundColor = "#986877";
 		}
-		this.checkFavorite(favo);
-
   }
-
-  public checkFavorite(favo: Container): void {
-		console.log("<<<<<<<<<<<<<<<<");
-	}
 
   public switchView(){
     if(this.settings.vault.view){
