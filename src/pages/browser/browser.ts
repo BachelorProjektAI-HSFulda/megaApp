@@ -1,6 +1,6 @@
-import { Component, NgModule } from '@angular/core';
+import { Component } from '@angular/core';
 
-import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, ModalController, ViewController, Platform } from 'ionic-angular';
 
 import { Favorits } from '../../core/storage/favorits';
 
@@ -10,10 +10,12 @@ import { Entity, Container } from '../../core/synacta/api.objects';
 
 import { SettingsService} from '../../core/settings/settings.service';
 
+import { SortService } from '../../core/sort/sort.service'
+
 
 interface OrgData{
   Org: string;
-  Data:Array<any>;
+  Data:Array<Container>;
 }
 
 @Component({
@@ -27,24 +29,28 @@ export class BrowserPage {
   daten:Container;
   lastUsedView:Container;
   user:MockupUser;
-  kram:Array<any>;
+  synApiDaten:Array<any>;
   searchBar:string;
+  sortOptionsVisible;
+  sortOptionsClass;
+  sorting:string;
 
-  constructor(public navCtrl: NavController, private synAPI: SynactaAPIService,
-    private fav: Favorits, public alertCtrl: AlertController,
-    private navParams: NavParams, private settings: SettingsService) {
+
+  constructor(public navCtrl: NavController, private synAPI: SynactaAPIService, private fav: Favorits, public alertCtrl: AlertController,
+  private navParams: NavParams, public modalCtrl: ModalController, private settings: SettingsService,
+  private sortService : SortService) {
     //todo get value from option
     settings.load();
     this.viewByOrg = settings.vault.view;
     this.viewByOrgData = new Array<OrgData>();
     this.user = synAPI.demoUser;
-    this.kram = new Array<any>();
-    this.searchBar = "";
+    this.sortOptionsVisible = false;
+    this.sortOptionsClass = "";
+    this.synApiDaten = new Array<any>();
+    this.searchBar = "hallo";
   }
 
-
-
-  ionViewWillEnter(){
+  ionViewDidEnter(){
     //Rebuild last View
     let id = this.navParams.get('ID');
     let type = this.navParams.get('ObjectType');
@@ -52,9 +58,9 @@ export class BrowserPage {
     if(id == undefined){
       if(this.lastUsedView != undefined){
         this.synAPI.getChildren(this.lastUsedView).subscribe(
-          response => this.kram = response,
+          response => this.synApiDaten = response,
           error => console.log(error),
-          () => console.log("Children", this.kram)
+          () => console.log("Children", this.synApiDaten)
         )
       }
       //Build a view from all User Organisations
@@ -73,9 +79,9 @@ export class BrowserPage {
             () => {
               console.log("Root", this.daten);
               this.synAPI.getChildren(this.daten).subscribe(
-                response => this.kram = response,
+                response => this.synApiDaten = response,
                 error => console.log(error),
-                () => console.log("Children", this.kram)
+                () => console.log("Children", this.synApiDaten)
               )
             });
           }
@@ -89,37 +95,53 @@ export class BrowserPage {
           () => {
             console.log("reDirected" , this.navParams.get('ID'))
             this.synAPI.getChildren(this.lastUsedView).subscribe(
-              children => this.kram = children,
+              children => this.synApiDaten = children,
               error => console.log(error),
-              () => console.log("Children", this.kram)
-            )
-          });
-        }
+              () => console.log("Children", this.synApiDaten)
+            );
+			let tmp;
+			this.synAPI.getDocuments(this.lastUsedView).subscribe(
+			 dokuments => tmp = dokuments,
+			 error => console.log(error),
+			 () => {
+				 for(let item of tmp){
+					 this.synApiDaten.push(item)
+			 }
+          } );
+        })
+	  }
       }
 
   ablehnen() {
 	  let alert = this.alertCtrl.create({
-		  title: 'Fehler',
+		  title: 'Hinweis',
 		  subTitle: 'Es gibt keine Weitere Ebene!',
 		  buttons: ['OK']
 	  });
 	  alert.present();
   }
 
-  public meta(datei: Container): void{
-      this.navCtrl.push(datei.Properties);
-  }
 
   public deeper(children: Container): void{
-    if(children.HasChild == true)
-    {
-      this.navCtrl.push(BrowserPage, children);
-    }
-    else{
-      this.ablehnen();
-    }
+	  if(children.ObjectType != "Dokument")
+	  {
+		let test = this.synAPI.getDocuments(children).subscribe(
+		response => test = response,
+		error => console.log(error),
+		() => console.log(test));
+		if(children.HasChild == false && test.length == null)
+		{
+			this.ablehnen();
+		}
+		else{
+			this.navCtrl.push(BrowserPage, children);
+		}
+	  }
+	  else 
+	  {
+		  this.ablehnen();
+	  }
   }
-
 
   public higher(current: Entity): void{
     if(!(this.viewByOrg)){
@@ -151,10 +173,9 @@ export class BrowserPage {
 
   }
 
-	public checkFavorite(favo: Container): void {
+  public checkFavorite(favo: Container): void {
 		console.log("<<<<<<<<<<<<<<<<");
 	}
-
 
   public switchView(){
     if(this.settings.vault.view){
@@ -166,7 +187,6 @@ export class BrowserPage {
     this.settings.save();
     this.navCtrl.push(BrowserPage);
   }
-
 
   //start the Search from searchBar
   private startSearch(){
@@ -186,27 +206,29 @@ export class BrowserPage {
         response => tmp = response,
         error => console.log(error),
         () => {
-
-          let data:OrgData ={Org: item, Data: tmp}
-          this.viewByOrgData.push(data)
+          let data:OrgData ={Org: item, Data: tmp};
+          this.viewByOrgData.push(data);
         }
       )
     }
-    this.viewByOrgData.splice(0,this.user.Orgs.length);
-    console.log(this.viewByOrgData);
-
+    this.viewByOrgData.splice(0,this.user.Orgs.length);;
   }
 
   public delete(del: Entity) {
-  let alert = this.alertCtrl.create({
-    title: 'Confirm purchase',
+	  console.log("Löschen_1");
+  this.loeschen(del);
+  console.log("Löschen_2");
+}
+  public loeschen(del: Entity) {
+	  let alert = this.alertCtrl.create({
+    title: 'Confirm deletion',
     message: 'Wollen Sie das wirklich löschen?',
     buttons: [
       {
         text: 'Ja',
         role: 'ja',
         handler: () => {
-        this.synAPI.deleteEntity(del);
+        console.log(this.synAPI.deleteEntity(del));
         }
       },
       {
@@ -218,6 +240,129 @@ export class BrowserPage {
     ]
   });
   alert.present();
+  }
+
+public viewSort() {
+  let sOs = document.getElementsByClassName("sortOptions");
+  let sO = sOs[sOs.length-1];
+  if(this.sortOptionsVisible == false) {
+    this.sortOptionsClass = sO.className;
+    sO.className += " visible";
+    this.sortOptionsVisible = true;
+  } else {
+    sO.className = this.sortOptionsClass;
+    this.sortOptionsVisible = false;
+  }
 }
+
+public updateSorting(){
+  console.log(this.sorting);
+  if(this.sorting == "Aktenzeichen"){
+    if(this.viewByOrg){
+      for(let n=0; n < this.viewByOrgData.length; n++){
+        this.viewByOrgData[n].Data = this.sortService.sortByAktenzeichen(false,
+          this.viewByOrgData[n].Data)
+        }
+      }else{
+        this.synApiDaten = this.sortService.sortByAktenzeichen(false,
+          this.synApiDaten)
+        }
+  }
+  else{
+    let sotierenErstelltam:boolean = (this.sorting == "Erstellt am")? true:false;
+    if(this.viewByOrg){
+      for(let n=0; n < this.viewByOrgData.length; n++){
+        this.viewByOrgData[n].Data = this.sortService.sortByDate(false, sotierenErstelltam,
+          this.viewByOrgData[n].Data)
+        }
+      }else{
+        this.synApiDaten = this.sortService.sortByDate(false, sotierenErstelltam,
+          this.synApiDaten)
+        }
+      }
+    }
+
+  public meta(metaDaten: Entity) {
+	let modal = this.modalCtrl.create(ModalPage, metaDaten);
+	modal.present();
+}
+}
+
+
+@Component({
+  template: `
+<content>
+<button ion-button (click)="dismiss()">
+        <p>
+			Cancel
+		</p>
+      </button>
+  <ion-list no-lines>
+      <ion-item>
+        <h2>{{character.Bezeichnung}}</h2>
+      </ion-item>
+
+      <ion-item *ngFor="let item of character['items']">
+        <p>{{item.note}}</p>
+		<h3>{{item.title}}</h3>
+      </ion-item>
+  </ion-list>
+</content>
+`
+})
+
+
+export class ModalPage {
+	  character;
+	  datenMeta = this.params.get('datenVon');
+	constructor(
+	public params: NavParams, 
+	public viewCtrl: ViewController, 
+	public platform: Platform) {
+		if(this.datenMeta.ObjectType == "Hauptgruppe")
+		{
+			var characters = [
+			{ Bezeichnung: this.datenMeta.Properties.Bezeichnung,
+			items: [
+			{ title: 'Stufe', note: this.datenMeta.Properties.Stufe},
+			{ title: 'ID', note: this.datenMeta.ID }
+			]
+			}];
+		}
+		else if(this.datenMeta.ObjectType == "Akte")
+		{
+			var characters = [
+			{ Bezeichnung: this.datenMeta.Properties.Aktenbetreff,
+			items: [
+			{ title: 'Erstellt am:', note: this.datenMeta.Properties['Erstellt am']},
+			{ title: 'Erstellt von', note: this.datenMeta.Properties['Erstellt von']},
+			{ title: 'Geheimschutzstufe', note: this.datenMeta.Properties.Geheimschutzstufe},
+			{ title: 'ID', note: this.datenMeta.ID},
+			{ title: 'Organisation', note: this.datenMeta.Properties.Organisation}
+			]
+			}];
+		}
+		else if(this.datenMeta.ObjectType == "Dokument")
+		{
+			var characters = [
+			{ Bezeichnung: this.datenMeta.Properties.Name,
+			items: [
+			{ title: 'Erstellt am:', note: this.datenMeta.Properties['Erstellt am']},
+			{ title: 'Erstellt von', note: this.datenMeta.Properties['Erstellt von']},
+			{ title: 'Geheimschutzstufe', note: this.datenMeta.Properties.Geheimschutzstufe},
+			{ title: 'ID', note: this.datenMeta.ID},
+			{ title: 'Organisation', note: this.datenMeta.Properties.Organisation},
+			{ title: 'Erweiterung', note: this.datenMeta.Properties.Erweiterung}
+			]
+			}];
+		}
+		
+		
+    this.character = characters[0];
+  }
+
+	dismiss() {
+		this.viewCtrl.dismiss();
+	}
 
 }
