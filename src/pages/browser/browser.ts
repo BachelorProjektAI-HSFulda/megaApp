@@ -50,7 +50,7 @@ export class BrowserPage {
     this.searchBar = "hallo";
   }
 
-  ionViewWillEnter(){
+  ionViewDidEnter(){
     //Rebuild last View
     let id = this.navParams.get('ID');
     let type = this.navParams.get('ObjectType');
