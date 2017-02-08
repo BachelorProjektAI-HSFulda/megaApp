@@ -159,7 +159,6 @@ export class SynactaAPIService {
         // 4. return the container object within a observable
         return this
             .getBase("root", null, null)
-            .retry(this.retries)
             .map((json:IFrame) => deserialize(Container, json.value[0]));
      }
 
@@ -173,7 +172,6 @@ export class SynactaAPIService {
      public getByID(type: string, id: string): Observable<Container> {
          return this
              .getBase(null, type, id)
-             .retry(this.retries)
              .map((json) => deserialize(Container, json));
      }
 
@@ -186,7 +184,6 @@ export class SynactaAPIService {
      public getByType(type: string): Observable<Container[]> {
          return this
              .getBase(null, type, null)
-             .retry(this.retries)
              .map((json: IFrame) => {
                 let result = new Array<Container>();
                 for (let value of json.value) {
@@ -210,7 +207,6 @@ export class SynactaAPIService {
          // $top is the number of elements RESTful variable
          return this
              .getBase("Children?$top=" + num + "&$skip=" + offset, container.ObjectType, container.ID)
-             .retry(this.retries)
              .map((json: IFrame) => {
                  let result = new Array<Entity>();
                  for (let value of json.value) {
@@ -236,7 +232,6 @@ export class SynactaAPIService {
      public getChildTypes(container: Container): Observable<String[]> {
          return this
              .getBase("Children/Types", container.ObjectType, container.ID)
-             .retry(this.retries)
              .map((json: IFrame) => {
                  let result = new Array<String>();
                  for (let value of json.value) {
@@ -256,7 +251,6 @@ export class SynactaAPIService {
      public getDocuments(container: Container): Observable<Document[]> {
          return this
              .getBase("Documents", container.ObjectType, container.ID)
-             .retry(this.retries)
              .map((json: IFrame) => {
                  let result = new Array<Document>();
                  for (let value of json.value) {
@@ -275,7 +269,6 @@ export class SynactaAPIService {
      public getDocTypes(container: Container): Observable<String[]> {
          return this
              .getBase("Documents/Types", container.ObjectType, container.ID)
-             .retry(this.retries)
              .map((json: IFrame) => {
                  let result = new Array<String>();
                  for (let value of json.value) {
@@ -292,8 +285,7 @@ export class SynactaAPIService {
      * @return an observable containing a container object
      */
      public getParent(entity: Entity): Observable<Container> {
-         return this.getByID(entity.ParentType,entity.ParentID)
-            .retry(this.retries);
+         return this.getByID(entity.ParentType,entity.ParentID);
     }
 
    /*
@@ -327,7 +319,6 @@ export class SynactaAPIService {
     public getContainersByOrg(type: string, id: string, searchString: string): Observable<Container[]>{
         let search = (searchString == undefined)? null : searchString;
 		return this.getOrg(null,type,id,search)
-		    .retry(this.retries)
             .map((json: IFrame) => {
                 let result = new Array<Container>();
                 for (let value of json.value) {
