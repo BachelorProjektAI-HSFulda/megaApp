@@ -29,16 +29,16 @@ export class MockBackendService {
             }
         });
         this.backend.connections.subscribe((c: MockConnection) => {
-            const URL = /https:\/\/synacta.agile-is.de\/_api\/base\/Plan\/3df202ad-91b2-413a-9847-d12d536ed813\/Children\?\$top=20&\$skip=0/;
-            if (c.request.url.match(URL) && c.request.method === 0) {
+            const URL = 'https://synacta.agile-is.de/_api/base/Plan/3df202ad-91b2-413a-9847-d12d536ed813/Children?$top=20&$skip=0';
+            if (c.request.url == URL && c.request.method === 0) {
                 c.mockRespond(new Response(new ResponseOptions({
                     body: MockRootChildResponse
                 })));
             }
         });
         this.backend.connections.subscribe((c: MockConnection) => {
-            const URL = /https:\/\/synacta.agile-is.de\/_api\/base\/Hauptgruppe\/0ba78e68-dd90-4681-96ef-c16015a5d4a1\/Children\?\$top=20&\$skip=0/;
-            if (c.request.url.match(URL) && c.request.method === 0) {
+            const URL = 'https://synacta.agile-is.de/_api/base/Hauptgruppe/0ba78e68-dd90-4681-96ef-c16015a5d4a1/Children?$top=20&$skip=0';
+            if (c.request.url == URL && c.request.method === 0) {
                 c.mockRespond(new Response(new ResponseOptions({
                     body: MockRootFirstChildResponse
                 })));
