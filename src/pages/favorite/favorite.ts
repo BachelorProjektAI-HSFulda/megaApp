@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { NavController, AlertController } from 'ionic-angular';
+import { NavController, AlertController, ModalController } from 'ionic-angular';
 
 import { Favorits } from '../../core/storage/favorits';
 
@@ -10,42 +10,41 @@ import { Entity, Container } from '../../core/synacta/api.objects';
 
 import { SettingsService} from '../../core/settings/settings.service';
 
+import { MetadataPage } from '../metadata/metadata';
+
+const DATA_STATUS_LOADING: string = "Daten werden geladen...";
+const DATA_STATUS_FAILED: string = "Daten konnten nicht geladen werden!";
+
 @Component({
   selector: 'page-favorite',
   templateUrl: 'favorite.html'
 })
 export class FavoritePage implements OnInit {
   listOfFav;
-  constructor(public navCtrl: NavController, private favList: Favorits, public alertCtrl: AlertController,private settings: SettingsService) {
+  dataStatusMessage;
 
-    //initialize the favEntitys Array from favList
-    console.log(favList.loadEntitys());
-
+  constructor(public navCtrl: NavController, private favList: Favorits, private modalCtrl: ModalController, public alertCtrl: AlertController,private settings: SettingsService) {
+    this.dataStatusMessage = DATA_STATUS_LOADING;
+    this.favList.loadEntitys();
   }
 
   ngOnInit():void{
-    //init of the first Fav
-    //this.favList.addTest("Vorgang", "c709906d-bd4e-4a47-be20-7af0c7851acc");
     this.listOfFav = this.favList.favEntitys;
-    console.log("blubb", this.listOfFav);
-
   }
-  public toBrowser(iEntity: Entity): void{
-    console.log("redirect", iEntity);
-    this.settings.vault.view=false;
+  public toBrowser(item: Entity): void {
+    this.settings.vault.view = false;
     this.settings.save();
-    this.navCtrl.push(BrowserPage, iEntity);
+    this.navCtrl.push(BrowserPage, item);
   }
 
-
-
-  public rem(obj: Container): void{
-	  this.favList.removeFav(obj);
+  public rem(item: Container): void{
+	  this.favList.removeFav(item);
     //obj.defavor();
 	  //this.favList.remAlert(this.alertCtrl);
   }
 
-  public meta(datei: Container): void{
-      this.navCtrl.push(datei.Properties);
+  public displayMetadata(item: Entity) {
+    let modal = this.modalCtrl.create(MetadataPage, {datenVon: item});
+    modal.present();
   }
 }

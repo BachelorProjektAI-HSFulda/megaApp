@@ -1,7 +1,7 @@
 <content>
     <!--Creating a new List -->
     <ion-list no-lines>
-        <p *ngIf="listOfFav.length == 0" class="noData"> Hier sind keine Daten enthalten</p>
+        <p *ngIf="listOfFav.length == 0" class="noData">{{ dataStatusMessage }}</p>
         <ion-item-sliding *ngFor="let item of listOfFav">
             <ion-item>
                 <!-- Item with Avatar/Icon-->
@@ -24,8 +24,8 @@
 					</button> Favorit
                 </div>
                 <div class="action">
-                    <button (click)="meta(item)">
-                    <ion-icon name="document"></ion-icon>
+                    <button (click)="displayMetadata(item)">
+                        <ion-icon name="document"></ion-icon>
                     </button> Metadaten anzeigen
                 </div>
             </ion-item-options>
