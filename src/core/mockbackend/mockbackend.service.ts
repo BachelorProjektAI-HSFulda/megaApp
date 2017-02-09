@@ -6,6 +6,7 @@ import {
     MockRootChildResponse, 
     MockRootFirstChildResponse,
     MockAkteHasenauerResponse,
+    MockAkteHasenauerDocumentsResponse,
     MockHasenauerVersionsResponse,
     MockRootSecondChildResponse,
     MockOrg1011Response
@@ -19,7 +20,7 @@ export class MockBackendService {
 
     start(): void {
         this.backend.connections.subscribe((c: MockConnection) => {
-            const URL = 'https://synacta.agile-is.de/_api/base/Root';
+            const URL = 'https://synacta.agile-is.de/_api/base/root';
             console.log(c.request.url);
             if (c.request.url == URL && c.request.method === 0) {
                 c.mockRespond(new Response(new ResponseOptions({
@@ -44,10 +45,18 @@ export class MockBackendService {
             }
         });
         this.backend.connections.subscribe((c: MockConnection) => {
-            const URL = 'https://synacta.agile-is.de/_api/base/Akte/0ddb0a89-8011-4ea6-8628-7bcb6910a81d/Documents';
+            const URL = 'https://synacta.agile-is.de/_api/base/Akte/0ddb0a89-8011-4ea6-8628-7bcb6910a81d';
             if (c.request.url == URL && c.request.method === 0) {
                 c.mockRespond(new Response(new ResponseOptions({
                     body: MockAkteHasenauerResponse
+                })));
+            }
+        });
+        this.backend.connections.subscribe((c: MockConnection) => {
+            const URL = 'https://synacta.agile-is.de/_api/base/Akte/0ddb0a89-8011-4ea6-8628-7bcb6910a81d/Documents';
+            if (c.request.url == URL && c.request.method === 0) {
+                c.mockRespond(new Response(new ResponseOptions({
+                    body: MockAkteHasenauerDocumentsResponse
                 })));
             }
         });

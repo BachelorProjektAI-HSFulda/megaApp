@@ -2223,8 +2223,49 @@ export const MockRootFirstChildResponse = {
 }
 
 // Request-URL
-// https://synacta.agile-is.de/_api/base/Akte/0ddb0a89-8011-4ea6-8628-7bcb6910a81d/Documents
+// https://synacta.agile-is.de/_api/base/Akte/0ddb0a89-8011-4ea6-8628-7bcb6910a81d
 export const MockAkteHasenauerResponse = {
+  "Properties": {
+    "Typ": "Akte",
+    "Aktenplankennzeichen": "01",
+    "Ableitung": "",
+    "Aktenzeichen": "01",
+    "Aktenbetreff": "Akte Hasenauer",
+    "Schlagwörter": "",
+    "Themenverweis": "",
+    "Hinweise": "",
+    "Weiserzeichen": "HW",
+    "Medium": "Elektronisch",
+    "Geheimschutzstufe": "keine",
+    "Organisation": "Hasenauer",
+    "Geschlossen": "",
+    "Aussonderung vorgesehen": "",
+    "Aussonderungsart": "B - Bewerten",
+    "Bewertungsvorschlag": "B - Bewerten",
+    "Altsystem Daten": "",
+    "Erstellt am": "2016-12-09T12:09:53",
+    "Erstellt von": "phasenauer@agile-is.de",
+    "Geändert am": "2016-12-09T12:09:53",
+    "Geändert von": "phasenauer@agile-is.de"
+  },
+  "PropertyInfos": null,
+  "ID": "0ddb0a89-8011-4ea6-8628-7bcb6910a81d",
+  "ObjectType": "Akte",
+  "ParentID": "0ba78e68-dd90-4681-96ef-c16015a5d4a1",
+  "ParentType": "Hauptgruppe",
+  "IsVirtual": false,
+  "Frozen": false,
+  "HasChild": false,
+  "Hash": "-1413610552",
+  "@odata.readLink": "http://synacta.agile-is.de/_api/base/Akte/0ddb0a89-8011-4ea6-8628-7bcb6910a81d",
+  "Child@odata.navigationLink": "http://synacta.agile-is.de/_api/base/Akte/0ddb0a89-8011-4ea6-8628-7bcb6910a81d/Children",
+  "Document@odata.navigationLink": "http://synacta.agile-is.de/_api/base/Akte/0ddb0a89-8011-4ea6-8628-7bcb6910a81d/Documents",
+  "FullODataLink@odata.navigationLink": "http://synacta.agile-is.de/_api/base/Akte/0ddb0a89-8011-4ea6-8628-7bcb6910a81d?$level=Full"
+}
+
+// Request-URL
+// https://synacta.agile-is.de/_api/base/Akte/0ddb0a89-8011-4ea6-8628-7bcb6910a81d/Documents
+export const MockAkteHasenauerDocumentsResponse = {
   "@odata.context": "http://synacta.agile-is.de/_api/base/Akte/0ddb0a89-8011-4ea6-8628-7bcb6910a81d/Documents",
   "@odata.count": 5,
   "FullODataLink@odata.navigationLink": "http://synacta.agile-is.de/_api/base/Akte/0ddb0a89-8011-4ea6-8628-7bcb6910a81d/Documents?$level=Full",
