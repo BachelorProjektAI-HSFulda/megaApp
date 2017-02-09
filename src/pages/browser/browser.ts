@@ -22,6 +22,7 @@ interface OrgData {
 const DATA_STATUS_LOADING: string = "Daten werden geladen...";
 const DATA_STATUS_FAILED: string = "Daten konnten nicht geladen werden!";
 const SEARCH_BAR_PLACEHOLDER: string = "Suchbegriff eingeben...";
+const LAYER_WARNING: string = "Es gibt keine weitere Ebene!";
 
 @Component({
   selector: 'page-browser',
@@ -162,7 +163,7 @@ export class BrowserPage {
   displayLayerWarning() {
     let alert = this.alertCtrl.create({
       title: 'Hinweis',
-      subTitle: 'Es gibt keine Weitere Ebene!',
+      subTitle: LAYER_WARNING,
       buttons: ['OK']
     });
     alert.present();
@@ -325,8 +326,8 @@ export class BrowserPage {
     }
   }
 
-  public meta(metaDaten: Entity) {
-    let modal = this.modalCtrl.create(MetadataPage, metaDaten);
+  public displayMetadata(item: Entity) {
+    let modal = this.modalCtrl.create(MetadataPage, item);
     modal.present();
   }
 }
