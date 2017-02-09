@@ -366,5 +366,11 @@ h1 * {
     z-index: 999;
 }
 
+.item-md h3,
+.item-md h2 {
+    float: left;
+    width: auto;
+}
+
 @media screen and (orientation: landscape),
 screen and (min-width: 768px) {}
