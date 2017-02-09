@@ -14,6 +14,7 @@ import { Storage } from '../core/storage/storage';
 import { RecentList } from '../core/storage/recentList'
 import { SettingsService } from '../core/settings/settings.service';
 import { SortService } from '../core/sort/sort.service'
+import { SearchService } from '../core/documentsearch/docsearch.service';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { SortService } from '../core/sort/sort.service'
     Storage,
     RecentList,
     SettingsService,
-    SortService
+    SortService,
+    SearchService
   ]
 })
 export class AppModule {}

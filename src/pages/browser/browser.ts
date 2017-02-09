@@ -12,6 +12,8 @@ import { SettingsService} from '../../core/settings/settings.service';
 
 import { SortService } from '../../core/sort/sort.service'
 
+import { SearchService } from '../../core/documentsearch/docsearch.service';
+
 
 interface OrgData{
   Org: string;
@@ -38,7 +40,7 @@ export class BrowserPage {
 
   constructor(public navCtrl: NavController, private synAPI: SynactaAPIService, private favService: Favorits, public alertCtrl: AlertController,
   private navParams: NavParams, public modalCtrl: ModalController, private settings: SettingsService,
-  private sortService : SortService) {
+  private sortService : SortService, private searchService : SearchService ) {
     //todo get value from option
     settings.load();
     this.viewByOrg = settings.vault.view;
@@ -47,7 +49,7 @@ export class BrowserPage {
     this.sortOptionsVisible = false;
     this.sortOptionsClass = "";
     this.synApiDaten = new Array<any>();
-    this.searchBar = "Suchbegriff eingeben...";
+    this.searchBar = "";
     this.dataStatusMessage = "Daten werden geladen...";
   }
 
@@ -182,6 +184,10 @@ export class BrowserPage {
     }else{
       this.getFromOrg(this.searchBar);
     }
+    let daten;
+    this.searchService.search(this.searchBar).then(data => daten = data );
+    this.synApiDaten = this.searchService.checkDoubles(daten);
+    console.log(this.synApiDaten);
   }
 
   private getFromOrg(s: string){
@@ -201,9 +207,6 @@ export class BrowserPage {
         }
       )
     }
-    // this.viewByOrgData.splice(0,this.viewByOrgData.length - this.user.Orgs.length);
-    // console.log(this.viewByOrgData, this.viewByOrgData.length - this.user.Orgs.length);
-    // this.updateSorting();
   }
 
   public delete(del: Entity) {
