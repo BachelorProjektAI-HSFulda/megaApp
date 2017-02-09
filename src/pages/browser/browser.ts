@@ -174,10 +174,8 @@ export class BrowserPage {
   }
 
   public downHandler(item): boolean {
-    if (item instanceof Container && item.HasChild) {
-      this.synAPI.getDocuments(item).toPromise().then(() => {
-        this.navCtrl.push(BrowserPage, item);
-      });
+    if (item instanceof Container) {
+      this.navCtrl.push(BrowserPage, item);
       return true;
     }
     else {
