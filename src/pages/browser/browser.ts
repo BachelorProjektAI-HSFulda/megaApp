@@ -104,6 +104,10 @@ export class BrowserPage {
         response => {
           let data: OrgData = { Org: item, Data: response };
           this.viewByOrgData.push(data);
+          if(this.viewByOrgData.length > this.user.Orgs.length){
+            this.viewByOrgData.splice(0,1);
+          }
+          this.updateSorting();
         },
         error => {
           console.log(error);
