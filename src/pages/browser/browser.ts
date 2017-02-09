@@ -250,13 +250,20 @@ export class BrowserPage {
           text: 'Ja',
           role: 'ja',
           handler: () => {
-            console.log(this.synAPI.deleteEntity(del));
+            console.log(this.synAPI.deleteEntity(del).subscribe(
+              (response) => {
+                // do something on success
+              },
+              (error) => {
+                console.log("Failed: " + error);
+              }
+            ));
           }
         },
         {
           text: 'Nein',
           handler: () => {
-            console.log('Nein clicked');
+            // do something when no button was pressed
           }
         }
       ]
