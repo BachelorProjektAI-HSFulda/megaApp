@@ -96,13 +96,13 @@ export class SynactaAPIService {
     /*
      *
      */
-     private deleteBase(target: string, type: string, id: string) {
-         let endpoint = API_URL;
-         endpoint = endpoint + "base/";
-         endpoint = (type)? endpoint + type : endpoint;
-         endpoint = (id)? endpoint + "/" + id : endpoint;
-         endpoint = (target) ? endpoint + "/" + target : endpoint;
-         return this.deleteByLink(endpoint);
+     private deleteBase(type: string, id: string) {
+        if ( type == undefined || id == undefined ) {
+            return null;
+        }
+        let endpoint = API_URL;
+        endpoint += "base/" + type + "/" + id;
+        return this.deleteByLink(endpoint);
      }
 
      /*
@@ -125,10 +125,7 @@ export class SynactaAPIService {
      private postByLink(endpoint: string, body: string) {
          let headers = new Headers(this.baseHeaders);
          return this.http
-            .post(endpoint, {body}, {headers: headers})
-            .retryWhen(error => error.delay(500))
-            .timeout(this.timeout, new Error("Delay Exceeded!"))
-            .map(response => response.json());
+            .post(endpoint, {body}, {headers: headers});
      }
 
     /*
@@ -137,10 +134,7 @@ export class SynactaAPIService {
      private deleteByLink(endpoint: string) {
          let headers = new Headers(this.baseHeaders);
          return this.http
-            .delete(endpoint, {headers: headers})
-            .retryWhen(error => error.delay(500))
-            .timeout(this.timeout, new Error("Delay Exceeded!"))
-            .map(response => response.json());
+            .delete(endpoint, {headers: headers});
      }
 
     /*
@@ -292,8 +286,8 @@ export class SynactaAPIService {
     * This function deletes a given container
     * @param container
     */
-    public deleteEntity(entity: Entity): Observable<String>{
-        return this.deleteBase(null, entity.ObjectType, entity.ID);
+    public deleteEntity(entity: Entity) {
+        return this.deleteBase(entity.ObjectType, entity.ID);
     }
 
    /* This function uses a type and an id of a document to receive
