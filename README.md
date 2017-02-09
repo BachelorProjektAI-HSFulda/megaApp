@@ -1,6 +1,8 @@
 megaApp
 ===========
 
+[![Build Status](https://travis-ci.org/BachelorProjektAI-HSFulda/megaApp.svg?branch=development)](https://travis-ci.org/BachelorProjektAI-HSFulda/megaApp)
+
 Super Mega Cordova und Electron app
 
 Currently only the Ionic mobile part is setup and can be used for development.

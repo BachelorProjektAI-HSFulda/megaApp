@@ -1,7 +1,3 @@
-<h1>
-    Options
-</h1>
-
 <content>
     <!--Creating a new List -->
 
@@ -17,15 +13,15 @@
 
         <ion-item class="radioOption">
             <ion-label>Zuletzt Verwendet</ion-label>
-            <ion-radio value="0"></ion-radio>
+            <ion-radio value="{{pages.RecentPage}}"></ion-radio>
         </ion-item>
         <ion-item class="radioOption">
             <ion-label>Favoriten</ion-label>
-            <ion-radio value="1"></ion-radio>
+            <ion-radio value="{{pages.FavoritePage}}"></ion-radio>
         </ion-item>
         <ion-item class="radioOption">
             <ion-label>Browser</ion-label>
-            <ion-radio value="2"></ion-radio>
+            <ion-radio value="{{pages.BrowserPage}}"></ion-radio>
         </ion-item>
 
     </ion-list>
@@ -86,4 +82,16 @@
             <ion-radio value="white"></ion-radio>
         </ion-item>
     </ion-list>
+
+    <div padding>
+        <button ion-button block (click)="save()">
+            Konfiguration speichern
+        </button>
+    </div>
+
+    <div padding>
+        <button ion-button block (click)="loadDefaults()">
+            Werkseinstellungen
+        </button>
+    </div>
 </content>

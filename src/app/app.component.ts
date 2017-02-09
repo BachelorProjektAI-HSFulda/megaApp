@@ -12,6 +12,7 @@ import { MockBackendService } from '../core/mockbackend/mockbackend.service';
   providers: [MockBackendService]
 })
 export class MyApp {
+  // default homepage
   rootPage = TabsPage;
 
   constructor(platform: Platform, private mockBackendService: MockBackendService) {
@@ -22,5 +23,8 @@ export class MyApp {
       StatusBar.styleDefault();
       Splashscreen.hide();
     });
+  }
+
+  ngOnInit() {
   }
 }

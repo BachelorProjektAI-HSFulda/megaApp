@@ -2,10 +2,10 @@ page-options {}
 
 ion-item.radioOption {
     display: inline-block;
-    width: calc(33.33% - 26.66px);
+    width: calc(100% - 20px);
     position: relative;
-    left: 20px;
-    margin-right: 20px;
+    left: 10px;
+    margin-right: 10px;
     padding: 0px;
 }
 
@@ -23,6 +23,7 @@ ion-item.radioOption {
     background-color: $background-color;
     color: color($colors, primary);
     transition: all .25s ease;
+    font-size: 16px;
 }
 
 .radioOption ion-label:before {
@@ -66,4 +67,8 @@ ion-radio button .button-inner {
     background-color: transparent;
 }
 
-@media (min-width: 100px) {}
+@media (min-width: 500px) {
+    ion-item.radioOption {
+        width: calc(33.33% - 15px);
+    }
+}
