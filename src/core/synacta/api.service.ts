@@ -125,10 +125,7 @@ export class SynactaAPIService {
      private postByLink(endpoint: string, body: string) {
          let headers = new Headers(this.baseHeaders);
          return this.http
-            .post(endpoint, {body}, {headers: headers})
-            .retryWhen(error => error.delay(500))
-            .timeout(this.timeout, new Error("Delay Exceeded!"))
-            .map(response => response.json());
+            .post(endpoint, {body}, {headers: headers});
      }
 
     /*
