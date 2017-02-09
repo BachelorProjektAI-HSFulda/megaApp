@@ -181,7 +181,7 @@ export class BrowserPage {
       return true;
     }
     else {
-      this.displayLayerWarning();
+      this.displayMetadata(item);
       return false;
     }
   }
