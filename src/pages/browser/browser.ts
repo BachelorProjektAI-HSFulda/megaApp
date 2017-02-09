@@ -338,7 +338,7 @@ export class BrowserPage {
   }
 
   public displayMetadata(item: Entity) {
-    let modal = this.modalCtrl.create(MetadataPage, item);
+    let modal = this.modalCtrl.create(MetadataPage, {datenVon: item});
     modal.present();
   }
 }
