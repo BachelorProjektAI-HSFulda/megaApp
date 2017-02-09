@@ -114,8 +114,8 @@ export class SynactaAPIService {
          let headers = new Headers(this.baseHeaders);
          return this.http
              .get(endpoint, {headers: headers})
-             .timeout(this.timeout)
-             .retry(this.retries)
+             .retryWhen(error => error.delay(500))
+             .timeout(this.timeout, new Error("Delay Exceeded!"))
              .map(response => response.json());
      }
 
@@ -126,8 +126,8 @@ export class SynactaAPIService {
          let headers = new Headers(this.baseHeaders);
          return this.http
             .post(endpoint, {body}, {headers: headers})
-            .timeout(this.timeout)
-            .retry(this.retries)
+            .retryWhen(error => error.delay(500))
+            .timeout(this.timeout, new Error("Delay Exceeded!"))
             .map(response => response.json());
      }
 
@@ -138,8 +138,8 @@ export class SynactaAPIService {
          let headers = new Headers(this.baseHeaders);
          return this.http
             .delete(endpoint, {headers: headers})
-            .timeout(this.timeout)
-            .retry(this.retries)
+            .retryWhen(error => error.delay(500))
+            .timeout(this.timeout, new Error("Delay Exceeded!"))
             .map(response => response.json());
      }
 
