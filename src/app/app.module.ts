@@ -6,7 +6,7 @@ import { FavoritePage } from '../pages/favorite/favorite';
 import { BrowserPage } from '../pages/browser/browser';
 import { RecentPage } from '../pages/recent/recent';
 import { OptionsPage} from '../pages/options/options';
-import { ModalPage } from '../pages/browser/browser';
+import { MetadataPage } from '../pages/metadata/metadata';
 import { TabsPage } from '../pages/tabs/tabs';
 import { SynactaAPIService } from '../core/synacta/api.service';
 import { Favorits } from '../core/storage/favorits';
@@ -23,7 +23,7 @@ import { SortService } from '../core/sort/sort.service'
     RecentPage,
     OptionsPage,
     TabsPage,
-    ModalPage
+    MetadataPage
   ],
   imports: [
     IonicModule.forRoot(MyApp, {
@@ -45,7 +45,7 @@ import { SortService } from '../core/sort/sort.service'
     RecentPage,
     OptionsPage,
     TabsPage,
-    ModalPage
+    MetadataPage
   ],
   providers: [
     SynactaAPIService,

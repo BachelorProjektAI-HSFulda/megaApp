@@ -10,8 +10,9 @@ import { Entity, Container } from '../../core/synacta/api.objects';
 
 import { SettingsService } from '../../core/settings/settings.service';
 
-import { SortService } from '../../core/sort/sort.service'
+import { SortService } from '../../core/sort/sort.service';
 
+import { MetadataPage } from '../metadata/metadata';
 
 interface OrgData {
   Org: string;
@@ -323,88 +324,9 @@ export class BrowserPage {
       }
     }
   }
-  
+
   public meta(metaDaten: Entity) {
-    let modal = this.modalCtrl.create(ModalPage, metaDaten);
+    let modal = this.modalCtrl.create(MetadataPage, metaDaten);
     modal.present();
   }
-}
-
-
-@Component({
-  template: `
-<content>
-<button ion-button (click)="dismiss()">
-        <p>
-			Cancel
-		</p>
-      </button>
-  <ion-list no-lines>
-      <ion-item>
-        <h2>{{character.Bezeichnung}}</h2>
-      </ion-item>
-
-      <ion-item *ngFor="let item of character['items']">
-        <p>{{item.note}}</p>
-		<h3>{{item.title}}</h3>
-      </ion-item>
-  </ion-list>
-</content>
-`
-})
-
-
-export class ModalPage {
-  character;
-  datenMeta = this.params.get('datenVon');
-  constructor(
-    public params: NavParams,
-    public viewCtrl: ViewController,
-    public platform: Platform) {
-    if (this.datenMeta.ObjectType == "Hauptgruppe") {
-      var characters = [
-        {
-          Bezeichnung: this.datenMeta.Properties.Bezeichnung,
-          items: [
-            { title: 'Stufe', note: this.datenMeta.Properties.Stufe },
-            { title: 'ID', note: this.datenMeta.ID }
-          ]
-        }];
-    }
-    else if (this.datenMeta.ObjectType == "Akte") {
-      var characters = [
-        {
-          Bezeichnung: this.datenMeta.Properties.Aktenbetreff,
-          items: [
-            { title: 'Erstellt am:', note: this.datenMeta.Properties['Erstellt am'] },
-            { title: 'Erstellt von', note: this.datenMeta.Properties['Erstellt von'] },
-            { title: 'Geheimschutzstufe', note: this.datenMeta.Properties.Geheimschutzstufe },
-            { title: 'ID', note: this.datenMeta.ID },
-            { title: 'Organisation', note: this.datenMeta.Properties.Organisation }
-          ]
-        }];
-    }
-    else if (this.datenMeta.ObjectType == "Dokument") {
-      var characters = [
-        {
-          Bezeichnung: this.datenMeta.Properties.Name,
-          items: [
-            { title: 'Erstellt am:', note: this.datenMeta.Properties['Erstellt am'] },
-            { title: 'Erstellt von', note: this.datenMeta.Properties['Erstellt von'] },
-            { title: 'Geheimschutzstufe', note: this.datenMeta.Properties.Geheimschutzstufe },
-            { title: 'ID', note: this.datenMeta.ID },
-            { title: 'Organisation', note: this.datenMeta.Properties.Organisation },
-            { title: 'Erweiterung', note: this.datenMeta.Properties.Erweiterung }
-          ]
-        }];
-    }
-
-
-    this.character = characters[0];
-  }
-
-  dismiss() {
-    this.viewCtrl.dismiss();
-  }
-
 }
