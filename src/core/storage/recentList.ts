@@ -3,19 +3,24 @@ import { Storage, Token } from './storage';
 import { SynactaAPIService } from '../synacta/api.service';
 import { Entity } from '../synacta/api.objects';
 
-const MAXITEMS = 30;
+const MAXITEMS = 10;
 
 interface ExpToken extends Token {
   TimeStamp : Date;
 }
-export interface ExpEntity extends Entity{
-  TimeStamp : Date;
-}
+// export interface Entity extends Entity{
+//   TimeStamp : Date;
+// }
 
 @Injectable()
 export class RecentList{
-  recList:ExpEntity[];
-    constructor(private lStorage:Storage, private synAPI: SynactaAPIService){}
+  recList:Entity[];
+    constructor(private lStorage:Storage, private synAPI: SynactaAPIService){
+      if(!window.localStorage.getItem('rec')){
+        this.addTest("Plan", "3df202ad-91b2-413a-9847-d12d536ed813");
+      }
+
+    }
 
     /*
     function that saves a ExpToken with type and id in an
@@ -27,12 +32,15 @@ export class RecentList{
       let ExpToken = this.bindData(iEntity);
       if(this.checkRec(iEntity))return;
       let dataRec = this.getRec();
+      console.log(dataRec, " bla" , dataRec.length)
       if(dataRec == null)dataRec = [];
-      if(dataRec.length == MAXITEMS){
-        dataRec.pop();
+      if(dataRec.length >= MAXITEMS){
+        console.log("er sollte")
+        dataRec.splice(0,1);
       }
       dataRec.push(ExpToken);
       this.lStorage.saveData<ExpToken>("rec", dataRec);
+      this.loadEntitys();
     }
 
 
@@ -96,19 +104,24 @@ export class RecentList{
     }
 
 
-    public loadEntitys():ExpEntity[]{
+    public loadEntitys():Entity[]{
       let dataRec = this.getRec();
-      this.recList = new Array<ExpEntity>();
+      console.log("schau nicht hier her",dataRec);
+      this.recList = new Array<Entity>();
       for(let item of dataRec){
+        console.log(item);
         this.synAPI.getByID(item.Type, item.ID)
         .subscribe(response => {
-          let expResponse = this.morphEntity(response, item.TimeStamp);
-          this.recList.push(expResponse)});
+          // let expResponse = this.morphEntity(response, item.TimeStamp);
+          this.recList.push(response);
+        });
       }
+      console.log("schau mal her", this.recList);
+      this.sortRecList();
       return this.recList;
     }
 
-    public getEntitys():ExpEntity[]{
+    public getEntitys():Entity[]{
       return this.recList;
     }
 
@@ -121,21 +134,18 @@ export class RecentList{
       }
     }
 
-    private morphEntity(iEntity:Entity, timestamp:Date):ExpEntity{
-        let expEntity : ExpEntity={
-          Properties: iEntity.Properties,
-          PropertyInfos: iEntity.PropertyInfos,
-          ID: iEntity.ID,
-          ObjectType: iEntity.ObjectType,
-          ParentID: iEntity.ParentID,
-          ParentType: iEntity.ParentType,
-          Frozen: iEntity.Frozen,
-          Hash: iEntity.Hash,
-          ReadLink: iEntity.ReadLink,
-          FullODataLink: iEntity.FullODataLink,
-          TimeStamp: timestamp
-        }
-        return expEntity;
-    }
+    public sortRecList(){
+      let dataRec = this.getRec();
+      let tmp = this.recList;
+      this.recList = new Array<Entity>();
 
+      for(let item of dataRec){
+        for(let nr = 0; nr < tmp.length; nr++){
+          if(item.ID == tmp[nr].ID){
+            this.recList.push(tmp[nr]);
+            tmp.splice(nr,1);
+          }
+        }
+      }
+    }
   }

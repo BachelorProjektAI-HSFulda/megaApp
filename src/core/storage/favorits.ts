@@ -10,7 +10,9 @@ export class Favorits{
     dataFav:Token[];
 
     constructor(private lStorage:Storage, private synAPI: SynactaAPIService){
-      //this.loadEntitys();
+      if(!window.localStorage.getItem('fav')){
+        this.addTest("Plan", "3df202ad-91b2-413a-9847-d12d536ed813");
+      }
     }
     /*
     function that saves a Token with type and id in an
@@ -51,9 +53,7 @@ export class Favorits{
     @return an array with tokens
     */
     public getFav():Token[]{
-      if(!window.localStorage.getItem('fav')){
-        this.addTest("Plan", "3df202ad-91b2-413a-9847-d12d536ed813");
-      }
+
       return this.lStorage.getData<Token[]>("fav");
     }
 

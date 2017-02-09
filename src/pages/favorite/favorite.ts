@@ -25,7 +25,7 @@ export class FavoritePage implements OnInit {
 
   constructor(public navCtrl: NavController, private favList: Favorits, private modalCtrl: ModalController, public alertCtrl: AlertController,private settings: SettingsService) {
     this.dataStatusMessage = DATA_STATUS_LOADING;
-    this.favList.loadEntitys();
+    favList.loadEntitys();
   }
 
   ngOnInit():void{
@@ -46,5 +46,9 @@ export class FavoritePage implements OnInit {
   public displayMetadata(item: Entity) {
     let modal = this.modalCtrl.create(MetadataPage, {datenVon: item});
     modal.present();
+  }
+  private checkDumy(item:Entity):boolean{
+    let check:boolean = (item.ParentType == "Wurzel")? false:true;
+    return check;
   }
 }

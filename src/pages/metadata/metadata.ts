@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 
 import { NavParams, ViewController, Platform } from 'ionic-angular';
 
+import { RecentList} from '../../core/storage/recentList';
+
 @Component({
   templateUrl: 'metadata.html'
 })
@@ -11,7 +13,9 @@ export class MetadataPage {
   constructor(
     public params: NavParams,
     public viewCtrl: ViewController,
-    public platform: Platform) {
+    public platform: Platform,
+    public recentList : RecentList) {
+    recentList.addRec(this.datenMeta);
     if (this.datenMeta.ObjectType == "Hauptgruppe") {
       var characters = [
         {

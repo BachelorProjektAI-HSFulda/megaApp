@@ -10,7 +10,7 @@
         <ion-icon name="list"></ion-icon>Ansicht Ändern
     </button>
 
-    <ion-searchbar *ngIf="viewByOrg" [(ngModel)]="searchBar" placeholder="Suche nach Aktenbetreff " [showCancelButton]="shouldShowCancel" (ionInput)="startSearch($event)" (ionCancel)="onCancel($event)">
+    <ion-searchbar *ngIf="viewByOrg" [(ngModel)]="searchBar" placeholder="Suchbegriff eingeben..." [showCancelButton]="shouldShowCancel" (ionInput)="startSearch($event)" (ionCancel)="onCancel($event)">
     </ion-searchbar>
 
 

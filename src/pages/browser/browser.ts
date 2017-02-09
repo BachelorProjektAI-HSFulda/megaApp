@@ -53,7 +53,7 @@ export class BrowserPage {
     this.sortOptionsVisible = false;
     this.sortOptionsClass = "";
     this.synApiDaten = new Array<any>();
-    this.searchBar = SEARCH_BAR_PLACEHOLDER;
+    this.searchBar = "";
     this.dataStatusMessage = DATA_STATUS_LOADING;
   }
 
@@ -61,7 +61,7 @@ export class BrowserPage {
     //Rebuild last View
     let id = this.navParams.get('ID');
     let type = this.navParams.get('ObjectType');
-    
+
     if ( this.boot(type, id) ) {
       // call to boot is successful
     }
