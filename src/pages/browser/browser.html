@@ -6,7 +6,7 @@
         <ion-icon name="swap"></ion-icon>Ansicht Ändern
     </button>
 
-    <button (click)="viewSort()">
+    <button (click)="viewSort()" *ngIf="viewByOrg">
         <ion-icon name="list"></ion-icon>Ansicht Ändern
     </button>
 
@@ -14,7 +14,7 @@
     </ion-searchbar>
 
 
-    <ion-list no-lines radio-group [(ngModel)]="sorting" (change)="updateSorting()" class="sortOptions invisible">
+    <ion-list no-lines radio-group [(ngModel)]="sorting" (ngModelChange)="updateSorting()" class="sortOptions invisible">
         <h2>
             Nutzerfreundlichkeit
         </h2>
@@ -25,16 +25,28 @@
         </ion-item>
 
         <ion-item class="radioOption">
-            <ion-label>Erstellt am</ion-label>
-            <ion-radio value="Erstellt am"></ion-radio>
+            <ion-label>Erstellt am : Aufsteigend</ion-label>
+            <ion-radio value="Erafalse"></ion-radio>
         </ion-item>
         <ion-item class="radioOption">
-            <ion-label>Geändert am</ion-label>
-            <ion-radio value="Geändert am"></ion-radio>
+            <ion-label>Erstellt am : Absteigend</ion-label>
+            <ion-radio value="Eratrue"></ion-radio>
         </ion-item>
         <ion-item class="radioOption">
-            <ion-label>Aktenzeichen</ion-label>
-            <ion-radio value="Aktenzeichen"></ion-radio>
+            <ion-label>Geändert am : Aufsteigend</ion-label>
+            <ion-radio value="Gafalse"></ion-radio>
+        </ion-item>
+        <ion-item class="radioOption">
+            <ion-label>Geändert am : Absteigend</ion-label>
+            <ion-radio value="Gatrue"></ion-radio>
+        </ion-item>
+        <ion-item class="radioOption">
+            <ion-label>Aktenzeichen : Aufsteigend</ion-label>
+            <ion-radio value="AZfalse"></ion-radio>
+        </ion-item>
+        <ion-item class="radioOption">
+            <ion-label>Aktenzeichen : Absteigend</ion-label>
+            <ion-radio value="AZtrue"></ion-radio>
         </ion-item>
 
     </ion-list>
