@@ -1,5 +1,5 @@
 <h1>
-    <button (click)="higher(synApiDaten[0])">
+    <button (click)="upHandler()">
 		    <ion-icon name="arrow-back">zurück</ion-icon>
     </button>
     <button (click)="switchView()">
@@ -58,11 +58,11 @@
 
     <!--Creating a new List -->
     <ion-list no-lines *ngIf="!viewByOrg">
-        <p *ngIf="synApiDaten.length == 0" class="noData"> Hier sind keine Daten enthalten</p>
+        <p *ngIf="synApiDaten.length == 0" class="noData">{{ dataStatusMessage }}</p>
         <ion-item-sliding *ngFor="let item of synApiDaten; let i=index">
             <ion-item>
                 <!-- Item with Avatar/Icon-->
-                <button (click)="deeper(item)">
+                <button (click)="downHandler(item)">
 				<ion-icon name="paper" item-left *ngIf="item.Document == undefined"></ion-icon>
                 <ion-icon name="document" item-left *ngIf="item.Document != undefined"></ion-icon>
                 <p>{{item.Properties.Aktenzeichen}}{{item.Properties.Zeichen}}{{item.Properties.Name}}</p>
@@ -81,8 +81,8 @@
                 </div>
                 <div class="action" id="favorite{{i}}">
                     <button (click)="favorite(item, i)">
-            <ion-icon name="star" item-left *ngIf="fav.checkFav(item)"></ion-icon>
-            <ion-icon name="star-outline" item-left *ngIf="!fav.checkFav(item)"></ion-icon>
+            <ion-icon name="star" item-left *ngIf="favService.checkFav(item)"></ion-icon>
+            <ion-icon name="star-outline" item-left *ngIf="!favService.checkFav(item)"></ion-icon>
           </button> Favorit
                 </div>
                 <div class="action">
@@ -97,11 +97,11 @@
     <ion-list no-lines *ngIf="viewByOrg">
         <ion-list *ngFor="let itemSet of viewByOrgData">
             <h2>{{itemSet.Org}}</h2>
-            <p *ngIf="itemSet.Data.length == 0"> Hier sind keine Daten enthalten</p>
+            <p *ngIf="itemSet.Data.length == 0">{{ dataStatusMessage }}</p>
             <ion-item-sliding *ngFor="let item of itemSet.Data; let i=index">
                 <ion-item>
                     <!-- Item with Avatar/Icon-->
-                    <button (click)="deeper(item)">
+                    <button (click)="downHandler(item)">
               <ion-icon name="paper" item-left *ngIf="item.Document == undefined"></ion-icon>
               <ion-icon name="document" item-left *ngIf="item.Document != undefined"></ion-icon>
               <p>{{item.Properties.Aktenzeichen}}{{item.Properties.Zeichen}}{{item.Properties.Name}}</p>
@@ -120,8 +120,8 @@
                     </div>
                     <div class="action" id="favorite{{i}}">
                         <button (click)="favorite(item, i)">
-						<ion-icon name="star" item-left *ngIf="fav.checkFav(item)"></ion-icon>
-						<ion-icon name="star-outline" item-left *ngIf="!fav.checkFav(item)"></ion-icon>
+						<ion-icon name="star" item-left *ngIf="favService.checkFav(item)"></ion-icon>
+						<ion-icon name="star-outline" item-left *ngIf="!favService.checkFav(item)"></ion-icon>
 					</button> Favorit
                     </div>
                     <div class="action">
@@ -134,12 +134,12 @@
         </ion-list>
         <ion-list no-lines>
             <div *ngIf="viewByOrgData.length == 0">
-                <p *ngIf="synApiDaten.length == 0" class="noData"> Hier sind keine Daten enthalten</p>
+                <p *ngIf="synApiDaten.length == 0" class="noData">{{ dataStatusMessage }}</p>
             </div>
             <ion-item-sliding *ngFor="let item of synApiDaten; let i=index">
                 <ion-item>
                     <!-- Item with Avatar/Icon-->
-                    <button (click)="deeper(item)">
+                    <button (click)="downHandler(item)">
               <ion-icon name="paper" item-left *ngIf="item.Document == undefined"></ion-icon>
               <ion-icon name="document" item-left *ngIf="item.Document != undefined"></ion-icon>
               <p>{{item.Properties.Aktenzeichen}}{{item.Properties.Zeichen}}{{item.Properties.Name}}</p>
@@ -158,8 +158,8 @@
                     </div>
                     <div class="action" id="favorite{{i}}">
                         <button (click)="favorite(item, i)">
-                <ion-icon name="star" item-left *ngIf="fav.checkFav(item)"></ion-icon>
-                <ion-icon name="star-outline" item-left *ngIf="!fav.checkFav(item)"></ion-icon>
+                <ion-icon name="star" item-left *ngIf="favService.checkFav(item)"></ion-icon>
+                <ion-icon name="star-outline" item-left *ngIf="!favService.checkFav(item)"></ion-icon>
               </button> Favorit
                     </div>
                     <div class="action">
