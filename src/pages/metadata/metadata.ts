@@ -26,7 +26,56 @@ export class MetadataPage {
           ]
         }];
     }
+    else if (this.datenMeta.ObjectType == "Obergruppe") {
+      var characters = [
+        {
+          Bezeichnung: this.datenMeta.Properties.Aktenbetreff,
+          items: [
+            { title: 'Stufe', note: this.datenMeta.Propertie.Stufe},
+            { title: 'Zeichen', note: this.datenMeta.Properties.Zeichen },
+            { title: 'Bezeichnung', note: this.datenMeta.Properties.Bezeichnung },
+            { title: 'ID', note: this.datenMeta.ID }
+          ]
+        }];
+    }
+    else if (this.datenMeta.ObjectType == "Gruppe") {
+      var characters = [
+        {
+          Bezeichnung: this.datenMeta.Properties.Aktenbetreff,
+          items: [
+            { title: 'Stufe', note: this.datenMeta.Propertie.Stufe},
+            { title: 'Zeichen', note: this.datenMeta.Properties.Zeichen },
+            { title: 'Bezeichnung', note: this.datenMeta.Properties.Bezeichnung },
+            { title: 'ID', note: this.datenMeta.ID }
+          ]
+        }];
+    }
+    else if (this.datenMeta.ObjectType == "Betreff") {
+      var characters = [
+        {
+          Bezeichnung: this.datenMeta.Properties.Aktenbetreff,
+          items: [
+            { title: 'Stufe', note: this.datenMeta.Propertie.Stufe},
+            { title: 'Zeichen', note: this.datenMeta.Properties.Zeichen },
+            { title: 'Bezeichnung', note: this.datenMeta.Properties.Bezeichnung },
+            { title: 'ID', note: this.datenMeta.ID }
+          ]
+        }];
+    }
     else if (this.datenMeta.ObjectType == "Akte") {
+      var characters = [
+        {
+          Bezeichnung: this.datenMeta.Properties.Aktenbetreff,
+          items: [
+            { title: 'Erstellt am:', note: this.datenMeta.Properties['Erstellt am'] },
+            { title: 'Erstellt von', note: this.datenMeta.Properties['Erstellt von'] },
+            { title: 'Geheimschutzstufe', note: this.datenMeta.Properties.Geheimschutzstufe },
+            { title: 'ID', note: this.datenMeta.ID },
+            { title: 'Organisation', note: this.datenMeta.Properties.Organisation }
+          ]
+        }];
+    }
+    else if (this.datenMeta.ObjectType == "Vorgang") {
       var characters = [
         {
           Bezeichnung: this.datenMeta.Properties.Aktenbetreff,
