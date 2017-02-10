@@ -39,7 +39,6 @@ export class RecentPage implements OnInit{
   }
 
   ionViewWillEnter(){
-    console.log("enter",this.recList.recList );
     this.listOfRec = this.recList.recList;
   }
 
