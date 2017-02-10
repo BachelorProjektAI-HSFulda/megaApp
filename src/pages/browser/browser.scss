@@ -139,10 +139,12 @@ ion-item p,
     margin-right: 0px;
     max-width: 300px;
     font-weight: bold;
+    z-index: 5;
 }
 
 ion-item h3,
 .item-md h3 {
+    display: inline;
     padding: 10px 0px;
     color: color($colors, primary);
     overflow: hidden;
