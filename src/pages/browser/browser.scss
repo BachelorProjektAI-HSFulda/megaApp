@@ -156,7 +156,7 @@ ion-item h3:after,
 }
 
 ion-item ion-icon,
-h1 ion-icon {
+h1 button ion-icon {
     height: 50px;
     width: 50px;
     margin: 10px 0px;
@@ -174,7 +174,7 @@ p.noData {
     padding: 0px 10px;
 }
 
-h1 ion-icon {
+h1 button ion-icon {
     vertical-align: top;
     background-color: $text-color;
     color: $background-color;
@@ -186,7 +186,7 @@ ion-item ion-icon {
 }
 
 ion-item ion-icon:before,
-h1 ion-icon:before,
+h1 button ion-icon:before,
 ion-icon.icon-md:before {
     vertical-align: top;
     font-size: 20px;
@@ -335,16 +335,42 @@ ion-item button {
 }
 
 .invisible {
-    display: none;
+    display: block;
+    top: -40px;
+    opacity: 0;
+    transition: all .5s ease, z-index 0s .5s ease;
+    z-index: -900;
 }
 
 .invisible.visible {
     display: block;
+    top: 0px;
+    opacity: 1;
+    transition: all .5s ease, z-index 0s 0s ease;
+    z-index: 999;
 }
-
-@media screen and (orientation: landscape),
-screen and (min-width: 768px) {}
 
 .md .modal-wrapper {
     opacity: 1;
 }
+
+h1 ion-list {
+    position: relative;
+    vertical-align: top;
+    left: -10px;
+    background-color: $background-color;
+    height: calc(100vh - 140px);
+}
+
+h1 * {
+    z-index: 999;
+}
+
+.item-md h3,
+.item-md h2 {
+    float: left;
+    width: auto;
+}
+
+@media screen and (orientation: landscape),
+screen and (min-width: 768px) {}

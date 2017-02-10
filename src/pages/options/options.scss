@@ -6,6 +6,7 @@ ion-item.radioOption {
     position: relative;
     left: 10px;
     margin-right: 10px;
+    margin-bottom: 10px;
     padding: 0px;
 }
 
@@ -67,8 +68,15 @@ ion-radio button .button-inner {
     background-color: transparent;
 }
 
+h1 ion-item.radioOption {
+    vertical-align: top;
+}
+
 @media (min-width: 500px) {
     ion-item.radioOption {
         width: calc(33.33% - 15px);
+    }
+    h1 ion-item.radioOption {
+        width: calc(50% - 16px);
     }
 }
