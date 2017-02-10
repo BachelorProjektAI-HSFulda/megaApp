@@ -1,0 +1,17 @@
+<content>
+	<button ion-button (click)="dismiss()">
+        <p>
+			Cancel
+		</p>
+    </button>
+  <ion-list no-lines>
+      <ion-item>
+        <h2>{{character.Bezeichnung}}</h2>
+      </ion-item>
+
+      <ion-item *ngFor="let item of character['items']">
+		<h3>  {{item.note}}</h3>
+		<p>{{item.title}}</p>
+      </ion-item>
+  </ion-list>
+</content>

@@ -1,6 +1,8 @@
 megaApp
 ===========
 
+[![Build Status](https://travis-ci.org/BachelorProjektAI-HSFulda/megaApp.svg?branch=development)](https://travis-ci.org/BachelorProjektAI-HSFulda/megaApp)
+
 Super Mega Cordova und Electron app
 
 Currently only the Ionic mobile part is setup and can be used for development.
@@ -14,12 +16,18 @@ Currently only the Ionic mobile part is setup and can be used for development.
 - Make sure to have Node 6.x or 7.x at least
 
 - `npm install`
-- `npm run install-globals` 
+- `npm install -g ionic cordova` 
 - `ionic serve`
 
 With the command `npm run install-clean` it's possible to install a fresh npm installation. This is handy when switching between branches with different node_modules and configurations or when new node_modules are introduced.
 
 **Note**: Only verified on webkit based browsers.
+
+### Run Android Build
+
+- `android update sdk --no-ui --filter build-tools-25.2.5,android-25,extra-android-m2repository,platform-tools-25.0.3`
+- `ionic platform add android`
+- `ionic build android`
 
 ### Visual Studio Setup
 

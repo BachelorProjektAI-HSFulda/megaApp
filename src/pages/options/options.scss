@@ -2,10 +2,10 @@ page-options {}
 
 ion-item.radioOption {
     display: inline-block;
-    width: calc(33.33% - 26.66px);
+    width: calc(100% - 20px);
     position: relative;
-    left: 20px;
-    margin-right: 20px;
+    left: 10px;
+    margin-right: 10px;
     padding: 0px;
 }
 
@@ -20,11 +20,30 @@ ion-item.radioOption {
     bottom: 0%;
     text-align: center;
     line-height: 50px;
-    background-color: #444;
+    background-color: $background-color;
+    color: color($colors, primary);
+    transition: all .25s ease;
+    font-size: 16px;
+}
+
+.radioOption ion-label:before {
+    content: '';
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    right: 0%;
+    bottom: 0%;
+    border: 2px solid color($colors, primary);
 }
 
 .radioOption.item-radio-checked ion-label {
-    background-color: #222;
+    background-color: color($buttonColor, first);
+    color: $background-color;
+    font-weight: bold;
+}
+
+.radioOption.item-radio-checked ion-label:before {
+    border-width: 0px;
 }
 
 .radio-md .radio-icon {
@@ -48,4 +67,8 @@ ion-radio button .button-inner {
     background-color: transparent;
 }
 
-@media (min-width: 100px) {}
+@media (min-width: 500px) {
+    ion-item.radioOption {
+        width: calc(33.33% - 15px);
+    }
+}

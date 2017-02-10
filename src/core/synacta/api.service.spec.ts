@@ -1,160 +1,227 @@
 import { TestBed, inject, async } from '@angular/core/testing';
-import { HttpModule } from '@angular/http';
+import { MockBackend, MockConnection } from '@angular/http/testing';
+import { HttpModule, Http, XHRBackend, BaseRequestOptions, Response, ResponseOptions } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
 import { deserialize } from 'json-typescript-mapper';
 import { SynactaAPIService } from './api.service';
 import { IFrame, Frame, Entity, Container, Document } from './api.objects';
+import { MockRootFrame, MockRootValue, MockContainer, MockArrayOf10Entities, MockArrayOf5Entities, Mock4BeginningAt5 } from './api.mocks';
 
-describe("Synacta api conversion", () => {
+describe("Synacta API Service", () => {
 
+    let mockBackend: MockBackend;
     let service: SynactaAPIService;
+    let getRoot = {
+        response: JSON.stringify(MockRootFrame),
+        getLink: MockRootFrame['@odata.context'],
+        count: MockRootFrame['@odata.count']
+    }
+    let getByID = {
+        response: JSON.stringify(MockContainer),
+        getLink: MockContainer['@odata.readLink'],
+        count: MockContainer['@odata.count'],
+        type: MockContainer.ObjectType,
+        ID: MockContainer.ID
+    }
+    let getChildren = {
+        response10: JSON.stringify(MockArrayOf10Entities),
+        response5: JSON.stringify(MockArrayOf5Entities),
+        response4: JSON.stringify(Mock4BeginningAt5),
+        getLink: MockArrayOf10Entities['@odata.context'],
+        parentID: "0ba78e68-dd90-4681-96ef-c16015a5d4a1",
+        parentType: "Hauptgruppe",
+    }
+
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ HttpModule ],
-            providers: [ SynactaAPIService ]
+            providers: [ 
+                Http,
+                MockBackend,
+                BaseRequestOptions,
+                {
+                    provide: Http,
+                    deps: [ MockBackend, BaseRequestOptions ],
+                    useFactory: (backend: XHRBackend, defaultOptions: BaseRequestOptions) => {
+                        return new Http(backend, defaultOptions);
+                    }
+                },
+                SynactaAPIService
+            ],
+            imports: [ 
+                HttpModule
+            ]
         });
+        mockBackend = TestBed.get(MockBackend);
     });
 
     beforeEach(inject([SynactaAPIService], s => {
         service = s;
     }));
 
-    it("getRoot(): receives an Observable<Container> async object", () => {
-        let request;
-        request = service.getRoot();
-        expect(request instanceof Observable).toEqual(true);
+    it("get's constructed.", () => {
+        expect(service).toBeDefined();
+    });
+
+    it("get's the root object and converts it properly.", (done) => {
+        mockBackend.connections.subscribe(
+            (connection: MockConnection) => {
+                expect(connection.request.url).toEqual('https://synacta.agile-is.de/_api/base/root');
+                connection.mockRespond(new Response(
+                    new ResponseOptions({
+                        body: getRoot.response
+                    })
+                ));
+            }
+        );
+
+        service.getRoot().subscribe( (response: Container) => {
+            expect(response).toBeDefined();
+            expect(response instanceof Container).toBeTruthy();
+            expect(response.ID).toEqual(MockRootValue.ID);
+            done();
+        });
+    });
+ 
+    it("returns correct data in api fields", (done) => {
+        mockBackend.connections.subscribe(
+            (connection: MockConnection) => {
+                expect(connection.request.url).toEqual('https://synacta.agile-is.de/_api/base/root');
+                connection.mockRespond(new Response(
+                    new ResponseOptions({
+                        body: getRoot.response
+                    })
+                ));
+            }
+        );
+        
+        service.getRoot().subscribe( (response:Container) => { 
+            expect(response).toBeDefined();
+            expect(response.ReadLink).toEqual(MockRootValue["@odata.readLink"]);
+            done();
+        });
+    });
+
+    it("responds with object that contains valid properties", (done) => {
+        mockBackend.connections.subscribe(
+            (connection: MockConnection) => {
+                expect(connection.request.url).toEqual('https://synacta.agile-is.de/_api/base/root');
+                connection.mockRespond(new Response(
+                    new ResponseOptions({
+                        body: getRoot.response
+                    })
+                ));
+            }
+        );
+        
+        service.getRoot().subscribe( (response:Container) => {
+            expect(response.Properties["Stufe"]).toEqual("Plan");
+            done();
+        });
+    });
+
+    it("get's correct object by ID", (done) => { 
+        mockBackend.connections.subscribe(
+            (connection: MockConnection) => {
+                let url = 'https://synacta.agile-is.de/_api/base/' 
+                    + MockContainer.ObjectType 
+                    + '/' + MockContainer.ID;
+                expect(connection.request.url).toEqual(url);
+                connection.mockRespond(new Response(
+                    new ResponseOptions({
+                        body: getByID.response
+                    })
+                ));
+            }
+        );
+
+        service.getByID(MockContainer.ObjectType, MockContainer.ID).subscribe( (response:Container) => {
+            expect(response.Properties["Typ"]).toEqual(MockContainer.ObjectType);
+            done();
+        });
+    });
+
+    it("receives child elements of an container", (done) => {
+        let parent: Container = new Container();
+        parent.ID = getChildren.parentID;
+        parent.ObjectType = getChildren.parentType;
+        
+        mockBackend.connections.subscribe(
+            (connection: MockConnection) => {
+                let url = 'https://synacta.agile-is.de/_api/base/' 
+                    + parent.ObjectType 
+                    + '/' + parent.ID
+                    + '/Children?$top=20&$skip=0';
+                expect(connection.request.url).toEqual(url);
+                connection.mockRespond(new Response(
+                    new ResponseOptions({
+                        body: getChildren.response10
+                    })
+                ));
+            }
+        );
+
+        service.getChildren(parent).subscribe(response => {
+            expect(response[0] instanceof Entity).toEqual(true);
+            expect(response.length).toEqual(10);
+            done();
+        });
+    });
+
+    it("receives 5 child elements of an container", (done) => {
+        let parent: Container = new Container();
+        parent.ID = getChildren.parentID;
+        parent.ObjectType = getChildren.parentType;
+
+        mockBackend.connections.subscribe(
+            (connection: MockConnection) => {
+                let url = 'https://synacta.agile-is.de/_api/base/' 
+                    + parent.ObjectType 
+                    + '/' + parent.ID
+                    + '/Children?$top=5&$skip=0';
+                expect(connection.request.url).toEqual(url);
+                connection.mockRespond(new Response(
+                    new ResponseOptions({
+                        body: getChildren.response5
+                    })
+                ));
+            }
+        );
+
+        service.getChildren(parent, 5).subscribe(response => {
+            expect(response[0] instanceof Entity).toEqual(true);
+            expect(response.length).toEqual(5);
+            done();
+        });
+    });
+
+    it("receives 4 child elements of an container starting by element 5", (done) => {
+        let parent: Container = new Container();
+        parent.ID = getChildren.parentID;
+        parent.ObjectType = getChildren.parentType;
+
+        mockBackend.connections.subscribe(
+            (connection: MockConnection) => {
+                let url = 'https://synacta.agile-is.de/_api/base/' 
+                    + parent.ObjectType 
+                    + '/' + parent.ID
+                    + '/Children?$top=4&$skip=5';
+                expect(connection.request.url).toEqual(url);
+                connection.mockRespond(new Response(
+                    new ResponseOptions({
+                        body: getChildren.response4
+                    })
+                ));
+            }
+        );
+
+        service.getChildren(parent, 4, 5).subscribe(response => {
+            expect(response[0] instanceof Entity).toEqual(true);
+            expect(response.length).toEqual(4);
+            expect(response[0].ID).toEqual(Mock4BeginningAt5["value"][0]["ID"]);
+            done();
+        });
     });
     
-    it("getRoot(): subscribing returns a Container object", async(() => {
-        service.getRoot().subscribe(response => { 
-            expect(response instanceof Container).toEqual(true);
-            expect(response.HasChild).toEqual(true);
-        });
-    }));
-
-    it("getRoot(): the returned object contains correct data in base fields", async(() => {
-        service.getRoot().subscribe(response => { 
-            expect(response.HasChild).toEqual(true);
-            expect(response.ParentID).toEqual("1");
-            expect(response.ObjectType).toEqual("Plan");
-        });
-    }));
-
-    it("getRoot(): the returned object contains correct data in api fields", async(() => {
-        service.getRoot().subscribe(response => { 
-            expect(response.ReadLink).toEqual(RootJson["@odata.readLink"]);
-        });
-    }));
-
-    it("getRoot(): contains valid data in the Properties field", async(() => {
-        service.getRoot().subscribe(response => {
-            expect(response.Properties["Stufe"]).toEqual("Plan");
-        });
-    }));
-    
 });
-
-// JSON Mocks
-let RootFrameJson = {
-    "@odata.context": "http://synacta.agile-is.de/_api/base/Root",
-    "@odata.count": 1,
-    "FullODataLink@odata.navigationLink": "http://synacta.agile-is.de/_api/base/Root?$level=Full",
-    "value": [ 'test' ]
-}
-
-let RootJson = {
-    "Properties": {
-        "Organisation": " ",
-        "Stufe": "Plan",
-        "Zeichen": "NI.DMS",
-        "Bezeichnung": "NI.DMS"
-    },
-    "PropertyInfos": null,
-    "ID": "3df202ad-91b2-413a-9847-d12d536ed813",
-    "ObjectType": "Plan",
-    "ParentID": "1",
-    "ParentType": "Wurzel",
-    "IsVirtual": true,
-    "Frozen": false,
-    "HasChild": true,
-    "Hash": "822235546",
-    "@odata.readLink": "http://synacta.agile-is.de/_api/base/Plan/3df202ad-91b2-413a-9847-d12d536ed813",
-    "Child@odata.navigationLink": "http://synacta.agile-is.de/_api/base/Plan/3df202ad-91b2-413a-9847-d12d536ed813/Children",
-    "FullODataLink@odata.navigationLink": "http://synacta.agile-is.de/_api/base/Plan/3df202ad-91b2-413a-9847-d12d536ed813?$level=Full"
-}
-
-let ContainerJson = {
-        "Properties": {
-        "Typ": "Akte",
-        "Aktenplankennzeichen": "010",
-        "Ableitung": "23434",
-        "Aktenzeichen": "010/23434",
-        "Aktenbetreff": "342424",
-        "Schlagwörter": "",
-        "Themenverweis": "",
-        "Hinweise": "",
-        "Weiserzeichen": "",
-        "Medium": "Elektronisch",
-        "Geheimschutzstufe": "keine",
-        "Organisation": "DemoSite",
-        "Geschlossen": "",
-        "Aussonderung vorgesehen": "",
-        "Aussonderungsart": "B - Bewerten",
-        "Bewertungsvorschlag": "B - Bewerten",
-        "Altsystem Daten": "",
-        "Erstellt am": "2016-09-21T16:37:39",
-        "Erstellt von": "agile\\bhofmann",
-        "Geändert am": "2016-09-21T16:37:39",
-        "Geändert von": "agile\\bhofmann"
-    },
-    "PropertyInfos": null,
-    "ID": "68be47b7-0132-4751-b396-46a6d8e441d7",
-    "ObjectType": "Akte",
-    "ParentID": "4a9c23b4-c89b-4322-8421-adddab50dc8d",
-    "ParentType": "Obergruppe",
-    "IsVirtual": false,
-    "Frozen": false,
-    "HasChild": true,
-    "Hash": "1521639938",
-    "@odata.readLink": "http://synacta.agile-is.de/_api/base/Akte/68be47b7-0132-4751-b396-46a6d8e441d7",
-    "Child@odata.navigationLink": "http://synacta.agile-is.de/_api/base/Akte/68be47b7-0132-4751-b396-46a6d8e441d7/Children",
-    "Document@odata.navigationLink": "http://synacta.agile-is.de/_api/base/Akte/68be47b7-0132-4751-b396-46a6d8e441d7/Documents",
-    "FullODataLink@odata.navigationLink": "http://synacta.agile-is.de/_api/base/Akte/68be47b7-0132-4751-b396-46a6d8e441d7?$level=Full"
-}
-
-let DocumentJson = {
-    "Properties": {
-        "Name": "demofile1",
-        "Dokumentdatum": "2016-09-27T00:00:00",
-        "Schlagwörter": "",
-        "Hinweise": "",
-        "Mappe": "",
-        "Ausgechecked von": "",
-        "Weiserzeichen": "",
-        "Ausgechecked am": "",
-        "Geheimschutzstufe": "",
-        "Organisation": "DemoSite",
-        "Akte/Vorgang": "010/23434",
-        "Dokumentnr.": "2016/00001",
-        "Altsystem Daten": "",
-        "Erstellt am": "2016-09-27T14:28:40",
-        "Erstellt von": "agile\\bhofmann",
-        "Geändert am": "2016-09-27T14:28:40",
-        "Geändert von": "agile\\bhofmann",
-        "Titel": "",
-        "Erweiterung": "docx"
-    },
-    "PropertyInfos": null,
-    "ID": "15f02799-10db-4dc0-91e0-576c06ebd35f",
-    "ObjectType": "Dokument",
-    "ParentID": "68be47b7-0132-4751-b396-46a6d8e441d7",
-    "ParentType": "Akte",
-    "Frozen": false,
-    "CheckedOutBy": "",
-    "Version": "1",
-    "Hash": "-1909780614",
-    "@odata.readLink": "http://synacta.agile-is.de/_api/base/Dokument/15f02799-10db-4dc0-91e0-576c06ebd35f",
-    "FullODataLink@odata.navigationLink": "http://synacta.agile-is.de/_api/base/Dokument/15f02799-10db-4dc0-91e0-576c06ebd35f?$level=Full"
-}

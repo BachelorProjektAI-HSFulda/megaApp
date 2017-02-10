@@ -27,8 +27,13 @@ h1 {
     margin-top: 0px;
     line-height: 70px;
     font-size: 30px;
-    padding-left: 20px;
+    padding-left: 10px;
     color: color($colors, primary);
+}
+
+h1 * {
+    line-height: 50px;
+    vertical-align: top;
 }
 
 h2 {
@@ -37,19 +42,23 @@ h2 {
     font-weight: bold;
     line-height: 50px;
     height: 50px;
-    padding: 0px 20px;
+    padding: 0px 10px;
     margin: 0px;
 }
 
 content {
     background-color: $background-color;
     position: absolute;
-    top: 70px;
+    top: 0px;
     bottom: 70px;
     left: 0px;
     right: 0px;
     overflow-y: scroll;
     color: color($colors, primary);
+}
+
+h1~content {
+    top: 70px;
 }
 
 @keyframes tabTrans {
@@ -87,52 +96,100 @@ ion-item * {
 }
 
 .item-md {
-    padding-left: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    clear: both;
 }
 
 .item-md ion-icon[item-left],
 .item-md ion-icon[item-right] {
     margin: 0px;
+    margin-right: 10px;
+    text-align: left;
+    width: auto;
+}
+
+.item>ion-icon:first-child,
+.item-inner>ion-icon:first-child {
+    min-width: 0px;
 }
 
 ion-item h3,
 ion-item p,
 .item-md h3,
 .item-md p {
-    display: inline-block;
+    display: block;
     line-height: 30px;
     height: 50px;
-    padding: 10px;
     font-size: 15px;
     vertical-align: top;
     color: color($buttonColor, first);
     margin: 0;
-    width: 200px;
+}
+
+ion-item p,
+.item-md p {
+    height: 30px;
+    padding: 0px 10px;
+    float: right;
+    background-color: color($buttonColor, first);
+    color: $background-color;
+    opacity: 1;
+    margin: 10px;
+    margin-right: 0px;
+    max-width: 300px;
+    font-weight: bold;
 }
 
 ion-item h3,
 .item-md h3 {
-    padding-right: 0px;
-    padding-left: 0px;
+    padding: 10px 0px;
     color: color($colors, primary);
-    font-weight: bold;
     overflow: hidden;
     text-overflow: ellipsis;
-    width: 100%;
-    width: calc(100% - 250px);
 }
 
-ion-item ion-icon {
+ion-item h3:after,
+.item-md h3:after {
+    content: "";
+    clear: both;
+}
+
+ion-item ion-icon,
+h1 ion-icon {
     height: 50px;
-    width: 25px;
+    width: 50px;
     margin: 10px 0px;
-    padding: 10px;
-    padding-left: 0px;
+    padding: 10px 0px;
     line-height: 30px;
 }
 
-ion-item ion-icon:before {
-    font-size: 15px;
+p.noData {
+    position: fixed;
+    top: 50%;
+    left: 0%;
+    width: 100%;
+    text-align: center;
+    font-size: 2rem;
+    padding: 0px 10px;
+}
+
+h1 ion-icon {
+    vertical-align: top;
+    background-color: $text-color;
+    color: $background-color;
+}
+
+ion-item ion-icon {
+    display: block;
+    float: left;
+}
+
+ion-item ion-icon:before,
+h1 ion-icon:before,
+ion-icon.icon-md:before {
+    vertical-align: top;
+    font-size: 20px;
     line-height: 30px;
 }
 
@@ -154,7 +211,7 @@ ion-item ion-icon:before {
 .action ion-icon {
     position: absolute;
     top: 0px;
-    font-size: 15px;
+    font-size: 20px;
     padding-top: 10px;
     line-height: 30px;
     left: 0%;
@@ -194,17 +251,20 @@ ion-item-options,
 /* Resets */
 
 .tabs-md .tabbar {
-    background-color: $background-color;
+    background-color: $text-color;
+    height: 70px;
 }
 
 .tabs-md .tab-button,
 .tabs-md .tab-button:hover {
-    color: color($colors, secondary);
+    color: $background-color;
 }
 
 .tabs-md .tab-button[aria-selected="true"],
 .tabs-md .tab-button[aria-selected="true"]:hover {
-    color: color($buttonColor, first);
+    color: $text-color;
+    background-color: $background-color;
+    height: 70px;
 }
 
 .list-md>.item-block:first-child,
@@ -239,12 +299,52 @@ ion-item-options,
 
 ion-item button,
 ion-item ion-label,
-.label-md {
+.label-md,
+h1 button {
     padding: 0px;
     margin: 0px;
+    background-color: transparent;
+    text-overflow: unset;
+    display: inline-block;
+    font-size: 0;
 }
 
 ion-item button {
     width: 100%;
     text-align: left;
+}
+
+.searchbar-md {
+    display: inline-block;
+    width: calc(100% - 188px);
+    padding: 0px;
+    padding-top: 10px;
+}
+
+.searchbar-md .searchbar-input {
+    box-shadow: none;
+    border-radius: 0px;
+    height: 50px;
+}
+
+.searchbar-md .searchbar-search-icon {
+    top: 15px;
+    left: 15px;
+    height: 20px;
+    width: 20px;
+}
+
+.invisible {
+    display: none;
+}
+
+.invisible.visible {
+    display: block;
+}
+
+@media screen and (orientation: landscape),
+screen and (min-width: 768px) {}
+
+.md .modal-wrapper {
+    opacity: 1;
 }

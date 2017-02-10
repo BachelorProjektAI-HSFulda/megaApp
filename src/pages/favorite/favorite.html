@@ -1,30 +1,32 @@
-<h1>
-    Favoriten
-</h1>
-
 <content>
     <!--Creating a new List -->
     <ion-list no-lines>
+        <p *ngIf="listOfFav.length == 0" class="noData">{{ dataStatusMessage }}</p>
         <ion-item-sliding *ngFor="let item of listOfFav">
             <ion-item>
                 <!-- Item with Avatar/Icon-->
-                <ion-icon name="paper" item-left></ion-icon>
-                <h3>{{item.Properties.Aktentyp}}</h3>
-                <p>Aktenzeichen: {{item.Properties.Aktenzeichen}}</p>
+                <button (click)="toBrowser(item)">
+                <ion-icon name="paper" item-left *ngIf="item.Document == undefined"></ion-icon>
+                <ion-icon name="document" item-left *ngIf="item.Document != undefined"></ion-icon>
+                <p>{{item.Properties.Aktenzeichen}}{{item.Properties.Zeichen}}</p>
+                <h3>
+                    {{item.Properties.Aktenbetreff}}{{item.Properties.Bezeichnung}}
+                </h3>
+                </button>
             </ion-item>
             <!-- Options for Items in this part-->
             <ion-item-options side="left">
                 <div class="action">
-                    <ion-icon name="create"></ion-icon>
-                    Bearbeiten
+
+                  <button (click)="rem(item)">
+                    <ion-icon name="star" item-left *ngIf="favList.checkFav(item)"></ion-icon>
+                    <ion-icon name="star-outline" item-left *ngIf="!favList.checkFav(item)"></ion-icon>
+                  </button> Favorit
                 </div>
-                <div class="action">
-                    <ion-icon name="star"></ion-icon>
-                    Favorit
-                </div>
-                <div class="action">
-                    <ion-icon name="document"></ion-icon>
-                    Öffnen
+                <div class="action" *ngIf(checkDumy(item))>
+                    <button (click)="displayMetadata(item)">
+                        <ion-icon name="document"></ion-icon>
+                    </button> Metadaten anzeigen
                 </div>
             </ion-item-options>
         </ion-item-sliding>
