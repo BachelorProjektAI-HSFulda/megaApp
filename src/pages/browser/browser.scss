@@ -255,6 +255,7 @@ ion-item-options,
 .tabs-md .tabbar {
     background-color: $text-color;
     height: 70px;
+    z-index: 2000;
 }
 
 .tabs-md .tab-button,
